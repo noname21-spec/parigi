@@ -13,7 +13,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
 <link rel="icon" type="image/png" href="icon-192.png?v=1">
 <script>try{var t=localStorage.getItem("par-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
-<script>(function(){try{var sa=navigator.standalone===true||matchMedia("(display-mode: standalone)").matches;if(!sa)return;var r=document.documentElement;r.classList.add("sa");function f(){var p=innerHeight>=innerWidth,sh=p?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width);var h=Math.max(innerHeight,document.documentElement.clientHeight||0);if(sh>h&&sh-h<80)h=sh;r.style.setProperty("--apph",h+"px")}f();addEventListener("resize",f);addEventListener("orientationchange",function(){setTimeout(f,300)})}catch(e){}})();</script>
+<script>(function(){try{var sa=navigator.standalone===true||matchMedia("(display-mode: standalone)").matches;if(!sa)return;var r=document.documentElement;r.classList.add("sa");function f(){var p=innerHeight>=innerWidth,sh=p?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width);var h=Math.max(innerHeight,document.documentElement.clientHeight||0);if(sh>h&&sh-h<80)h=sh;r.style.setProperty("--apph",h+"px")}f();addEventListener("resize",f);addEventListener("pageshow",f);if(window.visualViewport)visualViewport.addEventListener("resize",f);addEventListener("orientationchange",function(){setTimeout(f,300)})}catch(e){}})();</script>
 <script>(function(){try{var h=Math.max(screen.height,screen.width),r=h>=926?55:h>=852?55:h>=844?47:h>=812?44:h>=736?0:39;if(r)document.documentElement.style.setProperty("--scr",r+"px")}catch(e){}})();</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" media="print" onload="this.media='all'">
 <title>Parigi in un giorno</title>
@@ -39,7 +39,9 @@ html,body,.blk,.tabbar,.stage{transition:background-color .5s ease,color .5s eas
 main{position:fixed;inset:0;max-width:none;margin:0;padding:0}
 .tabr,.dmin{position:fixed;opacity:0;pointer-events:none;width:1px;height:1px}
 .blk{position:absolute;top:calc(70px + env(safe-area-inset-top,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px)*.45);left:max(10px,calc((100% - 760px)/2));right:max(10px,calc((100% - 760px)/2));margin:0;padding:18px;padding-bottom:calc(var(--tb) + 30px);scroll-padding-bottom:calc(var(--tb) + 30px);overflow-y:auto;overflow-x:hidden;overscroll-behavior:none;-webkit-overflow-scrolling:touch;opacity:0;visibility:hidden;border-radius:var(--r1);background:linear-gradient(180deg,var(--hi2),transparent 38%),var(--gl);-webkit-backdrop-filter:blur(30px) saturate(185%);backdrop-filter:blur(30px) saturate(185%);border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi),inset 0 0 0 1px var(--hi2),0 18px 50px var(--glsh);contain:layout paint style;transition:opacity .32s ease,visibility 0s linear .32s}
-html.sa .blk{bottom:auto;height:calc(var(--apph) - 70px - env(safe-area-inset-top,0px) - 12px - env(safe-area-inset-bottom,0px)*.45)}
+html.sa,html.sa body{height:var(--apph)!important;min-height:var(--apph)!important}
+html.sa main{bottom:auto!important;height:var(--apph)}
+html.sa .blk{bottom:auto!important;height:calc(var(--apph) - 70px - env(safe-area-inset-top,0px) - 12px - env(safe-area-inset-bottom,0px)*.45)}
 body:has(#t-itinerario:checked) #itinerario,body:has(#t-voli:checked) #voli,body:has(#t-mappa:checked) #mappa,body:has(#t-mangiare:checked) #mangiare,body:has(#t-costi:checked) #costi,body:has(#t-consigli:checked) #consigli{opacity:1;visibility:visible;transition:opacity .32s ease,visibility 0s}
 body.dir-r .blk.on{animation:slideInR .55s cubic-bezier(.22,1.2,.36,1) both}
 body.dir-l .blk.on{animation:slideInL .55s cubic-bezier(.22,1.2,.36,1) both}
@@ -90,7 +92,7 @@ body:not(:has(#t-itinerario:checked)) .sky *,body:not(:has(#t-itinerario:checked
 #splash::before{content:"";position:absolute;inset:-48px;background-image:var(--pav);background-size:48px;opacity:.06;animation:spPan2 2.4s linear both;will-change:transform}
 :root[data-theme="dark"] #splash::before,:root:has(#dm:checked) #splash::before{filter:invert(1)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #splash::before{filter:invert(1)}}
-html.sa #splash{bottom:auto;height:var(--apph)}
+html.sa body::before,html.sa #splash{bottom:auto!important;height:var(--apph)}
 .sp-in{position:relative;text-align:center;width:min(86vw,380px)}
 .spsky{width:100%;height:auto;overflow:visible}
 .spsky .sk-main>g{transform-box:fill-box;transform-origin:50% 100%;animation:spRise .6s cubic-bezier(.3,1.5,.5,1) both;animation-delay:calc(var(--k,0)*90ms)}
@@ -133,7 +135,7 @@ body:has(.dmin:focus-visible) .iosw .trk{outline:2px solid var(--c2);outline-off
 .gear:active{transform:rotate(60deg) scale(.9)}
 /* ===== barra delle sezioni ===== */
 .tabbar{position:fixed;z-index:50;right:max(10px,calc((100% - 580px)/2));bottom:calc(env(safe-area-inset-bottom,0px)*.3 + 4px);width:min(580px,calc(100% - 20px));height:var(--tb);display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;padding:7px;border-radius:var(--r1);background:linear-gradient(180deg,var(--hi2),transparent 55%),var(--gltb);-webkit-backdrop-filter:blur(16px) saturate(210%) brightness(1.04);backdrop-filter:blur(16px) saturate(210%) brightness(1.04);border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi),inset 0 0 0 1px var(--hi2),0 18px 50px var(--glsh);transition:width .5s cubic-bezier(.3,1.25,.5,1),border-radius .5s ease,box-shadow .4s ease,height .4s ease;touch-action:none}
-html.sa .tabbar{bottom:auto;top:calc(var(--apph) - var(--tb) - 10px - env(safe-area-inset-bottom,0px)*.45)}
+html.sa .tabbar{bottom:auto!important;top:calc(var(--apph) - var(--tb) - 10px - env(safe-area-inset-bottom,0px)*.45)}
 .tabbar label{position:relative;z-index:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:0 1px;border-radius:max(16px,calc(var(--r1) - 7px));cursor:pointer;color:color-mix(in srgb,var(--ink) 72%,transparent);text-shadow:0 1px 2px color-mix(in srgb,var(--bg) 70%,transparent);font:700 .64rem Manrope,system-ui,sans-serif;letter-spacing:0;transition:color .4s ease,transform .15s ease}
 .tabbar label:active{transform:scale(.92)}
 .tabbar label span{position:relative;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
@@ -532,9 +534,16 @@ html.sa #sheet{bottom:auto;height:var(--apph)}
 .sgrp .snote{margin:0 2px}
 .dnote{margin:-2px 2px 0;font-size:.78rem;font-weight:700;color:var(--c3)}
 #stayf.pop{animation:popIn .55s cubic-bezier(.2,1.25,.4,1) both}
-.dsel{display:flex;gap:8px;overflow-x:auto;margin:0 -16px 14px;padding:4px 16px 8px;scroll-snap-type:x proximity;scrollbar-width:none;overscroll-behavior-x:contain}
+.dsel{display:flex;gap:8px;overflow-x:auto;margin:-6px -18px -4px;padding:10px 18px 24px;scroll-padding:0 18px;scroll-snap-type:x proximity;scrollbar-width:none;overscroll-behavior-x:contain;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16px,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(90deg,transparent 0,#000 16px,#000 calc(100% - 26px),transparent)}
+.dsel::after{content:"";flex:0 0 10px}
+.dsel.fit{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));overflow:visible;-webkit-mask-image:none;mask-image:none}
+.dsel.fit::after{display:none}
+.dsel.fit .dp{min-width:0}
+.dsel.tight{gap:6px}
+.dsel.tight .dp{padding:8px 0 7px}
+.dsel.tight .dp span{font-size:1.15rem;line-height:1.25}
 .dsel::-webkit-scrollbar{display:none}
-.dp{position:relative;flex:none;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:72px;padding:8px 10px 7px;color:inherit;font:inherit;cursor:pointer;scroll-snap-align:center;border-radius:var(--r3);transition:transform .15s}
+.dp{position:relative;flex:none;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:66px;padding:8px 8px 7px;color:inherit;font:inherit;cursor:pointer;scroll-snap-align:center;border-radius:var(--r3);transition:transform .15s}
 .dp:active{transform:scale(.94)}
 .dp small{font-size:.66rem;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
 .dp span{font-weight:800;font-size:.95rem;white-space:nowrap}
@@ -1346,7 +1355,8 @@ el.hidden=!t.length;el.textContent=t.length?"⏳ "+t.join(" "):""}
 /* selettore dei giorni */
 function renderDays(){var multi=TRIP.multi,today=paris().d;
 $$(".dsel").forEach(function(box){box.hidden=!multi;if(!multi){box.innerHTML="";return}
-box.innerHTML=TRIP.days.map(function(d,i){var o=dateObj(d.date);return '<button type="button" class="dp'+(i===SEL?" on":"")+(d.date===today?" today":"")+'" data-d="'+i+'" aria-pressed="'+(i===SEL)+'"><small>Giorno '+(i+1)+'</small><span>'+DAB[d.wd]+' '+o.getUTCDate()+'</span><em>'+(d.kind==="first"?"✈️":d.kind==="last"?"🧳":d.acts.indexOf("versailles")>=0?"🏰":d.acts.indexOf("louvremus")>=0?"🖼️":"🚶")+'</em></button>'}).join("");
+var n=TRIP.n,tight=n>4;box.classList.toggle("fit",n<=7);box.classList.toggle("tight",tight);box.style.setProperty("--n",n);
+box.innerHTML=TRIP.days.map(function(d,i){var o=dateObj(d.date);return '<button type="button" class="dp'+(i===SEL?" on":"")+(d.date===today?" today":"")+'" data-d="'+i+'" aria-pressed="'+(i===SEL)+'" aria-label="Giorno '+(i+1)+', '+DAYS[d.wd]+' '+o.getUTCDate()+'">'+(tight?'<small>'+DAB[d.wd]+'</small><span>'+o.getUTCDate()+'</span>':'<small>Giorno '+(i+1)+'</small><span>'+DAB[d.wd]+' '+o.getUTCDate()+'</span>')+'<em>'+(d.kind==="first"?"✈️":d.kind==="last"?"🧳":d.acts.indexOf("versailles")>=0?"🏰":d.acts.indexOf("louvremus")>=0?"🖼️":"🚶")+'</em></button>'}).join("");
 var on=$(".dp.on",box);if(on)try{box.scrollLeft=Math.max(0,on.offsetLeft-box.clientWidth/2+on.clientWidth/2)}catch(e){}})}
 function selectDay(i){if(!TRIP||i===SEL||i<0||i>=TRIP.n)return;SEL=i;P=TRIP.days[SEL];WD=P.wd;lastNow=-2;renderDays();renderBar();renderShort();renderItin();renderPasti();liveTick();PAR.emit()}
 document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".dp");if(b){selectDay(+b.dataset.d)}});
