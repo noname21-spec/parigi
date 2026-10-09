@@ -174,7 +174,7 @@ body.tbmin .tbind{left:5px!important;top:5px;bottom:5px;width:calc(100% - 10px);
 @keyframes hop{0%{transform:scale(.4) rotate(-30deg)}100%{transform:none}}
 body:has(.tabr:focus-visible) .tabbar{outline:2px solid var(--c3);outline-offset:3px}
 /* ===== superfici interne ===== */
-.eat,.btwc,.checklist,.spese,.voli,.live,.meteo,.shots,.snk,.wheelwrap,#costi table,.tips,.zones details,.avv,.golink,.vcard{background:linear-gradient(180deg,var(--hi2),transparent 45%),var(--gl2);border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi),0 6px 18px color-mix(in srgb,var(--glsh) 60%,transparent);border-radius:var(--r2)}
+.eat,.btwc,.checklist,.spese,.voli,.live,.meteo,.stay,.dp,.shots,.snk,.wheelwrap,#costi table,.tips,.zones details,.avv,.golink,.vcard{background:linear-gradient(180deg,var(--hi2),transparent 45%),var(--gl2);border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi),0 6px 18px color-mix(in srgb,var(--glsh) 60%,transparent);border-radius:var(--r2)}
 .zones details,.snk,.shots li,.eat li,.fras li,.checklist li{content-visibility:auto;contain-intrinsic-size:auto 80px}
 .go{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:7px 14px;border-radius:999px;background:linear-gradient(135deg,var(--c3),var(--c2));color:#fff!important;font:700 .85rem Manrope,system-ui,sans-serif;letter-spacing:.01em;text-decoration:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 6px 14px color-mix(in srgb,var(--c3) 28%,transparent);transition:transform .15s}
 .go:active{transform:scale(.94)}
@@ -352,6 +352,7 @@ body.fsmap{overflow:hidden}
 .lph span{background:#fff;border:2.5px solid var(--c2);font-size:14px}
 .lwt span{background:#2a8de0;color:#fff;border:2px solid #fff;font-size:10px}
 .lap span{background:#fff;color:var(--c3);border:2.5px solid var(--c3);font-size:15px}
+.lhm span{border-color:#e0a82e;font-size:16px}
 #lmap.far .lmk span{transform:scale(.8)}#lmap.far .lfd span,#lmap.far .lph span,#lmap.far .lwt span{transform:scale(.7)}
 .leaflet-tooltip.lst{background:none;border:0;box-shadow:none;padding:0 2px;font:700 11px Manrope,system-ui,sans-serif;color:var(--ink);text-shadow:0 0 3px var(--bg),0 0 3px var(--bg),0 0 3px var(--bg)}
 .leaflet-tooltip.lst::before{display:none}
@@ -519,6 +520,42 @@ html.sa #sheet{bottom:auto;height:var(--apph)}
 @keyframes revealIn{from{opacity:0;transform:translate3d(0,16px,0) scale(.98)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 @media print{.blk{opacity:1!important;visibility:visible!important;position:static;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}.tabbar,.mc,.appbar,.iosw,.gear{display:none}}
+
+/* viaggio di più giorni */
+.sgrp[hidden],.stay[hidden],.dsel[hidden]{display:none}
+.sgrp select{display:block;width:100%;max-width:100%;min-width:0;height:44px;margin:0;padding:0 34px 0 10px;border-radius:11px;border:1px solid var(--edge);background:color-mix(in srgb,var(--paper) 60%,transparent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center/12px 8px;color:var(--ink);font:700 16px Manrope,system-ui,sans-serif;-webkit-appearance:none;appearance:none}
+.sgrp input[type=number]{display:block;width:100%;max-width:100%;min-width:0;height:44px;margin:0;padding:0 10px;border-radius:11px;border:1px solid var(--edge);background:color-mix(in srgb,var(--paper) 60%,transparent);color:var(--ink);font:700 16px Manrope,system-ui,sans-serif;-webkit-appearance:none;appearance:none;-moz-appearance:textfield}
+.sgrp select:focus{outline:2px solid var(--c2);outline-offset:1px}
+.sgrp select.bad{border-color:var(--c2)}
+.sgrp .w{grid-column:1/-1}
+.sgrp .stepper{width:150px;flex:none}
+.sgrp .snote{margin:0 2px}
+.dnote{margin:-2px 2px 0;font-size:.78rem;font-weight:700;color:var(--c3)}
+#stayf.pop{animation:popIn .55s cubic-bezier(.2,1.25,.4,1) both}
+.dsel{display:flex;gap:8px;overflow-x:auto;margin:0 -16px 14px;padding:4px 16px 8px;scroll-snap-type:x proximity;scrollbar-width:none;overscroll-behavior-x:contain}
+.dsel::-webkit-scrollbar{display:none}
+.dp{position:relative;flex:none;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:72px;padding:8px 10px 7px;color:inherit;font:inherit;cursor:pointer;scroll-snap-align:center;border-radius:var(--r3);transition:transform .15s}
+.dp:active{transform:scale(.94)}
+.dp small{font-size:.66rem;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.dp span{font-weight:800;font-size:.95rem;white-space:nowrap}
+.dp em{font-style:normal;font-size:1.05rem;line-height:1.2}
+.dp.on{background:linear-gradient(135deg,var(--c3),var(--c2));border-color:transparent;color:#fff;animation:jelly .5s ease both}
+.dp.on small{color:rgba(255,255,255,.85)}
+.dp.today::after{content:"oggi";position:absolute;top:-6px;right:-4px;padding:0 6px;border-radius:999px;background:var(--c2);color:#fff;font:800 .6rem/1.5 Manrope,system-ui,sans-serif}
+.dp.on.today::after{background:#fff;color:var(--c2)}
+.stay{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;margin:0 0 16px;padding:12px 14px;border-color:color-mix(in srgb,#e0a82e 40%,transparent)}
+.stay .se{font-size:1.7rem;line-height:1}
+.stay b{display:block;font-size:.95rem}
+.stay small{display:block;color:var(--mute);font-size:.78rem;font-weight:600;margin-top:2px}
+.stay .lpa{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+button.go{border:0;cursor:pointer}
+.home .t{color:#c98a12}
+.mrows{list-style:none;margin:4px 0 6px;padding:0;display:flex;flex-direction:column;gap:3px}
+.mrows li{display:flex;align-items:center;gap:8px;font-size:.86rem}
+.mrows li span{width:56px;flex:none;color:var(--ink)!important;font-weight:700}
+.mrows li i{font-style:normal;width:22px;text-align:center}
+.mrows li b{min-width:76px}
+.mrows li small{color:var(--mute)}
 </style>
 </head>
 <body>
@@ -542,7 +579,7 @@ html.sa #sheet{bottom:auto;height:var(--apph)}
 <main>
 
 <section class="blk on" id="itinerario">
-<header class="hero"><h1>Parigi in un giorno</h1>
+<header class="hero" id="hero"><h1>Parigi in un giorno</h1>
 <p class="sub" id="hsub">Imposta il tuo viaggio per vedere l'itinerario.</p>
 <div class="bar" id="hbar" role="img" aria-label="La giornata"></div>
 <div class="ends"><span id="hs"></span><span id="he"></span></div>
@@ -562,11 +599,13 @@ html.sa #sheet{bottom:auto;height:var(--apph)}
 </svg>
 
 </header>
+<div class="dsel" id="dsel1" hidden></div>
 <div id="live" class="live" hidden></div>
 <div id="avv" class="avv" hidden></div>
+<div id="stay" class="stay" hidden></div>
 <label for="t-voli" class="golink"><span>✈️</span><b>Voli e stato live</b><small>Orari, gate, ritardi e pagine degli aeroporti</small><i>›</i></label>
 <div id="meteo" class="meteo"><span class="mi">🌤️</span><div><b>Meteo</b><span>Caricamento…</span></div></div>
-<h2 class="sec">Itinerario</h2>
+<h2 class="sec" id="ith">Itinerario</h2>
 <p id="short" class="short" hidden></p>
 <ol class="steps" id="steps"></ol>
 </section>
@@ -590,6 +629,7 @@ html.sa #sheet{bottom:auto;height:var(--apph)}
 
 <section class="blk" id="mappa">
 <h2 class="sec">Mappa e spostamenti</h2>
+<div class="dsel" hidden></div>
 <div class="map" id="mapbox">
 <div class="stage">
 <div class="mapoff" id="mapoff">Carico la mappa… Serve una connessione la prima volta: dopo le zone già viste restano sul telefono.</div>
@@ -614,6 +654,7 @@ html.sa #sheet{bottom:auto;height:var(--apph)}
 <section class="blk" id="mangiare">
 <h2 class="sec">Pasti e assaggi</h2>
 <p class="lead" id="mlead">La giornata a tavola, in ordine: i pasti e, nel mezzo, cosa assaggiare lungo il percorso.</p>
+<div class="dsel" hidden></div>
 <div id="mgrid"></div>
 <p class="meta">Criteri: almeno 4 stelle su Google, bistrot e boulangerie di quartiere, niente catene. Colazione e cena restano intorno o sotto i 15 € a persona. Valutazioni e orari da Google Maps (ottobre 2026), prezzi indicativi: controllali qualche giorno prima.</p>
 </section>
@@ -653,10 +694,21 @@ html.sa #sheet{bottom:auto;height:var(--apph)}
 
 <div id="setup" aria-hidden="true"><form class="scard" id="sform" novalidate autocomplete="off">
 <h2>Il tuo viaggio</h2>
-<p class="lead">Inserisci i dati della gita: l'itinerario, i trasporti, i locali e i costi si adattano da soli. Puoi cambiarli quando vuoi dall'ingranaggio ⚙️ o dalla sezione Voli.</p>
+<p class="lead">Inserisci i dati della gita o del viaggio: l'itinerario, i trasporti, i locali e i costi si adattano da soli. Puoi cambiarli quando vuoi dall'ingranaggio ⚙️ o dalla sezione Voli.</p>
 <fieldset class="sgrp"><legend>📅 Quando e in quanti</legend>
-<label class="f"><span>Data del viaggio</span><input type="date" name="date" required></label>
-<div class="f" style="display:flex;flex-direction:column;gap:4px;font-size:.76rem;color:var(--mute);font-weight:700;min-width:0"><span>Persone</span><div class="stepper"><button type="button" data-st="-1" aria-label="Una persona in meno">−</button><output name="ppl" id="ppl">2</output><button type="button" data-st="1" aria-label="Una persona in più">+</button></div></div>
+<label class="f"><span>Andata</span><input type="date" name="date" required></label>
+<label class="f"><span id="rlab">Ritorno</span><input type="date" name="date_r"></label>
+<p class="dnote w" id="dnote"></p>
+<div class="f w" style="display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:10px;font-size:.76rem;color:var(--mute);font-weight:700;min-width:0"><span>Persone</span><div class="stepper"><button type="button" data-st="-1" aria-label="Una persona in meno">−</button><output name="ppl" id="ppl">2</output><button type="button" data-st="1" aria-label="Una persona in più">+</button></div></div>
+</fieldset>
+<fieldset class="sgrp" id="stayf" hidden><legend>🏨 Alloggio</legend>
+<label class="f w"><span>Zona</span><select name="sz"></select></label>
+<label class="f w"><span>Indirizzo (facoltativo)</span><input type="text" name="saddr" placeholder="es. 12 rue de Turenne, 75004" autocapitalize="words" spellcheck="false"></label>
+<label class="f"><span>Check-in dalle</span><input type="time" name="sin" value="15:00"></label>
+<label class="f"><span>Check-out entro le</span><input type="time" name="sout" value="11:00"></label>
+<label class="f"><span>Prezzo totale (€)</span><input type="number" name="sprice" inputmode="decimal" min="0" step="1" placeholder="tutte le notti"></label>
+<label class="f"><span>Tipo</span><select name="stype"></select></label>
+<p class="snote w">Non hai ancora prenotato? Scegli la zona: l'itinerario parte da lì e i rientri serali si calcolano da lì. Il tipo serve per la tassa di soggiorno.</p>
 </fieldset>
 <fieldset class="sgrp"><legend>🛫 Da dove parti</legend>
 <label class="f w"><span>Aeroporto di partenza</span><input type="text" name="from" list="aplist" placeholder="es. Bologna (BLQ)" autocapitalize="words" spellcheck="false"></label>
@@ -731,14 +783,14 @@ var SEG={
 rerB:{c:"#5291ce",n:"RER B",p:[[49.0042,2.5711,"Aéroport CDG 2",2],[49.0100,2.5590,"Aéroport CDG 1",1],[48.9900,2.5350],[48.9737,2.5148,"Parc des Expositions"],[48.9600,2.5100],[48.9460,2.5050],[48.9318,2.4954,"Aulnay-sous-Bois"],[48.9330,2.4670],[48.9311,2.4256,"Le Bourget"],[48.9203,2.4044,"La Courneuve"],[48.9183,2.3620,"Stade de France"],[48.8964,2.3580],[48.8809,2.3553,"Gare du Nord",2],[48.8619,2.3470,"Châtelet–Les Halles",2],[48.8534,2.3446,"Saint-Michel Notre-Dame",1]]},
 m14:{c:"#62259d",n:"Metro 14",p:[[48.7286,2.3601,"Aéroport d'Orly",2],[48.7438,2.3478,"Pont de Rungis"],[48.7570,2.3640,"M.I.N. Porte de Thiais"],[48.7728,2.3612,"Chevilly-Larue"],[48.7930,2.3615,"Villejuif–G. Roussy"],[48.8105,2.3627,"Kremlin-Bicêtre Hôpital"],[48.8221,2.3584,"Maison Blanche"],[48.8271,2.3668,"Olympiades"],[48.8299,2.3762,"Bibliothèque F. Mitterrand"],[48.8333,2.3866,"Cour Saint-Émilion"],[48.8401,2.3793,"Bercy"],[48.8443,2.3739,"Gare de Lyon",1],[48.8590,2.3470,"Châtelet",2],[48.8657,2.3343,"Pyramides",1],[48.8700,2.3245,"Madeleine",2]]},
 bva:{c:"#e1253a",n:"Navetta Aérobus",p:[[49.4544,2.1128,"Aéroport de Beauvais",2],[49.40,2.13],[49.30,2.17],[49.15,2.21],[49.03,2.25],[48.93,2.27],[48.8781,2.2826,"Porte Maillot",2]]},
-m1:{c:"#ffcd00",n:"Metro 1",p:[[48.8781,2.2826,"Porte Maillot",2],[48.8756,2.2894,"Argentine"],[48.8738,2.2950,"Charles de Gaulle–Étoile",2],[48.8720,2.3006,"George V"],[48.8690,2.3096,"Franklin D. Roosevelt",1],[48.8676,2.3140,"Champs-Élysées–Clemenceau"],[48.8656,2.3212,"Concorde",1],[48.8644,2.3297,"Tuileries",1],[48.8624,2.3364,"Palais Royal–Louvre",1],[48.8608,2.3409,"Louvre–Rivoli"],[48.8582,2.3474,"Châtelet",2]]},
+m1:{c:"#ffcd00",n:"Metro 1",p:[[48.8781,2.2826,"Porte Maillot",2],[48.8756,2.2894,"Argentine"],[48.8738,2.2950,"Charles de Gaulle–Étoile",2],[48.8720,2.3006,"George V"],[48.8690,2.3096,"Franklin D. Roosevelt",1],[48.8676,2.3140,"Champs-Élysées–Clemenceau"],[48.8656,2.3212,"Concorde",1],[48.8644,2.3297,"Tuileries",1],[48.8624,2.3364,"Palais Royal–Louvre",1],[48.8608,2.3409,"Louvre–Rivoli"],[48.8582,2.3474,"Châtelet",2],[48.8573,2.3518,"Hôtel de Ville"],[48.8551,2.3608,"Saint-Paul"],[48.8531,2.3691,"Bastille"],[48.8457,2.3731,"Gare de Lyon"]]},
 m9:{c:"#b6bd00",n:"Metro 9",p:[[48.8690,2.3096,"Franklin D. Roosevelt",1],[48.8647,2.3010,"Alma–Marceau"],[48.8648,2.2938,"Iéna"],[48.8631,2.2870,"Trocadéro",2]]},
 m8:{c:"#d282be",n:"Metro 8",p:[[48.8549,2.3064,"École Militaire",2],[48.8577,2.3105,"La Tour-Maubourg"],[48.8610,2.3145,"Invalides"],[48.8656,2.3212,"Concorde",1],[48.8700,2.3245,"Madeleine",2]]},
 m12:{c:"#007852",n:"Metro 12",p:[[48.8700,2.3245,"Madeleine",2],[48.8754,2.3255,"Saint-Lazare"],[48.8763,2.3329,"Trinité"],[48.8760,2.3380,"N.-D.-de-Lorette"],[48.8785,2.3375,"Saint-Georges"],[48.8821,2.3374,"Pigalle"],[48.8844,2.3384,"Abbesses",2]]},
 m6:{c:"#6eca97",n:"Metro 6",p:[[48.8539,2.2894,"Bir-Hakeim",1],[48.8576,2.2856,"Passy"],[48.8631,2.2870,"Trocadéro",1],[48.8669,2.2900,"Boissière"],[48.8715,2.2932,"Kléber"],[48.8738,2.2950,"Charles de Gaulle–Étoile",2]]},
 m2:{c:"#003ca6",n:"Metro 2",p:[[48.8738,2.2950,"Charles de Gaulle–Étoile",2],[48.8781,2.2982,"Ternes"],[48.8792,2.3034,"Courcelles"],[48.8805,2.3094,"Monceau"],[48.8812,2.3158,"Villiers"],[48.8823,2.3214,"Rome"],[48.8836,2.3274,"Place de Clichy"],[48.8837,2.3325,"Blanche"],[48.8821,2.3374,"Pigalle"],[48.8829,2.3442,"Anvers",2],[48.8837,2.3497,"Barbès–Rochechouart",1]]},
 m4:{c:"#cf009e",n:"Metro 4",p:[[48.8837,2.3497,"Barbès–Rochechouart",1],[48.8809,2.3553,"Gare du Nord",2]]},
-rerC:{c:"#f3c300",n:"RER C",p:[[48.8534,2.3446,"Saint-Michel Notre-Dame",1],[48.8600,2.3254,"Musée d'Orsay"],[48.8628,2.3141,"Invalides"],[48.8624,2.3017,"Pont de l'Alma"],[48.8556,2.2898,"Champ de Mars–Tour Eiffel",2]]},
+rerC:{c:"#f3c300",n:"RER C",p:[[48.8534,2.3446,"Saint-Michel Notre-Dame",1],[48.8600,2.3254,"Musée d'Orsay"],[48.8628,2.3141,"Invalides"],[48.8624,2.3017,"Pont de l'Alma"],[48.8556,2.2898,"Champ de Mars–Tour Eiffel",2],[48.8471,2.2768,"Javel"],[48.8237,2.2626,"Issy"],[48.8098,2.2324,"Meudon-Val-Fleury"],[48.8017,2.1792,"Chaville-Vélizy"],[48.8008,2.1301,"Versailles Château Rive Gauche",2]]},
 rerA:{c:"#e3051c",n:"RER A",p:[[48.8738,2.2950,"Charles de Gaulle–Étoile",2],[48.8726,2.3290,"Auber"],[48.8619,2.3470,"Châtelet–Les Halles",2]]}
 };
 var START=[48.8593,2.3473];
@@ -766,6 +818,45 @@ montmartre:{t:"Montmartre e Sacré-Cœur",z:"D",p:3,min:45,id:80,max:120,pos:[48
  d:"Da Abbesses: il Mur des je t'aime, le stradine di Rue des Trois Frères, la scalinata (o la funicolare) fino al Sacré-Cœur, poi Place du Tertre e La Maison Rose.",
  m:"La basilica è gratuita. Davanti alla scalinata attenzione a chi offre braccialetti «in regalo» e ai borseggiatori."}
 };
+/* tappe in più per i viaggi di più giorni (verificate il 9 ottobre 2026) */
+var MO=function(d){return +d.slice(5,7)-1};
+Object.assign(STOPS,{
+louvremus:{t:"Museo del Louvre",z:"B",p:2,min:120,id:150,max:210,pos:[48.8606,2.3376],q:"Musée du Louvre, Paris",cls:"",multi:1,cl:[1],
+ win:function(wd){return[9*60,(wd===2||wd===4?21*60:18*60)-30]},
+ d:"Dentro il museo: la Gioconda, la Venere di Milo, la Nike di Samotracia e gli appartamenti di Napoleone III. Scegli due o tre ali, tutto non si vede neanche in una settimana.",
+ m:"Biglietto 22 € per i residenti UE (32 € per gli altri), gratis sotto i 18 anni e per i residenti UE sotto i 26. Chiuso il martedì; mercoledì e venerdì aperto fino alle 21. Prenota l'orario su ticket.louvre.fr: senza prenotazione si entra solo se restano posti."},
+orsay:{t:"Musée d'Orsay",z:"G",p:5,min:90,id:120,max:150,pos:[48.8600,2.3266],q:"Musée d'Orsay, Paris",cls:"",multi:1,cl:[0],
+ win:function(wd){return[9*60+30,(wd===3?21*60+45:18*60)-15]},
+ d:"Gli impressionisti in una vecchia stazione: Monet, Renoir, Van Gogh, Degas. Al quinto piano, la vista su Parigi attraverso il grande orologio.",
+ m:"Biglietto 16 € online, gratis per i residenti UE sotto i 26 anni. Chiuso il lunedì; il giovedì aperto fino alle 21:45."},
+stgermain:{t:"Saint-Germain-des-Prés",z:"G",p:6,min:30,id:45,max:70,pos:[48.8540,2.3336],q:"Église de Saint-Germain-des-Prés, Paris",cls:"walk",multi:1,
+ d:"La chiesa più antica di Parigi, le vie di librerie e gallerie tra Rue de Buci e Rue de Seine, poi Saint-Sulpice.",
+ m:"Tutto gratis. I caffè storici della piazza costano cari: per un caffè spostati di una via."},
+latin:{t:"Quartiere Latino, Panthéon e Luxembourg",z:"G",p:5,min:60,id:90,max:130,pos:[48.8462,2.3464],q:"Panthéon, Paris",cls:"walk",multi:1,
+ win:function(wd,d,ss){return[8*60,ss]},
+ d:"La Sorbona, il Panthéon e Rue Mouffetard, poi il Jardin du Luxembourg con la Fontaine Médicis e il Palazzo del Senato.",
+ m:"Il giardino è gratuito e chiude al tramonto (l'orario cambia con le stagioni). Dentro il Panthéon: 11,50 €, aperto tutti i giorni."},
+opera:{t:"Opéra Garnier e Galeries Lafayette",z:"F",p:6,min:45,id:75,max:100,pos:[48.8720,2.3316],q:"Palais Garnier, Paris",cls:"",multi:1,
+ win:function(wd,d){var m=+d.slice(5,7),g=+d.slice(8,10),sum=(m===7&&g>=15)||m===8;return[10*60,(sum?18*60:17*60)-15]},
+ d:"Lo scalone e il foyer dorato dell'Opéra Garnier, poi la terrazza gratuita sul tetto delle Galeries Lafayette, con vista sull'Opéra e sulla Tour Eiffel.",
+ m:"Visita libera 15 € per i residenti UE (25 € per gli altri), solo online su operadeparis.fr: alla cassa non si vendono biglietti. Aperto 10–17 (ultimo accesso mezz'ora prima). La sala può essere chiusa per le prove. La terrazza delle Galeries Lafayette è gratuita e può chiudere con il maltempo."},
+canal:{t:"Canal Saint-Martin",z:"H",p:7,min:30,id:50,max:70,pos:[48.8710,2.3650],q:"Canal Saint-Martin, Paris",cls:"walk",multi:1,
+ d:"Le passerelle di ferro, le chiuse e i caffè del quartiere più amato dai parigini, da République verso Jaurès.",
+ m:"Tutto gratis. La domenica pomeriggio i lungocanale sono pedonali."},
+perelachaise:{t:"Cimitero del Père-Lachaise",z:"H",p:7,min:45,id:75,max:100,pos:[48.8614,2.3934],q:"Cimetière du Père-Lachaise, Paris",cls:"walk",multi:1,
+ win:function(wd,d){var o=wd===5?8*60+30:wd===6?9*60:8*60,c=(d>=d.slice(0,4)+"-03-16"&&d<=d.slice(0,4)+"-11-05")?18*60:17*60+30;return[o,c-15]},
+ d:"Il cimitero-parco più famoso del mondo: le tombe di Jim Morrison, Oscar Wilde, Édith Piaf e Chopin tra viali alberati.",
+ m:"Ingresso libero. Fino al 5 novembre aperto 8–18 (sabato dalle 8:30, domenica dalle 9); dal 6 novembre l'orario è invernale e chiude prima: verificalo su paris.fr. All'ingresso principale c'è la mappa delle tombe."},
+versailles:{t:"Reggia di Versailles",z:"V",p:4,min:120,id:150,max:180,pos:[48.8049,2.1204],q:"Château de Versailles",cls:"",multi:1,cl:[0],
+ win:function(wd,d){var m=MO(d);return[9*60,(m>=3&&m<=9?18*60+30:17*60+30)-15]},
+ d:"Gli appartamenti del Re e della Regina e la Galleria degli Specchi. Arriva all'apertura: dalle 11 le sale si riempiono.",
+ m:"Biglietto Passeport (castello, giardini e Trianon) da 22 €, 32 € nei giorni di Grandes Eaux e Jardins musicaux (da aprile a ottobre); 3 € in più per i visitatori non UE. L'orario d'ingresso è obbligatorio. Chiuso il lunedì; aperto 9–18:30 da aprile a ottobre, 9–17:30 da novembre a marzo."},
+trianon:{t:"Giardini e Trianon di Versailles",z:"V",p:5,min:60,id:120,max:180,pos:[48.8157,2.1097],q:"Petit Trianon, Versailles",cls:"walk",multi:1,cl:[0],
+ win:function(wd,d){var m=MO(d);return[12*60,(m>=3&&m<=9?18*60+30:17*60+30)-15]},
+ d:"I giardini alla francese, il Grand Canal e la tenuta di Maria Antonietta: Petit Trianon e il Villaggio della Regina.",
+ m:"Compresi nel Passeport. Il Trianon apre a mezzogiorno. Il parco è grande: da un capo all'altro ci sono circa 30 minuti a piedi."}
+});
+STOPS.saintechapelle.win=function(wd,d){var m=MO(d);return[9*60,(m>=3&&m<=8?19*60:17*60)]};
 /* collegamenti tra le tappe */
 var W=function(a){return {w:a}};
 var LEGS={
@@ -863,13 +954,106 @@ painpain:{n:"Pain Pain",a:"88 Rue des Martyrs",z:"D",r:"4,4",pos:[48.8835,2.3398
 manege:{n:"Crêperie du Manège",a:"Place des Abbesses",z:"D",r:"4,6",pos:[48.8845,2.3385],h:["14:30-19:30","14:30-19:30","14:30-19:30","14:30-19:30","14:30-19:30","10:30-19:30","10:30-19:30"],
  d:"Chiosco accanto alla giostra di Place des Abbesses, a 15 metri dal Mur des je t'aime: crêpe al volo, anche salate.",pr:"Prezzi bassi per la zona, caffè 1,50 € (da recensioni)."}
 };
+/* locali delle zone in più (Google Maps, ottobre 2026) */
+Object.assign(V,{
+richelieu2:null,
+union:{n:"Union Boulangerie",a:"2 Rue Bleue",z:"F",r:"4,8",pos:[48.8759,2.3475],h:["08:00-20:00","08:00-20:00","08:00-20:00","08:00-20:00","08:00-20:00","08:00-15:00",""],
+ d:"Boulangerie di quartiere nel 9° arrondissement, famosa per il brownie e la baguette tradition; ottimi anche croissant e kouign-amann. Niente tavoli.",pr:"Colazione con 5–8 €."},
+miche:{n:"Boulangerie Miche de Pain",a:"42 Rue Cadet",z:"F",r:"4,8",pos:[48.8765,2.3444],h:["07:00-20:00","07:00-20:00","07:00-20:00","07:00-20:00","07:00-20:00","07:00-20:00",""],
+ d:"Panetteria-pasticceria di quartiere con un titolare simpaticissimo: éclair al caffè, pain au chocolat alle mandorle e panini su baguette fresca.",pr:"Pochi euro."},
+quignon:{n:"Quignon",a:"14 Rue Richer",z:"F",r:"4,7",pos:[48.8742,2.3467],h:["08:00-20:00","08:00-20:00","08:00-20:00","08:00-20:00","08:00-20:00","","08:00-14:30"],
+ d:"Boulangerie con qualche tavolo: croissant ben sfogliati, flan e panini da colazione.",pr:"Colazione sotto i 10 € (listino non visto)."},
+auvergne:{n:"Pâtisserie de la Tour d'Auvergne",a:"38 Rue Claude Rodier",z:"F",r:"4,8",pos:[48.8793,2.3434],h:["07:00-21:00","07:00-21:00","","07:00-21:00","07:00-21:00","07:00-21:00","07:30-21:00"],
+ d:"Piccolo forno a conduzione familiare tra Opéra e Montmartre: croissant alle mandorle e chouquettes.",pr:"Pochi euro."},
+lucette:{n:"Lucette Fait des Crêpes",a:"12 Rue de Trévise",z:"F",r:"4,8",pos:[48.8734,2.3453],h:D7("12:00-22:00"),
+ d:"Crêperie accogliente con dehors: galette e crêpe tra 7 e 11 €, a pranzo formula con due portate e bibita a 17,50 € (da recensioni).",pr:"Una galette con un sidro resta sotto i 15 €."},
+lorette:{n:"Lorette",a:"9 Rue Saint-Lazare",z:"F",r:"4,6",pos:[48.8767,2.3380],h:["12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:00-00:00","12:30-00:00","12:30-00:00"],
+ d:"Brasserie frequentata dalla gente del quartiere: steak-frites al pepe, porri in vinaigrette, pain perdu.",pr:"Fascia media-alta (listino non visto)."},
+suzette:{n:"Suzette Crêperie Urbaine",a:"13 Rue Cadet",z:"F",r:"4,9",pos:[48.8755,2.3433],h:["11:00-22:00","11:00-22:00","11:00-22:00","11:00-22:00","11:00-22:30","11:00-22:30","11:00-22:00"],
+ d:"Piccola crêperie su Rue Cadet, via pedonale di negozi: caramello e cioccolato fatti in casa, tavolini all'aperto.",pr:"Prezzi bassi secondo le recensioni: galette e crêpe sotto i 15 €."},
+galetezen:{n:"Galetezen",a:"78 Rue La Fayette",z:"F",r:"4,9",pos:[48.8763,2.3459],h:["12:00-15:00","11:30-21:30","12:00-21:30","11:30-21:30","11:30-15:00,18:00-21:30","12:00-21:30","12:00-21:30"],
+ d:"Galette bretoni con ingredienti di qualità e sidro artigianale; menu breve. Il lunedì solo a pranzo.",pr:"Prezzi ragionevoli (listino non visto)."},
+fournil:{n:"Le Fournil de Mouffetard",a:"123 Rue Mouffetard",z:"G",r:"4,4",pos:[48.8402,2.3499],h:["","07:00-19:45","07:00-19:45","07:00-19:45","07:00-19:45","07:00-19:45","07:00-18:25"],
+ d:"Boulangerie in fondo a Rue Mouffetard, la via-mercato del Quartiere Latino: croissant leggerissimi e quiche scaldate al momento.",pr:"Pochi euro."},
+gisele:{n:"Crêperie Gisèle",a:"65 Rue de Rennes",z:"G",r:"4,6",pos:[48.8517,2.3314],h:D7("07:00-00:00"),
+ d:"Crêperie-bistrot aperta dalle 7 a mezzanotte, a due passi da Saint-Germain: galette abbondanti, anche a colazione.",pr:"Una galette resta sotto i 15 € (listino non visto)."},
+tournbride:{n:"Café TournBride",a:"104 Rue Mouffetard",z:"G",r:"4,5",pos:[48.8411,2.3495],h:["07:30-00:00","07:30-00:00","07:30-00:00","07:30-00:00","07:00-01:00","07:00-01:00","07:30-00:00"],
+ d:"Bistrot di quartiere su Rue Mouffetard: anatra confit, salsiccia con purè, tarte aux pommes. Al mattino anche caffè e croissant.",pr:"Fascia media (listino non visto)."},
+vieuxbistrot:{n:"Le Vieux Bistrot",a:"54 Rue Mouffetard",z:"G",r:"4,7",pos:[48.8433,2.3495],h:["12:00-23:00","18:00-23:00","18:00-23:00","12:00-23:00","12:00-23:00","12:00-23:00","12:00-23:00"],
+ d:"Bistrot d'altri tempi su Rue Mouffetard: zuppa di cipolle, bourguignon, crème brûlée. Martedì e mercoledì apre solo la sera.",pr:"Fascia media (listino non visto)."},
+perraudin:{n:"Perraudin",a:"157 Rue Saint-Jacques",z:"G",r:"4,6",pos:[48.8463,2.3433],h:["12:00-14:00,19:00-22:00","12:00-14:00,19:00-22:00","12:00-14:00,19:00-22:00","12:00-14:00,19:00-22:00","12:00-14:00,19:00-22:00","12:00-14:00,19:00-22:00",""],
+ d:"Bistrot storico a due passi dal Panthéon, con le tovaglie a quadretti: steak-frites e bourguignon.",pr:"Formula due portate 31 € (da recensioni)."},
+clown:{n:"La Crêperie du Clown",a:"6 Rue des Canettes",z:"G",r:"4,6",pos:[48.8524,2.3336],h:["11:30-15:00","11:30-22:00","11:30-23:00","11:30-23:00","11:30-23:00","11:30-23:00","11:30-22:00"],
+ d:"Crêperie amatissima vicino a Saint-Sulpice: menu enorme di galette di grano saraceno, cioccolato fatto in casa. Il lunedì solo a pranzo.",pr:"Prezzi accessibili secondo le recensioni: galette e sidro sotto i 15 €."},
+germain:{n:"Crêperie Chez Germain",a:"33 Rue Saint-André des Arts",z:"G",r:"4,3",pos:[48.8532,2.3418],h:["12:00-15:00,19:00-22:00","12:00-15:00,19:00-22:00","12:00-15:00,19:00-22:00","12:00-15:00,19:00-23:00","12:00-15:00,19:00-23:00","12:00-23:00","12:00-15:00,19:00-22:00"],
+ d:"Crêperie decorata a mosaico a due passi da Saint-Michel; a pranzo formula con due crêpe da 11 € (da recensioni).",pr:"Sotto i 15 €."},
+littlebreizh:{n:"Crêperie Little Breizh",a:"11 Rue Grégoire de Tours",z:"G",r:"4,7",pos:[48.8532,2.3379],h:["","11:40-14:40,18:40-22:30","11:40-14:40,18:40-22:30","11:40-14:40,18:40-22:30","11:40-14:40,18:40-22:30","11:40-15:15,18:40-22:30",""],
+ d:"Crêperie bretone minuscola e autentica: le crêpe si vedono preparare in cucina. Chiusa domenica e lunedì.",pr:"Prezzi giusti secondo le recensioni (listino non visto)."},
+copains:{n:"Le Pain des Copains",a:"96 Rue du Faubourg Saint-Martin",z:"H",r:"4,7",pos:[48.8730,2.3581],h:["06:30-19:30","06:30-19:30","06:30-19:30","06:30-19:30","06:30-19:30","06:30-19:00",""],
+ d:"Boulangerie-caffè di quartiere vicino a Gare de l'Est, con prezzi da residenti: flan alla vaniglia e panini fatti al momento.",pr:"Pochi euro."},
+marie:{n:"Maison Marie",a:"32 Rue de Lancry",z:"H",r:"4,4",pos:[48.8709,2.3615],h:["","06:30-21:00","06:30-21:00","06:30-21:00","06:30-21:00","06:30-21:00",""],
+ d:"Boulangerie a due passi dal Canal Saint-Martin: escargot pistacchio e cioccolato, pane a lievitazione naturale.",pr:"Pochi euro."},
+robinet:{n:"Le Robinet d'Or",a:"7 Rue Eugène Varlin",z:"H",r:"4,7",pos:[48.8781,2.3647],h:D7("07:00-01:00"),
+ d:"Bistrot sul Canal Saint-Martin con cucina francese classica: anatra confit, lumache, formaggi. La sera meglio prenotare.",pr:"Fascia media (listino non visto)."},
+bistrotpere:{n:"Bistrot Père",a:"10 Avenue du Père Lachaise",z:"H",r:"4,7",pos:[48.8640,2.3979],h:["09:00-23:30","09:00-23:30","09:00-23:30","09:00-23:00","09:00-23:30","09:00-23:30","10:00-17:00"],
+ d:"Bistrot di quartiere all'uscita del Père-Lachaise, frequentato da residenti: pollo arrosto, insalate, tiramisù.",pr:"Prezzi contenuti secondo le recensioni."},
+tablespl:{n:"Aux Tables du Père Lachaise",a:"44 Boulevard de Ménilmontant",z:"H",r:"4,3",pos:[48.8632,2.3875],h:["07:30-02:00","07:30-02:00","07:30-02:00","07:30-02:00","07:30-02:00","08:00-02:00","08:00-02:00"],
+ d:"Bistrot davanti al cimitero: croissant ottimi al mattino, piatti abbondanti a pranzo.",pr:"Fascia media (listino non visto)."},
+auguste:{n:"Dr. Auguste",a:"9 Place Auguste Métivier",z:"H",r:"4,7",pos:[48.8633,2.3881],h:["11:00-22:00","11:00-22:00","11:00-22:00","11:00-22:00","11:00-22:00","11:00-22:00",""],
+ d:"Locale semplice vicino al Père-Lachaise: bagel, burger, insalate e zuppe; zuppa e caffè a 7 € (da recensioni).",pr:"Sotto i 15 €."},
+cantina:{n:"La Cantina",a:"4 Boulevard de Ménilmontant",z:"H",r:"4,8",pos:[48.8586,2.3900],h:D7("10:00-02:00"),
+ d:"Pizzeria-bar di quartiere tra Père-Lachaise e Oberkampf. La cucina chiude prima del bar: chiedi al tavolo.",pr:"Una pizza resta intorno ai 15 € (listino non visto)."},
+fermepains:{n:"Aux Pains de la Ferme",a:"9 Rue Royale, Versailles",z:"V",r:"4,7",pos:[48.7986,2.1276],h:["07:00-20:00","07:00-20:00","07:00-20:00","07:00-20:00","07:00-20:00","",""],
+ d:"Boulangerie di quartiere a pochi minuti dalla stazione, con la fila dei residenti: baguette, croissant e panini per un picnic nei giardini.",pr:"Pochi euro."},
+polome:{n:"Maison Polomé",a:"19 Rue de Satory, Versailles",z:"V",r:"4,2",pos:[48.8002,2.1250],h:D7("07:00-20:00"),
+ d:"Panetteria-pasticceria vicino al castello, aperta tutti i giorni: croissant, insalate e wrap da asporto.",pr:"Pochi euro."},
+blenoir:{n:"Blé Noir",a:"9 Rue de Satory, Versailles",z:"V",r:"4,7",pos:[48.8007,2.1252],h:["11:00-14:30,18:00-21:00","11:00-21:00","11:00-21:00","11:00-22:00","11:00-22:00","11:00-22:00","11:00-21:30"],
+ d:"Crêperie a 5 minuti dal castello, porzioni generose e prezzi giusti per la zona.",pr:"Una galette resta sotto i 15 € (listino non visto)."},
+tonton:{n:"Les Crêpes à Tonton",a:"33-35 Rue du Vieux Versailles",z:"V",r:"4,4",pos:[48.8004,2.1245],h:["12:00-14:30,19:00-22:30","12:00-14:30,19:00-22:30","12:00-14:30,19:00-22:30","12:00-14:30,19:00-22:30","12:00-14:30,19:00-23:00","12:00-14:30,18:30-23:00","12:00-14:30,19:00-22:30"],
+ d:"Crêperie frequentata dai versagliesi, galette di grano saraceno; formula galette, crêpe e bibita a 18 € (da recensioni).",pr:"Una galette sotto i 15 €."},
+carre:{n:"Carré aux Crêpes",a:"22 Rue d'Anjou, Versailles",z:"V",r:"4,5",pos:[48.7970,2.1256],h:["12:00-14:00,19:00-22:00","12:00-14:00,19:00-22:00","12:00-14:00,19:00-22:00","12:00-14:00,19:00-22:00","12:00-22:00","12:00-22:00","12:00-22:00"],
+ d:"Crêperie nel quartiere Saint-Louis di Versailles, sidro e birra alla spina, formule a pranzo.",pr:"Prezzi accessibili (listino non visto)."}
+});
+delete V.richelieu2;
 /* quali locali per pasto e zona */
 var MEAL={
-col:{A:["dheilly","marnay","tranche","brigat"]},
-pra:{A:["augustins","buci","stlouis"],B:["victoires","louise","richelieu"],C:["caillou","crepuscule"],E:["caillou","crepuscule"],D:["crepmm","phenicien","rozell"]},
-cen:{D:["rozell","crepmm","phenicien","broceliande"],C:["crepuscule","marques"],E:["crepuscule","marques"],B:["castel","stlouis"],A:["stlouis","castel"]},
-snk:{A:["berthillon","stlouis","brigat"],B:["castel"],C:["marques","pauline"],E:["marques"],D:["grenier","painpain","manege"]}
+col:{A:["dheilly","marnay","tranche","brigat"],B:["castel","richelieu"],C:["marques","caillou","pauline"],D:["grenier","painpain"],F:["union","miche","quignon","auvergne"],G:["fournil","gisele","tournbride"],H:["copains","marie","tablespl"],V:["polome","fermepains"]},
+pra:{A:["augustins","buci","stlouis"],B:["victoires","louise","richelieu"],C:["caillou","crepuscule"],E:["caillou","crepuscule"],D:["crepmm","phenicien","rozell"],F:["lucette","lorette","suzette"],G:["vieuxbistrot","perraudin","tournbride","clown"],H:["robinet","bistrotpere","tablespl"],V:["blenoir","tonton","carre","fermepains"]},
+cen:{D:["rozell","crepmm","phenicien","broceliande"],C:["crepuscule","marques"],E:["crepuscule","marques"],B:["castel","stlouis"],A:["stlouis","castel"],F:["suzette","lucette","galetezen"],G:["clown","germain","littlebreizh","gisele"],H:["auguste","cantina","robinet"],V:["blenoir","tonton","carre"]},
+snk:{A:["berthillon","stlouis","brigat"],B:["castel"],C:["marques","pauline"],E:["marques"],D:["grenier","painpain","manege"],F:["union","miche"],G:["fournil","berthillon"],H:["copains","marie"],V:["fermepains","polome"]}
 };
+/* giornate a tema per i viaggi di più giorni, in ordine di priorità */
+var BUNDLES=[
+{id:"centro",t:"Centro storico",acts:["marais","notredame","louvre"],need:210,core:1},
+{id:"eiffel",t:"Tour Eiffel e Champs-Élysées",acts:["eiffel","arc"],need:170,core:1},
+{id:"montmartre",t:"Opéra e Montmartre",acts:["opera","montmartre"],need:190,core:1},
+{id:"louvremus",t:"Museo del Louvre",acts:["louvremus"],need:170,cl:[1]},
+{id:"rive",t:"Rive gauche e Orsay",acts:["stgermain","latin","orsay"],need:290},
+{id:"versailles",t:"Versailles",acts:["versailles","trianon"],need:420,cl:[0],full:1},
+{id:"est",t:"Canal Saint-Martin e Père-Lachaise",acts:["canal","perelachaise"],need:170}
+];
+var ORDER=["louvremus","marais","notredame","saintechapelle","louvre","stgermain","latin","orsay","eiffel","arc","opera","montmartre","canal","perelachaise","versailles","trianon"];
+/* zone dell'alloggio: nome, centro indicativo, zona dei locali */
+var HZ=[
+["chatelet","Châtelet / Les Halles",[48.8607,2.3470],"A"],
+["marais","Marais / Bastille",[48.8566,2.3622],"A"],
+["louvre","Louvre / Palais-Royal",[48.8640,2.3380],"B"],
+["opera","Opéra / Grands Boulevards",[48.8740,2.3420],"F"],
+["latin","Quartiere Latino / Saint-Germain",[48.8500,2.3420],"G"],
+["eiffel","Tour Eiffel / Invalides",[48.8560,2.3030],"C"],
+["montmartre","Montmartre / Pigalle",[48.8840,2.3390],"D"],
+["canal","République / Canal Saint-Martin",[48.8700,2.3620],"H"],
+["nord","Gare du Nord / Gare de l'Est",[48.8780,2.3570],"H"],
+["montparnasse","Montparnasse",[48.8420,2.3210],""],
+["lyon","Gare de Lyon / Bercy",[48.8440,2.3740],""],
+["altro","Altra zona (scrivi l'indirizzo)",[48.8566,2.3522],""]
+];
+/* dall'alloggio all'aeroporto, da Châtelet */
+var AIRG={CDG:[["rerB","Châtelet–Les Halles","Aéroport CDG 2"]],ORY:[["m14","Châtelet","Aéroport d'Orly"]],BVA:[["m1","Châtelet","Porte Maillot"],["bva","Porte Maillot","Aéroport de Beauvais"]]};
+var AIRT={CDG:"poi RER B da Châtelet–Les Halles (o da Gare du Nord) fino all'aeroporto Charles de Gaulle, circa 35 minuti.",ORY:"poi metro 14 da Châtelet fino ad Aéroport d'Orly, circa 25 minuti.",BVA:"poi metro 1 fino a Porte Maillot e navetta Aérobus fino a Beauvais, circa 1 h 30. Arriva alla fermata almeno 15 minuti prima."};
+/* prezzi 2026 */
+var PVIS={1:30.6,2:45.4,3:63.8,5:78};
+var TAX=[["h1","Hotel 1 stella o chambre d'hôtes",2.6],["h2","Hotel 2 stelle",3.25],["h3","Hotel 3 stelle",5.53],["h4","Hotel 4 stelle",8.45],["h5","Hotel 5 stelle",11.7],["nc","Appartamento o alloggio non classificato (es. Airbnb)",-1],["no","Ospite di amici o parenti",0]];
 var ORD={
 col:[["Croissant au beurre e pain au chocolat","il croissant «au beurre» è quello col burro vero, di solito diritto e non a mezzaluna."],["Flan parisien","budino alla vaniglia in pasta sfoglia: una fetta basta per due."],["Un café crème","il cappuccino francese. «Un café» è un espresso."]],
 pra:[["Soupe à l'oignon","la zuppa di cipolle gratinata, perfetta in autunno."],["Confit de canard o steak-frites","i due classici del bistrot."],["Une carafe d'eau","l'acqua del rubinetto è gratis: chiedetela, nessuno si offende."]],
@@ -888,19 +1072,24 @@ var PH=[
 ["📷","Place des Vosges","Foto","Sotto i portici, inquadrando la piazza con le facciate di mattoni rossi.",[48.8556,2.3655],"Place des Vosges, Paris","marais"],
 ["🤳","Mur des je t'aime","Selfie","«Ti amo» in 250 lingue: cercate la frase in italiano.",[48.8848,2.3387],"Le Mur des je t'aime, Paris","montmartre"],
 ["🤳","Scalinata del Sacré-Cœur","Selfie","Tutta Parigi alle spalle: il momento migliore è verso il tramonto.",[48.8862,2.3431],"Basilique du Sacré-Cœur de Montmartre","montmartre"],
-["📷","La Maison Rose","Foto","La casetta rosa all'angolo di Rue de l'Abreuvoir, con la via in salita.",[48.8874,2.3397],"La Maison Rose, Paris","montmartre"]
+["📷","La Maison Rose","Foto","La casetta rosa all'angolo di Rue de l'Abreuvoir, con la via in salita.",[48.8874,2.3397],"La Maison Rose, Paris","montmartre"],
+["📷","Fontaine Médicis","Foto","La fontana più romantica del Jardin du Luxembourg, con la vasca lunga e i platani.",[48.8484,2.3398],"Fontaine Médicis, Paris","latin"],
+["🤳","Terrazza delle Galeries Lafayette","Selfie","Sul tetto, gratis: l'Opéra Garnier in primo piano e la Tour Eiffel all'orizzonte.",[48.8735,2.3320],"Galeries Lafayette Haussmann, Paris","opera"],
+["📷","Orologio del Musée d'Orsay","Foto","Al quinto piano, il quadrante trasparente con il Louvre e Montmartre sullo sfondo.",[48.8600,2.3266],"Musée d'Orsay, Paris","orsay"],
+["📷","Passerelle del Canal Saint-Martin","Foto","Dalle passerelle di ferro verde, il canale con le chiuse e gli alberi.",[48.8716,2.3654],"Passerelle Alibert, Paris","canal"],
+["🤳","Galleria degli Specchi","Selfie","357 specchi e i lampadari di cristallo: il momento migliore è all'apertura.",[48.8048,2.1203],"Galerie des Glaces, Versailles","versailles"]
 ];
 /* avvisi verificati il 9 ottobre 2026 */
 var AVV=[
 {from:"2026-10-06",to:"2026-11-10",wd:[1,2,3,4,5],ap:["CDG"],after:22*60+45,t:"Lavori sul RER B",x:"Dal lunedì al venerdì, dalle 22:45, il RER B è interrotto tra Châtelet–Les Halles e l'aeroporto CDG (ci sono bus sostitutivi). Se arrivi tardi o rientri di sera, conta più tempo."},
 {from:"2026-10-05",to:"2026-10-30",wd:[1,2,3,4,5],ap:["ORY"],after:23*60,t:"Lavori sul RER C verso Orly",x:"Nei giorni feriali dalle 23 il RER C è sospeso verso Orly. Non riguarda la metro 14, che è il collegamento consigliato."},
-{from:"2026-10-17",to:"2026-10-21",t:"Preavviso di sciopero del personale di volo in Francia",x:"Cinque sindacati di piloti e assistenti di volo hanno proclamato uno sciopero dal 17 al 21 ottobre 2026. Controlla il tuo volo con la compagnia nei giorni prima."},
-{from:"2026-10-16",to:"2026-10-16",air:/^(U2|EC|EJU)/i,t:"Sciopero easyJet in Italia",x:"Il 16 ottobre è proclamato uno sciopero nazionale di 24 ore del personale di volo easyJet in Italia."},
-{from:"2026-10-30",to:"2026-10-30",t:"Sciopero generale in Italia",x:"Il trasporto aereo è escluso, ma treni e mezzi locali per raggiungere l'aeroporto di partenza possono avere problemi."}
+{from:"2026-10-17",to:"2026-10-21",fl:1,t:"Preavviso di sciopero del personale di volo in Francia",x:"Cinque sindacati di piloti e assistenti di volo hanno proclamato uno sciopero dal 17 al 21 ottobre 2026. Controlla il tuo volo con la compagnia nei giorni prima."},
+{from:"2026-10-16",to:"2026-10-16",fl:1,air:/^(U2|EC|EJU)/i,t:"Sciopero easyJet in Italia",x:"Il 16 ottobre è proclamato uno sciopero nazionale di 24 ore del personale di volo easyJet in Italia."},
+{from:"2026-10-30",to:"2026-10-30",fa:1,t:"Sciopero generale in Italia",x:"Il trasporto aereo è escluso, ma treni e mezzi locali per raggiungere l'aeroporto di partenza possono avere problemi."}
 ];
 /* clima medio di Parigi (indicativo, massime/minime) */
 var CLIM=[[8,3],[9,3],[13,5],[16,7],[20,11],[23,14],[25,16],[25,16],[21,13],[16,10],[11,6],[8,4]];
-return {G:G,FROM:FROM,PAR:PAR,SEG:SEG,START:START,STOPS:STOPS,LEGS:LEGS,RET:RET,ARR:ARR,V:V,MEAL:MEAL,ORD:ORD,PH:PH,AVV:AVV,CLIM:CLIM};
+return {G:G,FROM:FROM,PAR:PAR,SEG:SEG,START:START,STOPS:STOPS,LEGS:LEGS,RET:RET,ARR:ARR,V:V,MEAL:MEAL,ORD:ORD,PH:PH,AVV:AVV,CLIM:CLIM,BUNDLES:BUNDLES,ORDER:ORDER,HZ:HZ,AIRG:AIRG,AIRT:AIRT,PVIS:PVIS,TAX:TAX};
 })();
 
 </script>
@@ -911,8 +1100,10 @@ return {G:G,FROM:FROM,PAR:PAR,SEG:SEG,START:START,STOPS:STOPS,LEGS:LEGS,RET:RET,
 document.documentElement.classList.add("js");
 var S=PD.STOPS,V=PD.V;
 var DAYS=["lunedì","martedì","mercoledì","giovedì","venerdì","sabato","domenica"];
+var DAB=["Lun","Mar","Mer","Gio","Ven","Sab","Dom"];
 var MESI=["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
 var NUM={1:["une personne","ün per-SÒN"],2:["deux","DÖ"],3:["trois","TRUÀ"],4:["quatre","KATR"],5:["cinq","SANK"],6:["six","SIS"],7:["sept","SET"],8:["huit","UIT"],9:["neuf","NÖF"],10:["dix","DIS"]};
+var MAXD=10;
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}}
 function lj(k,d){try{return JSON.parse(ls(k)||"null")||d}catch(e){return d}}
 function esc(x){return String(x==null?"":x).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
@@ -923,6 +1114,7 @@ function eur(x){return (Math.round(x*100)/100).toLocaleString("it-IT",{minimumFr
 function $(s,r){return (r||document).querySelector(s)}
 function $$(s,r){return [].slice.call((r||document).querySelectorAll(s))}
 function dateObj(d){var p=d.split("-");return new Date(Date.UTC(+p[0],+p[1]-1,+p[2],12))}
+function addDays(d,k){var o=dateObj(d);o.setUTCDate(o.getUTCDate()+k);return o.toISOString().slice(0,10)}
 function wdOf(d){return (dateObj(d).getUTCDay()+6)%7}
 function dateLong(d){var o=dateObj(d);return DAYS[wdOf(d)]+" "+o.getUTCDate()+" "+MESI[o.getUTCMonth()]+" "+o.getUTCFullYear()}
 function dateShort(d){var o=dateObj(d);return o.getUTCDate()+" "+MESI[o.getUTCMonth()]}
@@ -940,59 +1132,145 @@ var hrs=parseInt(String(-off),10);if(!isFinite(hrs))hrs=1;return utc+hrs*60}
 
 /* ===== configurazione ===== */
 var CFG=lj("par-trip",null);
+function nDays(c){if(!c||!c.date_r||c.date_r<=c.date)return 1;return Math.round((dateObj(c.date_r)-dateObj(c.date))/864e5)+1}
 function fromCode(s){s=String(s||"");var m=/\(([A-Z]{3})\)/i.exec(s)||/^\s*([A-Z]{3})\s*$/i.exec(s);if(m)return m[1].toUpperCase();var low=s.toLowerCase();for(var i=0;i<PD.FROM.length;i++)if(low&&PD.FROM[i][1].toLowerCase().indexOf(low)===0)return PD.FROM[i][0];return ""}
 function fromInfo(c){var f=PD.FROM.filter(function(x){return x[0]===c.fromCode})[0];return {code:c.fromCode||"",name:f?f[1]:(c.from||"Partenza"),url:f?f[2]:(c.fromCode?"https://www.flightradar24.com/data/airports/"+c.fromCode.toLowerCase():"")}}
+function hzOf(id){return PD.HZ.filter(function(z){return z[0]===id})[0]||PD.HZ[0]}
+/* l'alloggio (solo per i viaggi di più giorni) */
+function home(){var s=(CFG&&CFG.stay)||{},z=hzOf(s.zone),geo=!!(s.pos&&s.geo),vz=z[3]||"X";
+if(z[0]==="altro"&&geo){var bz=null,bd=1.3;PD.HZ.forEach(function(q){if(q[0]==="altro"||!q[3]||q[3]==="X")return;var d=hav(s.pos,q[2]);if(d<bd){bd=d;bz=q}});if(bz)vz=bz[3]}
+return{pos:geo?s.pos:z[2],geo:geo,addr:s.addr||"",q:s.addr?(s.addr+(/paris|versailles|\d{5}/i.test(s.addr)?"":", Paris")):(z[1].split(" / ")[0]+", Paris"),name:s.addr||("Alloggio in zona "+z[1]),zn:z[1],alt:z[0]==="altro",where:z[0]==="altro"?(s.addr||"un indirizzo da indicare"):"zona "+z[1],vz:vz,cin:s.cin||"15:00",cout:s.cout||"11:00",price:+s.price||0,type:s.type||"h3"}}
 
-/* ===== pianificazione ===== */
-function zoneOf(id){return id==="start"?"A":S[id].z}
-function legOf(a,b){var L=PD.LEGS[a+">"+b];if(L)return L;var pa=a==="start"?PD.START:S[a].pos,pb=S[b].pos,d=hav(pa,pb);
-if(d<1.6){var w=Math.round(d*1.3/4.5*60)+3;return{min:w,mode:"walk",txt:"A piedi, circa "+w+" minuti.",g:[{w:[pa,pb]}]}}
-var m=Math.round(12+d*2.8);return{min:m,mode:"metro",txt:"In metro, circa "+m+" minuti: Google Maps ti indica la linea migliore.",g:[{w:[pa,pb],dash:1}]}}
+/* ===== spostamenti ===== */
+function posOf(id){return id==="start"?PD.START:id==="home"?home().pos:S[id].pos}
+function zoneOf(id){return id==="start"?"A":id==="home"?home().vz:S[id].z}
+var VERS={versailles:1,trianon:1};
+function estMin(pa,pb){var d=hav(pa,pb);return d<1.6?Math.round(d*1.3/4.5*60)+3:Math.round(12+d*2.8)}
+function versLeg(a,b){var toV=!!VERS[b],other=toV?a:b,po=posOf(other),sm=[48.8534,2.3446],st=[48.8008,2.1301],vp=toV?S[b].pos:S[a].pos,walk=(toV?b:a)==="trianon"?30:8,acc=estMin(po,sm);
+var hb=b==="home";
+if(toV)return{min:acc+40+walk,mode:"metro",rides:1,txt:"Raggiungi una stazione del RER C (Saint-Michel Notre-Dame, Musée d'Orsay o Invalides), poi RER C direzione Versailles Château Rive Gauche: circa 40 minuti, più "+walk+" a piedi. Basta il biglietto metro-treno-RER da 2,55 €.",g:[{w:[po,sm],dash:1},["rerC","Saint-Michel Notre-Dame","Versailles Château Rive Gauche"],{w:[st,vp]}]};
+return{min:acc+40+walk,mode:"metro",rides:1,txt:"A piedi fino alla stazione Versailles Château Rive Gauche ("+walk+" minuti), poi RER C verso Parigi: circa 40 minuti fino a Saint-Michel Notre-Dame"+(hb?", poi all'alloggio (Google Maps ti indica la strada).":"."),g:[{w:[vp,st]},["rerC","Versailles Château Rive Gauche","Saint-Michel Notre-Dame"],{w:[sm,po],dash:1}]}}
+function legOf(a,b){var L=PD.LEGS[a+">"+b];if(L)return L;
+if((VERS[a]||VERS[b])&&!(VERS[a]&&VERS[b]))return versLeg(a,b);
+if(a==="versailles"&&b==="trianon")return{min:25,mode:"walk",txt:"A piedi nel parco fino al Trianon, circa 25 minuti (c'è anche il trenino a pagamento).",g:[{w:[S.versailles.pos,[48.8090,2.1120],S.trianon.pos]}]};
+var pa=posOf(a),pb=posOf(b),d=hav(pa,pb),hb=b==="home";
+if(d<0.25)return{min:3,mode:"walk",txt:hb?"L'alloggio è a due passi.":"A pochi passi.",g:[{w:[pa,pb]}]};
+if(d<1.6){var w=Math.round(d*1.3/4.5*60)+3;return{min:w,mode:"walk",txt:"A piedi"+(hb?" fino all'alloggio":"")+", circa "+w+" minuti.",g:[{w:[pa,pb]}]}}
+var m=Math.round(12+d*2.8);return{min:m,mode:"metro",txt:"In metro"+(hb?" fino all'alloggio":"")+", circa "+m+" minuti: Google Maps ti indica la linea migliore.",g:[{w:[pa,pb],dash:1}]}}
 function retOf(ap,id){var R=PD.RET[ap];return R[id]||R.A}
-function scClose(d){var m=dateObj(d).getUTCMonth();return (m>=3&&m<=8)?19*60:17*60}
+/* dall'alloggio all'aeroporto */
+/* stazione della linea dell'aeroporto più comoda per l'alloggio (d = minuti in più o in meno rispetto a Châtelet) */
+var AST={CDG:{ln:"rerB",nm:"RER B",dal:"dal RER B",end:"Aéroport CDG 2",ride:35,st:[["Châtelet–Les Halles",[48.8619,2.3470],0],["Saint-Michel Notre-Dame",[48.8534,2.3446],2],["Gare du Nord",[48.8809,2.3553],-5]]},
+ORY:{ln:"m14",nm:"metro 14",dal:"dalla metro 14",end:"Aéroport d'Orly",ride:25,st:[["Châtelet",[48.8590,2.3470],0],["Pyramides",[48.8657,2.3343],2],["Madeleine",[48.8700,2.3245],3],["Gare de Lyon",[48.8443,2.3739],-3],["Bercy",[48.8401,2.3793],-4],["Cour Saint-Émilion",[48.8333,2.3866],-5],["Bibliothèque F. Mitterrand",[48.8299,2.3762],-6],["Olympiades",[48.8271,2.3668],-7]]},
+BVA:{ln:"m1",nm:"metro 1",dal:"dalla metro 1",end:"Porte Maillot",st:[["Châtelet",[48.8582,2.3474],0],["Hôtel de Ville",[48.8573,2.3518],1],["Saint-Paul",[48.8551,2.3608],3],["Bastille",[48.8531,2.3691],4],["Gare de Lyon",[48.8457,2.3731],6],["Louvre–Rivoli",[48.8608,2.3409],-1],["Palais Royal–Louvre",[48.8624,2.3364],-2],["Tuileries",[48.8644,2.3297],-3],["Concorde",[48.8656,2.3212],-5],["Champs-Élysées–Clemenceau",[48.8676,2.3140],-6],["Franklin D. Roosevelt",[48.8690,2.3096],-7],["George V",[48.8720,2.3006],-8],["Charles de Gaulle–Étoile",[48.8738,2.2950],-9],["Argentine",[48.8756,2.2894],-11],["Porte Maillot",[48.8781,2.2826],-12]]}};
+function access(pos,to){var d=hav(pos,to);if(d<0.25)return{min:3,mode:"walk",d:d};if(d<1.6)return{min:Math.round(d*1.3/4.5*60)+3,mode:"walk",d:d};return{min:Math.round(12+d*2.8),mode:"metro",d:d}}
+function airStation(){var ap=CFG.to,S0=AST[ap],h=home().pos,best=null;
+S0.st.forEach(function(x){var a=access(h,x[1]),v=a.min+x[2];if(!best||v<best.v-1)best={v:v,a:a,n:x[0],pos:x[1],dl:x[2]}});return Object.assign(best,{S:S0,ap:ap})}
+/* dall'alloggio all'aeroporto */
+function homeAir(){var b=airStation(),ap=b.ap,S0=b.S,pm=b.n==="Porte Maillot",wk=b.a.mode==="walk";
+var ride=ap==="BVA"?(pm?"poi navetta Aérobus da Porte Maillot fino a Beauvais, circa 1 h 15. Arriva alla fermata almeno 15 minuti prima.":"poi metro 1 fino a Porte Maillot e navetta Aérobus fino a Beauvais, circa 1 h 30. Arriva alla fermata almeno 15 minuti prima."):"poi "+S0.nm+" da "+b.n+" fino "+(ap==="CDG"?"all'aeroporto Charles de Gaulle":"ad Aéroport d'Orly")+", circa "+(S0.ride+b.dl)+" minuti.";
+var g=[{w:[home().pos,b.pos],dash:wk?0:1}];if(ap==="BVA"){if(!pm)g.push(["m1",b.n,"Porte Maillot"]);g.push(["bva","Porte Maillot","Aéroport de Beauvais"])}else g.push([S0.ln,b.n,S0.end]);
+return{min:b.a.min+PD.RET[ap].A.min-5+b.dl,txt:(wk?"A piedi fino a ":"In metro fino a ")+b.n+" ("+b.a.min+" minuti), "+ride,g:g}}
+/* dall'arrivo in città all'alloggio, il primo giorno */
+function arrLeg(){var b=airStation(),S0=b.S,wk=b.a.mode==="walk",chat=b.dl===0,first=CFG.to==="BVA"?"Dalla navetta prendi la metro 1 fino a ":"Scendi "+S0.dal+" a ";
+var txt=(chat?"Da "+b.n+": ":first+b.n+", poi ")+(wk?(b.a.d<0.25?"l'alloggio è a due passi.":"a piedi fino all'alloggio, circa "+b.a.min+" minuti."):"in metro fino all'alloggio, circa "+b.a.min+" minuti: Google Maps ti indica la linea migliore.");
+var g=[];if(!chat)g.push([S0.ln,AST[CFG.to].st[0][0],b.n]);g.push({w:[b.pos,home().pos],dash:wk?0:1});
+return{min:Math.max(3,b.a.min+b.dl),mode:b.a.mode,txt:txt,g:g}}
+function lastRet(prev){var HA=homeAir(),l=prev==="home"?null:legOf(prev,"home");
+return{min:(l?l.min:0)+15+HA.min,txt:(l?"Torna all'alloggio a ritirare i bagagli: "+l.txt.charAt(0).toLowerCase()+l.txt.slice(1)+" Poi: ":"Ritira i bagagli e parti: ")+HA.txt.charAt(0).toLowerCase()+HA.txt.slice(1),g:(l?l.g:[]).concat(HA.g),toHome:l,rides:l&&l.mode==="metro"?1:0}}
+
+/* ===== pianificazione di una giornata ===== */
+function win(id,wd,date){var w=S[id].win;return w?w(wd,date,sunset(date)):null}
 function sim(acts,dur,ctx){
-var t=ctx.c0,prev="start",items=[],B=false,L=false,D=false;
-function meal(k,d){var w=prev==="start"?3:8;t+=w;items.push({k:"meal",m:k,t:t,d:d,z:zoneOf(prev),walk:w});t+=d}
+var t=ctx.c0,prev=ctx.start,items=[],B=false,L=false,D=false,late=0,lastEnd=0;
+function meal(k,d){var w=prev==="start"||prev==="home"?3:8;t+=w;items.push({k:"meal",m:k,t:t,d:d,z:zoneOf(prev),walk:w,near:prev==="home"});t+=d}
 if(ctx.wantB){meal("col",30);B=true}
 acts.forEach(function(id){
 var lg=legOf(prev,id);
-if(!L&&ctx.wantL&&(t>=11*60+50||(t>=11*60+15&&t+lg.min+dur[id]>13*60+50))){meal("pra",60);L=true}
-if(!D&&ctx.wantD&&t>=18*60+45){meal("cen",55);D=true}
-t+=lg.min;items.push({k:"act",id:id,t:t,d:dur[id],leg:lg});t+=dur[id];prev=id});
-var R=retOf(ctx.ap,prev);
-if(!L&&ctx.wantL&&t<15*60+30){meal("pra",50);L=true}
-if(!D&&ctx.wantD){meal("cen",55);D=true}
-if(!D&&t>=15*60+30&&t+25+R.min<=ctx.dl){t+=5;items.push({k:"snk",t:t,d:20,z:zoneOf(prev)});t+=20}
-return{items:items,end:t,prev:prev,ret:R,slack:ctx.dl-(t+R.min),B:B,L:L,D:D}}
-function plan(c){
-var A=PD.PAR[c.to],land=toMin(c.a_arr),dep=toMin(c.r_dep),imb=toMin(c.r_imb);
-var c0=land+A.inMin,dl=Math.min(dep-A.buf,imb!=null?imb-45:1e9);
-var ctx={c0:c0,dl:dl,ap:c.to,wantB:c0<10*60+45,wantL:c0<14*60&&dl>13*60+30,wantD:dl>=18*60+15};
-var acts=["marais","notredame","louvre","eiffel","montmartre"],dur={},dropped=[],shrunk=[],r,g=0;
-acts.forEach(function(id){dur[id]=S[id].id});
-while(g++<60){r=sim(acts,dur,ctx);if(r.slack>=0)break;
+if(!L&&ctx.wantL&&(t>=11*60+50||(t>=11*60+15&&t+lg.min+dur[id]>13*60+50)||(t>=11*60&&t+lg.min+dur[id]>14*60+15))){meal("pra",60);L=true}
+if(!D&&ctx.wantD&&t>=ctx.dinAt){meal("cen",55);D=true}
+t+=lg.min;var w=win(id,ctx.wd,ctx.date);if(w&&t<w[0])t=w[0];
+if(D&&ctx.multi)late+=60;
+if(w&&t+dur[id]>w[1])late+=t+dur[id]-w[1];
+items.push({k:"act",id:id,t:t,d:dur[id],leg:lg});t+=dur[id];lastEnd=t;prev=id});
+var R=ctx.endOf(prev);
+if(!L&&ctx.wantL&&t<15*60+30&&t>=11*60+15){meal("pra",50);L=true}
+if(ctx.multi&&lastEnd>ctx.dinAt+20)late+=lastEnd-ctx.dinAt-20;
+if(!D&&ctx.wantD){
+ if(ctx.free&&t<ctx.dinAt-45){var fl=legOf(prev,"home");items.push({k:"free",t:t+2,d:ctx.dinAt-t-2,leg:fl,from:prev});t=ctx.dinAt;prev="home";R=ctx.endOf(prev)}
+ meal("cen",55);D=true}
+if(ctx.snack&&!D&&t>=15*60+30&&t+25+R.min<=ctx.dl){t+=5;items.push({k:"snk",t:t,d:20,z:zoneOf(prev)});t+=20}
+var slack=ctx.dl-(t+R.min);if(late>0)slack=Math.min(slack,-late);
+return{items:items,end:t,prev:prev,ret:R,slack:slack,B:B,L:L,D:D}}
+function planDay(acts,ctx,opt){
+var dur={},dropped=[],r,g=0,minLen=ctx.single?1:0;
+acts=acts.slice();acts.forEach(function(id){dur[id]=S[id].id});
+while(g++<80){r=sim(acts,dur,ctx);if(r.slack>=0)break;
 var cand=acts.slice().sort(function(a,b){return S[b].p-S[a].p});
 var sh=cand.filter(function(id){return dur[id]>S[id].min})[0];
-if(sh){dur[sh]=S[sh].min;if(shrunk.indexOf(sh)<0)shrunk.push(sh);continue}
-if(acts.length>1){dropped.push(cand[0]);acts.splice(acts.indexOf(cand[0]),1);continue}
+if(sh){dur[sh]=S[sh].min;continue}
+if(acts.length>minLen){dropped.push(cand[0]);acts.splice(acts.indexOf(cand[0]),1);continue}
 if(ctx.wantD){ctx.wantD=false;continue}
+if(!ctx.single&&ctx.wantL){ctx.wantL=false;continue}
+if(!ctx.single&&ctx.wantB){ctx.wantB=false;continue}
 break}
 var none=false;
 if(r.slack<0){acts=[];ctx.wantB=false;ctx.wantL=false;ctx.wantD=false;r=sim(acts,dur,ctx);none=true}
-/* tappe facoltative se avanza tempo */
-function tryIns(id,after,check){var i=acts.indexOf(after);if(i<0||r.slack<60)return;var a2=acts.slice();a2.splice(i+1,0,id);dur[id]=S[id].id;var r2=sim(a2,dur,ctx);
-if(r2.slack>=15&&(!check||check(r2))){acts=a2;r=r2}}
+function tryIns(id,after){var i=acts.indexOf(after);if(i<0||r.slack<60||acts.indexOf(id)>=0)return;var a2=acts.slice();a2.splice(i+1,0,id);dur[id]=S[id].id;var r2=sim(a2,dur,ctx);if(r2.slack>=15){acts=a2;r=r2}}
 if(!none){
-tryIns("saintechapelle","notredame",function(r2){var it=r2.items.filter(function(x){return x.id==="saintechapelle"})[0];return it&&it.t>=9*60&&it.t+it.d<=scClose(c.date)});
-if(acts.indexOf("montmartre")>=0)tryIns("arc","eiffel");
+tryIns("saintechapelle","notredame");
+if(opt&&opt.arc&&acts.indexOf("montmartre")>=0)tryIns("arc","eiffel");
 var order=acts.slice().sort(function(a,b){return S[a].p-S[b].p}),ch=true,k=0;
-while(r.slack>=15&&ch&&k++<200){ch=false;for(var i=0;i<order.length;i++){var id=order[i];if(dur[id]+5<=S[id].max){dur[id]+=5;var r2=sim(acts,dur,ctx);if(r2.slack>=10){r=r2;ch=true}else dur[id]-=5}}}
-}
-shrunk=acts.filter(function(id){return dur[id]<S[id].id-4});
+while(r.slack>=15&&ch&&k++<200){ch=false;for(var i=0;i<order.length;i++){var id=order[i];if(dur[id]+5<=S[id].max){dur[id]+=5;var r2=sim(acts,dur,ctx);if(r2.slack>=10){r=r2;ch=true}else dur[id]-=5}}}}
+var shrunk=acts.filter(function(id){return dur[id]<S[id].id-4});
+return{r:r,acts:acts,dropped:dropped,shrunk:shrunk,none:none}}
+function ridesOf(items){var n=0;items.forEach(function(x){var l=x.leg;if(x.k==="act"||x.k==="free"||x.k==="night"){if(l&&l.mode==="metro")n++}});return n}
+
+/* gita in giornata: come la prima versione dell'app */
+function planSingle(c){
+var A=PD.PAR[c.to],land=toMin(c.a_arr),dep=toMin(c.r_dep),imb=toMin(c.r_imb),wd=wdOf(c.date);
+var c0=land+A.inMin,dl=Math.min(dep-A.buf,imb!=null?imb-45:1e9);
+var ctx={single:1,c0:c0,start:"start",dl:dl,wd:wd,date:c.date,endOf:function(p){return retOf(c.to,p)},wantB:c0<10*60+45,wantL:c0<14*60&&dl>13*60+30,wantD:dl>=18*60+15,dinAt:18*60+45,snack:1};
+var x=planDay(["marais","notredame","louvre","eiffel","montmartre"],ctx,{arc:1}),r=x.r;
 var items=[{k:"air",t:land,d:A.inMin,c0:c0}].concat(r.items);
 items.push({k:"ret",t:r.end,d:r.ret.min,ret:r.ret,arr:r.end+r.ret.min,slack:r.slack,dl:dl});
 var n=0;items.forEach(function(it){if(it.k==="act")it.n=++n});
-return{items:items,acts:acts,dropped:dropped,shrunk:shrunk,none:none,c0:c0,dl:dl,land:land,dep:dep,imb:imb,leave:r.end,prev:r.prev,B:r.B,L:r.L,D:r.D,A:A}}
+return{kind:"single",i:0,date:c.date,wd:wd,items:items,acts:x.acts,dropped:x.dropped,shrunk:x.shrunk,none:x.none,c0:c0,dl:dl,land:land,dep:dep,imb:imb,leave:r.end,prev:r.prev,B:r.B,L:r.L,D:r.D,A:A,rides:ridesOf(items)+(c.to==="BVA"?2:0)}}
+
+/* viaggio di più giorni */
+function frame(c,i,n){var A=PD.PAR[c.to],date=addDays(c.date,i),wd=wdOf(date),kind=i===0?"first":i===n-1?"last":"mid",f={i:i,date:date,wd:wd,kind:kind,A:A,acts:[]};
+if(kind==="first"){var land=toMin(c.a_arr),tC=land+A.inMin,lh=arrLeg(),tH=tC+lh.min;f.land=land;f.tC=tC;f.tH=tH;f.lh=lh;f.c0=tH+15;f.dl=22*60+45}
+else{f.c0=8*60+45;f.dl=22*60+45}
+if(kind==="last"){var dep=toMin(c.r_dep),imb=toMin(c.r_imb);f.dep=dep;f.imb=imb;f.dl=Math.min(dep-A.buf,imb!=null?imb-45:1e9);f.cap=f.dl-homeAir().min-15-f.c0-30-(f.dl>14*60?60:0)-30}
+else f.cap=f.dl-f.c0-(f.c0<10*60+45?30:0)-(f.c0<14*60?60:0)-55-45-60;
+return f}
+function assign(days,n){var cap=days.map(function(d){return d.cap}),left=[],pri=function(b){return b.full?(n>=4?0:2):b.core?1:2};
+PD.BUNDLES.map(function(b,i){return[b,i]}).sort(function(x,y){return pri(x[0])-pri(y[0])||x[1]-y[1]}).map(function(x){return x[0]}).forEach(function(b){var best=-1,bv=-1e9;
+days.forEach(function(d,i){if(b.cl&&b.cl.indexOf(d.wd)>=0)return;if(b.full&&d.kind!=="mid")return;var v=cap[i]-b.need;if(v>bv){bv=v;best=i}});
+if(best<0||cap[best]<b.need*(b.core?0.55:1)){left.push(b);return}
+var ok=b.acts.filter(function(id){return !(S[id].cl&&S[id].cl.indexOf(days[best].wd)>=0)});
+days[best].acts=days[best].acts.concat(ok);days[best].themes=(days[best].themes||[]).concat([b.t]);cap[best]-=b.need});
+days.forEach(function(d){if(d.acts.indexOf("louvremus")>=0)d.acts=d.acts.filter(function(x){return x!=="louvre"});d.acts.sort(function(a,b){return PD.ORDER.indexOf(a)-PD.ORDER.indexOf(b)})});
+return left}
+function planMulti(f,c){var last=f.kind==="last";
+var ctx={multi:1,c0:f.c0,start:"home",dl:f.dl,wd:f.wd,date:f.date,
+endOf:last?lastRet:function(p){return legOf(p,"home")},
+wantB:f.c0<10*60+45,wantL:f.c0<14*60&&f.dl>13*60+30,wantD:last?f.dl>=18*60+15:f.c0<21*60+30,dinAt:last?18*60+45:19*60+30,free:!last,snack:last};
+var x=planDay(f.acts,ctx,null),r=x.r,items=[];
+if(f.kind==="first"){items.push({k:"air",t:f.land,d:f.A.inMin,c0:f.tC,multi:1});items.push({k:"home",t:f.tH,d:15,arr:1,leg:f.lh})}
+else items.push({k:"home",t:f.c0,d:0,co:last?1:0,mor:last?0:1});
+items=items.concat(r.items);
+var fr=last&&!x.none&&!x.acts.length&&r.slack>=75?{k:"free",t:r.end,d:Math.floor((r.slack-30)/5)*5,last:1}:null,rt=r.end+(fr?fr.d:0);if(fr)items.push(fr);
+if(last)items.push({k:"ret",t:rt,d:r.ret.min,ret:r.ret,arr:rt+r.ret.min,slack:r.slack-(fr?fr.d:0),dl:f.dl,multi:1});
+else if(r.prev!=="home"||items[items.length-1].k==="meal")items.push({k:"night",t:r.end,d:r.ret.min,leg:r.ret});
+var n=0;items.forEach(function(it){if(it.k==="act")it.n=++n});
+var rides=ridesOf(items)+(last&&r.ret.rides?1:0)+(c.to==="BVA"&&(f.kind==="first"||last)?1:0);
+return Object.assign(f,{items:items,acts:x.acts,dropped:x.dropped,shrunk:x.shrunk,none:x.none,leave:rt,prev:r.prev,B:r.B,L:r.L,D:r.D,rides:rides,end:rt+(last?0:r.ret.min)})}
+function buildTrip(c){var n=nDays(c),A=PD.PAR[c.to];
+if(n===1)return{multi:false,n:1,A:A,days:[planSingle(c)],left:[]};
+var days=[];for(var i=0;i<n;i++)days.push(frame(c,i,n));
+var left=assign(days,n);
+return{multi:true,n:n,A:A,days:days.map(function(f){return planMulti(f,c)}),left:left}}
 
 /* ===== stato dei locali nel giorno scelto ===== */
 function ivs(h){return h?h.split(",").map(function(s){var p=s.split("-"),a=toMin(p[0]),b=toMin(p[1]);if(b<=a)b+=1440;return[a,b]}):[]}
@@ -1003,51 +1281,84 @@ for(i=0;i<I.length;i++)if(I[i][0]>t)return{c:"mid",t:"Apre alle "+fmt(I[i][0])};
 return{c:"ko",t:"A quell'ora è chiuso"}}
 function hrsTxt(v,wd){var h=v.h[wd];return cap(DAYS[wd])+": "+(h?h.split(",").map(function(s){return s.replace("-","–").replace(/^0/,"").replace(/–0/,"–")}).join(" e "):"chiuso")}
 function vSorted(ids,wd,t){return ids.map(function(id){var v=V[id];return{id:id,v:v,s:vStat(v,wd,t)}}).sort(function(a,b){var o={ok:0,mid:1,ko:2};return o[a.s.c]-o[b.s.c]})}
-function vLi(o,wd,label){var v=o.v,q=v.n+" "+v.a+" Paris";
+function vLi(o,wd){var v=o.v,q=v.n+" "+v.a+(/Versailles/.test(v.a)?"":" Paris");
 return '<li class="'+(o.s.c==="ko"?"closed":"")+'"><b><a target="_blank" rel="noopener" href="'+esc(PD.G(q))+'">'+esc(v.n)+'</a></b> <span class="st '+o.s.c+'">'+(o.s.c==="ok"?"✓ ":o.s.c==="ko"?"⚠️ ":"⏱ ")+esc(o.s.t)+'</span> <a class="go sm" href="'+esc(gdir(q))+'" target="_blank" rel="noopener">↗︎ Portami lì</a> – '+v.r+' ★ · '+esc(v.a)+'. '+esc(v.d)+' <i style="font-style:normal;color:var(--mute)">'+esc(v.pr)+'</i><span class="hrs">🕐 '+esc(hrsTxt(v,wd))+'</span></li>'}
-var MN={col:"Colazione",pra:"Pranzo",cen:"Cena"},ZN={A:"in centro",B:"vicino al Louvre",C:"vicino alla Tour Eiffel",D:"a Montmartre",E:"vicino all'Arc de Triomphe"};
-function mealIds(m,z){var M=PD.MEAL[m];return M[z]||M.A||M[Object.keys(M)[0]]}
-function mealTitle(it){if(it.m==="cen"&&it.t<18*60+30)return "Cena anticipata "+ZN[it.z];return MN[it.m]+" "+ZN[it.z]}
+var MN={col:"Colazione",pra:"Pranzo",cen:"Cena"},ZN={A:"in centro",B:"vicino al Louvre",C:"vicino alla Tour Eiffel",D:"a Montmartre",E:"vicino all'Arc de Triomphe",F:"all'Opéra",G:"a Saint-Germain",H:"al Canal Saint-Martin",V:"a Versailles",X:"vicino all'alloggio"};
+function mealIds(m,z){var M=PD.MEAL[m];if(z==="X")return null;return M[z]||M.A||M[Object.keys(M)[0]]}
+function mealTitle(it){var where=it.near?"vicino all'alloggio":ZN[it.z]||"";if(it.m==="cen"&&it.t<18*60+30)return "Cena anticipata "+where;return MN[it.m]+" "+where}
 function ordBox(m){return '<div class="ord"><b>🍽️ Cosa ordinare</b>'+PD.ORD[m].map(function(o){return "<p><i>"+esc(o[0])+"</i> – "+esc(o[1])+"</p>"}).join("")+"</div>"}
+function nearBox(m){var h=home(),k={col:"boulangerie",pra:"bistrot",cen:"crêperie",snk:"boulangerie"}[m]||"boulangerie";
+return '<div class="eat"><h3>Dove mangiare</h3><p class="meta" style="margin:4px 0 8px">In questa zona non ho locali verificati: cerca una '+k+' con almeno 4 stelle vicino all\'alloggio.</p><a class="go sm" target="_blank" rel="noopener" href="'+esc("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(k+" near "+(h.geo?h.pos.join(","):h.q)))+'">🔎 '+cap(k)+' vicino all\'alloggio</a></div>'}
 
 /* ===== rendering ===== */
-var P=null,WD=0;
-window.PAR={get cfg(){return CFG},get plan(){return P},fmt:fmt,fdur:fdur,esc:esc,toMin:toMin,paris:paris,gdir:gdir,eur:eur,ls:ls,lj:lj,dateShort:dateShort,dateLong:dateLong,wd:function(){return WD},DAYS:DAYS,mealIds:mealIds,vSorted:vSorted,toast:toast,cap:cap,fromInfo:function(){return fromInfo(CFG)},
+var TRIP=null,P=null,WD=0,SEL=0;
+window.PAR={get cfg(){return CFG},get plan(){return P},get trip(){return TRIP},get sel(){return SEL},home:home,fmt:fmt,fdur:fdur,esc:esc,toMin:toMin,paris:paris,gdir:gdir,eur:eur,ls:ls,lj:lj,dateShort:dateShort,dateLong:dateLong,wd:function(){return WD},DAYS:DAYS,mealIds:mealIds,vSorted:vSorted,toast:toast,cap:cap,fromInfo:function(){return fromInfo(CFG)},
  L:{},on:function(fn){(this.L.f=this.L.f||[]).push(fn)},emit:function(){(this.L.f||[]).forEach(function(f){try{f()}catch(e){console.error(e)}})}};
 
-function stepHTML(it){var A=P.A,c=CFG,h="",cls="",ti="",body="";
+function goBtn(q,mode,label,icon){return '<a class="go" href="'+esc(gdir(q,mode))+'" target="_blank" rel="noopener"><span>'+icon+'</span> '+label+'</a>'}
+function stepHTML(it){var A=P.A,c=CFG,cls="",ti="",body="",h=TRIP.multi?home():null;
 if(it.k==="air"){cls="air";ti="Atterraggio a "+A.n;
-body='<p>'+esc(A.arr)+'</p><p class="meta">'+esc(A.tk)+' In centro, a Châtelet, verso le '+fmt(it.c0)+'.</p><a class="go" href="'+esc(gdir(c.to==="BVA"?"Porte Maillot, Paris":"Châtelet-Les Halles, Paris","transit"))+'" target="_blank" rel="noopener"><span>🚆</span> Portami in centro</a>'}
-else if(it.k==="meal"){cls="food";ti=mealTitle(it);var L=vSorted(mealIds(it.m,it.z),WD,it.t),first=L.filter(function(o){return o.s.c==="ok"})[0]||L[0];
-body='<p>'+(it.m==="col"?"Appena usciti dalla stazione, a pochi passi.":it.m==="pra"?"Un bistrot di quartiere: "+(it.d>=60?"un'ora a tavola, con calma.":"un pranzo veloce."):"Mangia qui e non in aeroporto: si spende meno e si mangia meglio. Tieni d'occhio l'orologio.")+'</p><div class="eat"><h3>Dove mangiare</h3><ul>'+L.map(function(o){return vLi(o,WD)}).join("")+'</ul></div><a class="go" href="'+esc(gdir(first.v.n+" "+first.v.a+" Paris"))+'" target="_blank" rel="noopener"><span>🚶</span> Portami lì</a>'}
-else if(it.k==="snk"){cls="food";ti="Ultimo assaggio prima di partire";var L2=vSorted(PD.MEAL.snk[it.z]||PD.MEAL.snk.A,WD,it.t);
-body='<p>Non c\'è tempo per una cena seduti: prendete qualcosa da mangiare sul treno o in aeroporto prima dei controlli.</p><div class="eat"><h3>Dove prenderlo</h3><ul>'+L2.map(function(o){return vLi(o,WD)}).join("")+'</ul></div>'}
+body='<p>'+esc(A.arr)+'</p><p class="meta">'+esc(A.tk)+(it.multi?' Poi vai all\'alloggio a lasciare i bagagli.':' In centro, a Châtelet, verso le '+fmt(it.c0)+'.')+'</p>'+(it.multi?goBtn(h.q,"transit","Portami all'alloggio","🏨"):goBtn(c.to==="BVA"?"Porte Maillot, Paris":"Châtelet-Les Halles, Paris","transit","Portami in centro","🚆"))}
+else if(it.k==="home"){cls="home";
+if(it.arr){ti="Arrivo all'alloggio";var early=toMin(h.cin)>it.t+15;body='<div class="leg"><i>'+(it.leg.mode==="walk"?"🚶":"🚇")+'</i><span>'+esc(it.leg.txt)+'</span></div><p>'+(early?"Il check-in è dalle "+esc(h.cin)+": lascia i bagagli, quasi tutte le strutture li tengono anche prima. Chiedi «Je peux laisser mes bagages ?».":"Check-in e una sistemata veloce, poi si riparte.")+'</p>'+goBtn(h.q,"transit","Portami all'alloggio","🏨")}
+else if(it.co){ti="Check-out e bagagli";body='<p>Lascia la camera entro le '+esc(h.cout)+'. '+(P.acts.length||P.items.some(function(x){return x.k==="free"})?'Chiedi di tenere i bagagli fino '+(P.leave>=13*60?'al pomeriggio':'a fine mattinata')+': «Je peux laisser mes bagages jusqu\'à '+(P.leave>=13*60?'cet après-midi':'midi')+' ?». Se non si può, ci sono depositi bagagli a pagamento come Nannybag o Bounce.':'Dopo colazione si parte per l\'aeroporto.')+'</p>'+(P.acts.length?'<p class="meta">Oggi: '+esc(P.acts.map(function(id){return S[id].t}).join(", "))+'.</p>':'')}
+else{ti="Si parte dall'alloggio";body='<p>Giorno '+(P.i+1)+(P.themes&&P.themes.length?': '+esc(P.themes.join(" e ")):'')+'.</p>'+(P.acts.length?'<p class="meta">Le tappe: '+esc(P.acts.map(function(id){return S[id].t}).join(", "))+'.</p>':'<p class="meta">Giornata libera: nessuna tappa in programma.</p>')}}
+else if(it.k==="meal"){cls="food";ti=mealTitle(it);var ids=mealIds(it.m,it.z);
+if(!ids)body='<p>'+(it.m==="col"?"Prima di partire, qualcosa al volo vicino all'alloggio.":"Vicino all'alloggio, per non riattraversare la città.")+'</p>'+nearBox(it.m);
+else{var L=vSorted(ids,WD,it.t),first=L.filter(function(o){return o.s.c==="ok"})[0]||L[0];
+body='<p>'+(it.m==="col"?(it.near?"A pochi passi dall'alloggio.":"Appena usciti dalla stazione, a pochi passi."):it.m==="pra"?(it.z==="V"?"Fuori dal parco ci sono crêperie a 5–10 minuti; oppure compra un panino in boulangerie per un picnic nei giardini.":"Un bistrot di quartiere: "+(it.d>=60?"un'ora a tavola, con calma.":"un pranzo veloce.")):(TRIP.multi&&P.kind!=="last"?"La cena della giornata, senza fretta.":"Mangia qui e non in aeroporto: si spende meno e si mangia meglio. Tieni d'occhio l'orologio."))+'</p><div class="eat"><h3>Dove mangiare</h3><ul>'+L.map(function(o){return vLi(o,WD)}).join("")+'</ul></div>'+goBtn(first.v.n+" "+first.v.a+(/Versailles/.test(first.v.a)?"":" Paris"),"walking","Portami lì","🚶")}}
+else if(it.k==="snk"){cls="food";ti="Ultimo assaggio prima di partire";var sids=PD.MEAL.snk[it.z]||(it.z==="X"?null:PD.MEAL.snk.A);
+body='<p>Non c\'è tempo per una cena seduti: prendete qualcosa da mangiare in viaggio o in aeroporto prima dei controlli.</p>'+(sids?'<div class="eat"><h3>Dove prenderlo</h3><ul>'+vSorted(sids,WD,it.t).map(function(o){return vLi(o,WD)}).join("")+'</ul></div>':nearBox("snk"))}
 else if(it.k==="act"){var s=S[it.id];cls=s.cls;ti=s.t;var meta=s.m,lg=it.leg;
 if(it.id==="notredame"){var op=WD>=5?"8:15–19:30":WD===3?"7:50–22:00":"7:50–19:00";meta+=" Oggi la cattedrale è aperta "+op+" (ultimo ingresso mezz'ora prima).";var oo=toMin(op.split("–")[0]),cc=toMin(op.split("–")[1]);if(it.t<oo)meta+=" Arrivi prima dell'apertura: goditi il sagrato e l'Île de la Cité.";else if(it.t>cc-30)meta+=" A quell'ora è chiusa: si vede solo da fuori."}
-if(it.id==="saintechapelle"){var mo=dateObj(c.date).getUTCMonth(),win=(mo>=10||mo<=2);meta=(win?"Biglietto 15 € (tariffa da novembre a marzo), aperta 9:00–17:00.":"Biglietto 20 € (tariffa da aprile a ottobre)"+((mo>=3&&mo<=8)?".":", aperta 9:00–17:00."))+" Prenotazione dell'orario obbligatoria."}
-if(it.id==="eiffel"||it.id==="montmartre"){var ss=sunset(c.date);if(Math.abs(it.t+it.d/2-ss)<120)meta+=" Il sole tramonta alle "+fmt(ss)+": "+(it.t+it.d>ss?"sei qui al momento giusto per la luce del tramonto.":"goditi l'ultima luce.")}
-body='<div class="leg"><i>'+(lg.mode==="walk"?"🚶":"🚇")+'</i><span>'+esc(lg.txt)+'</span></div><p>'+esc(s.d)+'</p>'+(meta?'<p class="meta">'+esc(meta)+'</p>':'')+'<a class="go" href="'+esc(gdir(s.q,lg.mode==="walk"?"walking":"transit"))+'" target="_blank" rel="noopener"><span>'+(lg.mode==="walk"?"🚶":"🚇")+'</span> Portami lì</a>'}
-else if(it.k==="ret"){cls="air";ti="Ritorno all'aeroporto";var R=it.ret,imb=P.imb!=null?fmt(P.imb):null;
-body='<p>'+esc(R.txt)+'</p><p class="meta">Arrivo in aeroporto verso le '+fmt(it.arr)+(imb?", imbarco dalle "+imb:"")+", decollo alle "+fmt(P.dep)+"."+(it.slack>=20?" Hai circa "+fdur(it.slack)+" di margine in più.":"")+'</p><a class="go" href="'+esc(gdir(A.gm,"transit"))+'" target="_blank" rel="noopener"><span>🚆</span> Portami in aeroporto</a>'}
+if(it.id==="saintechapelle"){var mo=dateObj(P.date).getUTCMonth(),wi=(mo>=10||mo<=2);meta=(wi?"Biglietto 15 € (tariffa da novembre a marzo), aperta 9:00–17:00.":"Biglietto 20 € (tariffa da aprile a ottobre)"+((mo>=3&&mo<=8)?".":", aperta 9:00–17:00."))+" Prenotazione dell'orario obbligatoria."}
+if(it.id==="eiffel"||it.id==="montmartre"){var ss=sunset(P.date);if(Math.abs(it.t+it.d/2-ss)<120)meta+=" Il sole tramonta alle "+fmt(ss)+": "+(it.t+it.d>ss?"sei qui al momento giusto per la luce del tramonto.":"goditi l'ultima luce.")}
+if(it.id==="louvre"&&TRIP.multi&&TRIP.days.some(function(d){return d.acts.indexOf("louvremus")>=0}))meta="Oggi solo da fuori: il museo è in programma un altro giorno.";
+body='<div class="leg"><i>'+(lg.mode==="walk"?"🚶":"🚇")+'</i><span>'+esc(lg.txt)+'</span></div><p>'+esc(s.d)+'</p>'+(meta?'<p class="meta">'+esc(meta)+'</p>':'')+goBtn(s.q,lg.mode==="walk"?"walking":"transit","Portami lì",lg.mode==="walk"?"🚶":"🚇")}
+else if(it.k==="free"&&it.last){cls="home";ti="Mattinata libera";body='<p>Hai circa '+fdur(it.d)+' prima di partire: lascia i bagagli all\'alloggio e goditi il quartiere, con un caffè in terrazza, gli ultimi acquisti o una passeggiata. Alle '+fmt(it.t+it.d)+' si riparte per l\'aeroporto.</p>'}
+else if(it.k==="free"){cls="home";var lng=it.d>=150;ti=lng?"Pomeriggio libero":"Tempo libero";body='<div class="leg"><i>'+(it.leg.mode==="walk"?"🚶":"🚇")+'</i><span>'+esc(it.leg.txt)+'</span></div><p>'+(lng?"Hai circa "+fdur(it.d)+" senza tappe fisse. Qualche idea: una crociera sulla Senna (circa un'ora, partenze dal Pont Neuf o dalla Tour Eiffel), la terrazza panoramica gratuita delle Galeries Lafayette, il Jardin du Luxembourg, oppure un riposo all'alloggio.":"Riposati all'alloggio, oppure goditi un caffè in terrazza o una passeggiata lungo la Senna.")+' La cena è verso le '+fmt(it.t+it.d)+'.</p>'}
+else if(it.k==="night"){cls="home";ti="Rientro all'alloggio";var nx=TRIP.days[P.i+1];body='<div class="leg"><i>'+(it.leg.mode==="walk"?"🚶":"🚇")+'</i><span>'+esc(it.leg.txt)+'</span></div><p>Buonanotte! '+(nx?(nx.kind==="last"?"Domani è l'ultimo giorno: check-out entro le "+esc(h.cout)+".":"Domani si riparte alle "+fmt(nx.c0)+(nx.acts.length?" con "+esc(S[nx.acts[0]].t)+".":".")):"")+'</p>'+goBtn(h.q,it.leg.mode==="walk"?"walking":"transit","Portami all'alloggio","🏨")}
+else if(it.k==="ret"){cls="air";ti=it.multi?"Bagagli e aeroporto":"Ritorno all'aeroporto";var R=it.ret,imb=P.imb!=null?fmt(P.imb):null;
+body='<p>'+esc(R.txt)+'</p><p class="meta">Arrivo in aeroporto verso le '+fmt(it.arr)+(imb?", imbarco dalle "+imb:"")+", decollo alle "+fmt(P.dep)+"."+(it.slack>=20?" Hai circa "+fdur(it.slack)+" di margine in più.":"")+'</p>'+(it.multi&&R.toHome?goBtn(h.q,R.toHome.mode==="walk"?"walking":"transit","Portami all'alloggio","🏨")+' ':'')+goBtn(A.gm,"transit","Portami in aeroporto","🚆")}
 return '<li class="step '+cls+'" data-t="'+it.t+'"><div class="t">'+fmt(it.t)+'</div><div class="body"><h2>'+esc(ti)+'</h2>'+body+'</div></li>'}
 
-function renderHero(){var c=CFG,A=P.A;
-$("#hsub").textContent=cap(dateLong(c.date))+". Atterraggio a "+A.n+" alle "+fmt(toMin(c.a_arr))+", volo di ritorno alle "+fmt(toMin(c.r_dep))+". "+(c.ppl===1?"Una persona":c.ppl+" persone")+", tutto a piedi o con metro e RER.";
-var segs=[],it=P.items;for(var i=0;i<it.length;i++){var a=it[i],b=it[i+1],end=b?b.t:P.dep;segs.push(Math.max(10,end-a.t))}
+function rangeTxt(){var c=CFG,a=dateObj(c.date),b=dateObj(c.date_r);if(TRIP.n===1)return dateShort(c.date);
+return a.getUTCMonth()===b.getUTCMonth()?a.getUTCDate()+"–"+b.getUTCDate()+" "+MESI[b.getUTCMonth()]:dateShort(c.date)+" – "+dateShort(c.date_r)}
+function renderHero(){var c=CFG,A=TRIP.A,n=TRIP.n,ttl=n===1?"Parigi in un giorno":"Parigi in "+n+" giorni";
+$("#hero h1").textContent=ttl;
+$("#hsub").textContent=(n===1?cap(dateLong(c.date))+".":"Da "+dateLong(c.date).replace(/ \d{4}$/,"")+" a "+dateLong(c.date_r)+": "+n+" giorni e "+(n-1)+(n===2?" notte.":" notti."))+" Atterraggio a "+A.n+" alle "+fmt(toMin(c.a_arr))+", volo di ritorno alle "+fmt(toMin(c.r_dep))+". "+(c.ppl===1?"Una persona":c.ppl+" persone")+(n>1?", alloggio in "+home().where+".":", tutto a piedi o con metro e RER.");
+$("#appt").innerHTML="Parigi <b>· "+esc(rangeTxt())+"</b>";
+$("#sps").textContent=(n===1?"in un giorno":"in "+n+" giorni")+" · "+rangeTxt();
+document.title=ttl+" – "+rangeTxt()}
+function renderBar(){var it=P.items,segs=[],end=P.kind==="single"||P.kind==="last"?P.dep:(P.end||P.leave);
+for(var i=0;i<it.length;i++){var a=it[i],b=it[i+1];segs.push(Math.max(10,(b?b.t:end)-a.t))}
 $("#hbar").innerHTML=segs.map(function(f){return '<i style="flex:'+f+'"></i>'}).join("");
-$("#hbar").setAttribute("aria-label","La giornata dalle "+c.a_arr+" alle "+c.r_dep);
-$("#hs").textContent=c.a_arr.replace(/^0/,"")+" atterraggio";$("#he").textContent=c.r_dep.replace(/^0/,"")+" decollo";
-$("#appt").innerHTML="Parigi <b>· "+esc(dateShort(c.date))+"</b>";
-$("#sps").textContent="in un giorno · "+dateShort(c.date);
-document.title="Parigi in un giorno – "+dateShort(c.date)}
+var s0=P.kind==="single"||P.kind==="first"?fmt(P.land)+" atterraggio":fmt(P.c0)+(P.kind==="last"?" check-out":" partenza"),s1=P.kind==="single"||P.kind==="last"?fmt(P.dep)+" decollo":fmt(end)+" alloggio";
+$("#hs").textContent=s0;$("#he").textContent=s1;$("#hbar").setAttribute("aria-label","La giornata: "+s0+", "+s1)}
 
 function renderShort(){var el=$("#short"),t=[];
-if(P.none)t.push("Con questi orari non resta tempo per entrare in città: tra il trasferimento dall'aeroporto e il ritorno non ci sono abbastanza minuti. Controlla gli orari dei voli.");
+if(P.none){t.push(P.kind==="single"?"Con questi orari non resta tempo per entrare in città: tra il trasferimento dall'aeroporto e il ritorno non ci sono abbastanza minuti. Controlla gli orari dei voli.":P.kind==="first"?"Atterri tardi: oggi c'è solo il tempo di arrivare all'alloggio.":P.kind==="last"?"Il volo parte presto: oggi c'è giusto il tempo per il check-out e il viaggio in aeroporto.":"Oggi non resta tempo per le tappe.")}
 else{if(P.dropped.length)t.push("Il tempo è poco, quindi ho tolto: "+P.dropped.map(function(id){return S[id].t}).join(", ")+".");
 if(P.shrunk.length&&!P.dropped.length)t.push("Il tempo è stretto: ho accorciato "+P.shrunk.map(function(id){return S[id].t}).join(", ")+".")}
+if(TRIP.multi&&SEL===0&&TRIP.left.length)t.push("In "+TRIP.n+" giorni non ci stanno: "+TRIP.left.map(function(b){return b.t}).join(", ")+". Allunga il viaggio per aggiungerli.");
 el.hidden=!t.length;el.textContent=t.length?"⏳ "+t.join(" "):""}
 
-function renderItin(){$("#steps").innerHTML=P.items.map(stepHTML).join("");buildWheel()}
+/* selettore dei giorni */
+function renderDays(){var multi=TRIP.multi,today=paris().d;
+$$(".dsel").forEach(function(box){box.hidden=!multi;if(!multi){box.innerHTML="";return}
+box.innerHTML=TRIP.days.map(function(d,i){var o=dateObj(d.date);return '<button type="button" class="dp'+(i===SEL?" on":"")+(d.date===today?" today":"")+'" data-d="'+i+'" aria-pressed="'+(i===SEL)+'"><small>Giorno '+(i+1)+'</small><span>'+DAB[d.wd]+' '+o.getUTCDate()+'</span><em>'+(d.kind==="first"?"✈️":d.kind==="last"?"🧳":d.acts.indexOf("versailles")>=0?"🏰":d.acts.indexOf("louvremus")>=0?"🖼️":"🚶")+'</em></button>'}).join("");
+var on=$(".dp.on",box);if(on)try{box.scrollLeft=Math.max(0,on.offsetLeft-box.clientWidth/2+on.clientWidth/2)}catch(e){}})}
+function selectDay(i){if(!TRIP||i===SEL||i<0||i>=TRIP.n)return;SEL=i;P=TRIP.days[SEL];WD=P.wd;lastNow=-2;renderDays();renderBar();renderShort();renderItin();renderPasti();liveTick();PAR.emit()}
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".dp");if(b){selectDay(+b.dataset.d)}});
+
+/* l'alloggio */
+function renderStay(){var el=$("#stay");if(!TRIP.multi){el.hidden=true;el.innerHTML="";return}
+var h=home(),c=CFG,nights=TRIP.n-1;el.hidden=false;
+var bk="https://www.booking.com/searchresults.it.html?ss="+encodeURIComponent(h.addr?"Paris":h.zn.split(" / ")[0]+", Paris")+"&checkin="+c.date+"&checkout="+c.date_r+"&group_adults="+c.ppl+"&no_rooms=1";
+el.innerHTML='<span class="se">🏨</span><div><b>'+esc(h.name)+'</b><small>'+(h.addr&&!h.alt?'Zona '+esc(h.zn)+' · ':'')+nights+(nights===1?" notte":" notti")+' · check-in dalle '+esc(h.cin)+' · check-out entro le '+esc(h.cout)+'</small><small>'+(h.geo?"📍 Posizione presa dall'indirizzo":h.addr?"📍 Indirizzo non trovato sulla mappa: uso il centro della zona":"📍 Posizione indicativa: centro della zona")+'</small><div class="lpa">'+'<a class="go sm" target="_blank" rel="noopener" href="'+esc(gdir(h.q,"transit"))+'">↗︎ Portami all\'alloggio</a>'+(h.addr?'':'<a class="go sm" target="_blank" rel="noopener" href="'+esc(bk)+'">🔎 Cerca su Booking</a>')+'<button type="button" class="go sm" data-edit>✏️ Modifica</button></div></div>';
+$("[data-edit]",el).addEventListener("click",function(){openSetup(false)})}
+
+function renderItin(){$("#ith").textContent=TRIP.multi?"Giorno "+(SEL+1)+" · "+DAYS[P.wd]+" "+dateObj(P.date).getUTCDate():"Itinerario";$("#steps").innerHTML=P.items.map(stepHTML).join("");buildWheel()}
 
 /* ghiera scorrevole */
 var WH={};
@@ -1058,7 +1369,7 @@ ol.parentNode.insertBefore(box,ol);
 var wheel=$("#wheel",box),detail=$("#detail",box),H=44,cur=-1,tick=0;
 var items=steps.map(function(li,i){var b=document.createElement("button");b.type="button";b.className="wi";b.setAttribute("role","option");b.innerHTML='<span class="wt"></span><span class="wn"></span>';b.children[0].textContent=$(".t",li).textContent;b.children[1].textContent=$("h2",li).textContent;b.addEventListener("click",function(){wheel.scrollTo({top:i*H,behavior:"smooth"})});wheel.appendChild(b);return b});
 function upd(){var y=wheel.scrollTop,idx=Math.max(0,Math.min(items.length-1,Math.round(y/H)));items.forEach(function(b,i){var d=Math.min(3,Math.abs(y/H-i));b.style.opacity=1-d*0.28;b.style.transform="scale("+(1-d*0.06)+")";b.classList.toggle("sel",i===idx);b.setAttribute("aria-selected",i===idx)});
-if(idx!==cur){cur=idx;detail.innerHTML=$(".body",steps[idx]).innerHTML}}
+if(idx!==cur){cur=idx;detail.innerHTML=$(".body",steps[idx]).innerHTML;$$("[data-edit]",detail).forEach(function(x){x.addEventListener("click",function(){openSetup(false)})})}}
 wheel.addEventListener("scroll",function(){if(!tick)tick=requestAnimationFrame(function(){tick=0;upd()})});
 wheel.addEventListener("keydown",function(e){if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();wheel.scrollTo({top:(cur+(e.key==="ArrowDown"?1:-1))*H,behavior:"smooth"})}});
 $("#wl",box).addEventListener("click",function(){var all=document.body.classList.toggle("showall");this.textContent=all?"Torna alla ghiera":"Mostra tutto l'elenco"});
@@ -1066,65 +1377,89 @@ WH={wheel:wheel,items:items,go:function(i){wheel.scrollTop=i*H;upd()}};upd()}
 
 /* banner dal vivo */
 var lastNow=-2;
-function liveTick(){var live=$("#live");if(!P||!CFG){live.hidden=true;return}
-var n=paris(),day=CFG.date,c=CFG,A=P.A;
+function todayIdx(){if(!TRIP)return -1;var d=paris().d;for(var i=0;i<TRIP.days.length;i++)if(TRIP.days[i].date===d)return i;return -1}
+function liveTick(){var live=$("#live");if(!TRIP||!CFG){live.hidden=true;return}
+var n=paris(),c=CFG,A=TRIP.A,D0=TRIP.days[0],DN=TRIP.days[TRIP.n-1];
 function set(cls,b,sp){live.className="live "+cls;live.innerHTML='<i class="dot"></i><div class="lt"><b></b><span></span></div>';$("b",live).textContent=b;$("span",live).textContent=sp;live.hidden=false}
-var steps=$$("#steps .step");
-if(n.d<day){var d=Math.round((dateObj(day)-dateObj(n.d))/864e5);set("calm",d===1?"Domani si parte! ✈️":"Mancano "+d+" giorni al viaggio",(c.a_num?"Volo "+c.a_num+(c.a_dep?" alle "+c.a_dep:"")+". ":"")+"Atterraggio a "+A.n+" alle "+c.a_arr+"."+(d<=2?" Ricorda di prenotare lo slot gratuito per Notre-Dame.":""));return}
-if(n.d>day){set("calm","Com'è andata a Parigi? 🇫🇷","L'itinerario resta qui come ricordo.");steps.forEach(function(li){li.classList.remove("now")});return}
-var i=-1;P.items.forEach(function(s,k){if(n.m>=s.t)i=k});
-steps.forEach(function(li,k){li.classList.toggle("now",k===i)});
-if(WH.items){WH.items.forEach(function(w,k){w.classList.toggle("now",k===i)});if(i!==lastNow){lastNow=i;if(i>=0)try{WH.go(i)}catch(e){}}}
+var steps=$$("#steps .step");steps.forEach(function(li){li.classList.remove("now")});if(WH.items)WH.items.forEach(function(w){w.classList.remove("now")});
+if(n.d<D0.date){var d=Math.round((dateObj(D0.date)-dateObj(n.d))/864e5);set("calm",d===1?"Domani si parte! ✈️":"Mancano "+d+" giorni al viaggio",(c.a_num?"Volo "+c.a_num+(c.a_dep?" alle "+c.a_dep:"")+". ":"")+"Atterraggio a "+A.n+" alle "+c.a_arr+"."+(d<=2?" Ricorda di prenotare lo slot gratuito per Notre-Dame.":""));return}
+if(n.d>DN.date){set("calm","Com'è andata a Parigi? 🇫🇷","L'itinerario resta qui come ricordo.");return}
+var di=todayIdx(),T=TRIP.days[di];if(!T)return;
+var i=-1;T.items.forEach(function(s,k){if(n.m>=s.t)i=k});
+if(di===SEL){steps.forEach(function(li,k){li.classList.toggle("now",k===i)});if(WH.items){WH.items.forEach(function(w,k){w.classList.toggle("now",k===i)});if(i!==lastNow){lastNow=i;if(i>=0)try{WH.go(i)}catch(e){}}}}
+var nm=function(s){return s?stepTitle(T,s):""};
+if(T.kind==="single"||T.kind==="last"){
 var LV=(window.PARLIVE||{}).r,rdep=c.r_dep,gt=LV&&LV.gate?" · Gate "+LV.gate:"",rnum=c.r_num?" "+c.r_num:"";if(LV&&(LV.dR||LV.dS))rdep=LV.dR||LV.dS;
 if(LV&&LV.st==="Canceled"){set("alert","Volo"+rnum+" cancellato","Controlla subito l'app o il sito della compagnia aerea.");return}
-if(n.m<P.land){set("","Oggi si parte! ✈️",(c.a_num?"Volo "+c.a_num+". ":"")+"Atterraggio a "+A.n+" alle "+c.a_arr+".");return}
-var LEAVE=P.leave;
-if(P.imb!=null&&n.m>=LEAVE+30&&n.m<P.imb){set("alert","Imbarco del volo"+rnum+" alle "+fmt(P.imb),"Tra "+fdur(P.imb-n.m)+". Decollo alle "+rdep+gt+".");return}
-if(n.m>=LEAVE+P.items[P.items.length-1].d){set("calm","Buon volo"+rnum+"! ✈️","Il decollo è alle "+rdep+(P.imb!=null?", imbarco dalle "+fmt(P.imb):"")+gt+".");return}
-if(n.m>=LEAVE){set("alert","È ora di andare in aeroporto",P.items[P.items.length-1].ret.txt+" Decollo alle "+rdep+gt+".");return}
-if(LEAVE-n.m<=60){set("alert","Parti per l'aeroporto tra "+fdur(LEAVE-n.m),"Alle "+fmt(LEAVE)+". Decollo alle "+rdep+".");return}
-var cur=P.items[i],nx=P.items[i+1],nm=function(s){var li=steps[P.items.indexOf(s)];return li?$("h2",li).textContent:""};
-set("","Ora: "+nm(cur),nx?"Prossima: "+nm(nx)+" tra "+fdur(nx.t-n.m):"")}
+if(T.kind==="single"&&n.m<T.land){set("","Oggi si parte! ✈️",(c.a_num?"Volo "+c.a_num+". ":"")+"Atterraggio a "+A.n+" alle "+c.a_arr+".");return}
+if(T.kind==="last"&&n.m<T.c0){set("calm","Ultimo giorno a Parigi","Check-out entro le "+home().cout+". Decollo alle "+rdep+".");return}
+var LEAVE=T.leave,R=T.items[T.items.length-1];
+if(T.imb!=null&&n.m>=LEAVE+30&&n.m<T.imb){set("alert","Imbarco del volo"+rnum+" alle "+fmt(T.imb),"Tra "+fdur(T.imb-n.m)+". Decollo alle "+rdep+gt+".");return}
+if(n.m>=LEAVE+R.d){set("calm","Buon volo"+rnum+"! ✈️","Il decollo è alle "+rdep+(T.imb!=null?", imbarco dalle "+fmt(T.imb):"")+gt+".");return}
+if(n.m>=LEAVE){set("alert",T.kind==="last"&&R.ret.toHome?"È ora di prendere i bagagli":"È ora di andare in aeroporto",R.ret.txt+" Decollo alle "+rdep+gt+".");return}
+if(LEAVE-n.m<=60){set("alert",(T.kind==="last"&&R.ret.toHome?"Torna all'alloggio per i bagagli tra ":"Parti per l'aeroporto tra ")+fdur(LEAVE-n.m),"Alle "+fmt(LEAVE)+". Decollo alle "+rdep+".");return}}
+else{
+if(T.kind==="first"&&n.m<T.land){set("","Oggi si parte! ✈️",(c.a_num?"Volo "+c.a_num+". ":"")+"Atterraggio a "+A.n+" alle "+c.a_arr+", poi in alloggio.");return}
+if(T.kind==="mid"&&n.m<T.c0){set("calm","Buongiorno! Giorno "+(di+1),"Si parte alle "+fmt(T.c0)+(T.acts.length?": "+T.acts.map(function(id){return S[id].t}).join(", ")+".":"."));return}
+var L=T.items[T.items.length-1];if(L.k==="night"&&n.m>=L.t+L.d){var nx=TRIP.days[di+1];set("calm","Buonanotte! 🌙",nx?"Domani si riparte alle "+fmt(nx.c0)+(nx.acts.length?" con "+S[nx.acts[0]].t+".":"."):"");return}}
+var cur=T.items[i],nx2=T.items[i+1];
+if(i<0){set("","Prima tappa: "+nm(T.items[0]),"Alle "+fmt(T.items[0].t)+", tra "+fdur(T.items[0].t-n.m));return}
+set("","Ora: "+nm(cur),nx2?"Prossima: "+nm(nx2)+" tra "+fdur(nx2.t-n.m):"")}
+function stepTitle(T,it){var keep=P;P=T;var h=stepHTML(it);P=keep;var m=/<h2>(.*?)<\/h2>/.exec(h);return m?m[1].replace(/&amp;/g,"&").replace(/&#39;/g,"'").replace(/&quot;/g,'"'):""}
 
 /* avvisi e scioperi */
-function avvList(){var c=CFG,wd=WD+1,res=[];PD.AVV.forEach(function(a){if(c.date<a.from||c.date>a.to)return;if(a.wd&&a.wd.indexOf(wd)<0)return;if(a.ap&&a.ap.indexOf(c.to)<0)return;
-if(a.air&&!(a.air.test(c.a_num||"")||a.air.test(c.r_num||"")))return;if(a.after!=null&&P&&!(P.land+P.A.inMin>=a.after-90||P.leave>=a.after-90))return;res.push(a)});return res}
+function avvList(){var c=CFG,res=[],last=TRIP.days[TRIP.n-1].date;
+function inR(a,d){return d>=a.from&&d<=a.to}
+PD.AVV.forEach(function(a){var hit;
+if(a.fa)hit=inR(a,c.date);
+else if(a.fl){hit=inR(a,c.date)||inR(a,last);if(a.air)hit=(a.air.test(c.a_num||"")&&inR(a,c.date))||(a.air.test(c.r_num||"")&&inR(a,last))}
+else hit=TRIP.days.some(function(d){if(!inR(a,d.date))return false;if(a.wd&&a.wd.indexOf(d.wd+1)<0)return false;if(a.ap&&a.ap.indexOf(c.to)<0)return false;
+ if(a.after!=null){var f=(d.kind==="single"||d.kind==="first")&&(d.land+d.A.inMin>=a.after-90),l=(d.kind==="single"||d.kind==="last")&&d.leave>=a.after-90;if(!f&&!l)return false}return true});
+if(hit)res.push(a)});return res}
 function renderAvv(){var el=$("#avv"),L=avvList();el.hidden=!L.length;el.innerHTML=L.map(function(a){return "<b>⚠️ "+esc(a.t)+"</b><p>"+esc(a.x)+"</p>"}).join("")}
 
-/* meteo del giorno */
+/* meteo dei giorni del viaggio */
 function wxKind(c){return c===0?["☀️","sun"]:c<=2?["🌤️","sun"]:c===3?["☁️","cloud"]:c<=48?["🌫️","fog"]:c<=67?["🌧️","rain"]:c<=77?["🌨️","snow"]:c<=82?["🌦️","rain"]:["⛈️","storm"]}
-function meteo(){var me=$("#meteo"),c=CFG;if(!c)return;var mo=dateObj(c.date).getUTCMonth(),cl=PD.CLIM[mo];
-function clim(){me.className="meteo";me.innerHTML='<span class="mi">🌤️</span><div><b>Meteo a '+MESI[mo]+'</b><span>Di solito '+cl[0]+'° di giorno e '+cl[1]+'° la sera (medie indicative). Le previsioni vere compaiono qui circa due settimane prima.</span></div>'}
-var days=Math.round((dateObj(c.date)-dateObj(paris().d))/864e5);if(days<0||days>15){clim();return}
-var key="par-met-"+c.date,sv=lj(key,null);if(sv)paint(sv);else clim();
-if(!window.fetch)return;
-fetch("https://api.open-meteo.com/v1/forecast?latitude=48.8566&longitude=2.3522&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FParis&start_date="+c.date+"&end_date="+c.date).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){var o={c:d.daily.weathercode[0],mx:d.daily.temperature_2m_max[0],mn:d.daily.temperature_2m_min[0],pp:d.daily.precipitation_probability_max[0],t:Date.now()};if(o.c==null||o.mx==null)return;ls(key,JSON.stringify(o));paint(o)}).catch(function(){});
-function paint(o){var k=wxKind(o.c),rain=o.pp!=null?o.pp>=40:(o.c>=51&&o.c<=82);me.className="meteo"+(rain?" rain":"");
-me.innerHTML='<span class="mi"></span><div><b></b><span></span></div>';$(".mi",me).textContent=k[0];$("b",me).textContent="Previsioni per "+dateLong(c.date)+": "+Math.round(o.mx)+"° / "+Math.round(o.mn)+"°";
-$("div span",me).textContent=(o.pp!=null?"Probabilità di pioggia "+o.pp+"%. ":"")+(rain?"Porta un ombrello. Al coperto: Notre-Dame e la Sainte-Chapelle, la Galerie Vivienne (passage coperto vicino al Palais-Royal), i portici di Place des Vosges.":"Giornata buona per camminare.")+(o.mn<10?" La sera fa fresco: una giacca leggera.":"");if(window.PARRAIN!==rain){window.PARRAIN=rain;renderConsigli()}}}
+function meteo(){var me=$("#meteo"),c=CFG;if(!c)return;var d0=TRIP.days[0].date,d1=TRIP.days[TRIP.n-1].date,today=paris().d;
+var maxD=addDays(today,15),key="par-met-"+d0+"_"+d1,sv=lj(key,null);
+function clim(o){var rows=TRIP.days.map(function(d){var f=o&&o[d.date];return{d:d,f:f}});paint(rows)}
+function paint(rows){var anyF=rows.some(function(r){return r.f}),rain=rows.some(function(r){return r.f&&(r.f.pp!=null?r.f.pp>=40:(r.f.c>=51&&r.f.c<=82))}),cold=rows.some(function(r){return r.f&&r.f.mn<10});
+me.className="meteo"+(rain?" rain":"");var mo=dateObj(d0).getUTCMonth(),cl=PD.CLIM[mo];
+if(TRIP.n===1||!anyF){var f=TRIP.n===1?rows[0].f:null;if(!f){me.innerHTML='<span class="mi">🌤️</span><div><b>Meteo a '+MESI[mo]+'</b><span>Di solito '+cl[0]+'° di giorno e '+cl[1]+'° la sera (medie indicative). Le previsioni vere compaiono qui circa due settimane prima.</span></div>'}
+else{var k=wxKind(f.c);me.innerHTML='<span class="mi">'+k[0]+'</span><div><b>Previsioni per '+esc(dateLong(d0))+': '+Math.round(f.mx)+'° / '+Math.round(f.mn)+'°</b><span>'+(f.pp!=null?"Probabilità di pioggia "+f.pp+"%. ":"")+(rain?"Porta un ombrello. Al coperto: Notre-Dame e la Sainte-Chapelle, la Galerie Vivienne (passage coperto vicino al Palais-Royal), i portici di Place des Vosges.":"Giornata buona per camminare.")+(f.mn<10?" La sera fa fresco: una giacca leggera.":"")+'</span></div>'}}
+else{me.innerHTML='<span class="mi">'+(anyF?wxKind(rows.filter(function(r){return r.f})[0].f.c)[0]:"🌤️")+'</span><div><b>'+(anyF?"Previsioni per i giorni del viaggio":"Meteo a "+MESI[mo])+'</b><ul class="mrows">'+rows.map(function(r){var o=dateObj(r.d.date);return '<li><span>'+DAB[r.d.wd]+' '+o.getUTCDate()+'</span>'+(r.f?'<i>'+wxKind(r.f.c)[0]+'</i><b>'+Math.round(r.f.mx)+'° / '+Math.round(r.f.mn)+'°</b><small>'+(r.f.pp!=null?"pioggia "+r.f.pp+"%":"")+'</small>':'<i>·</i><b>'+cl[0]+'° / '+cl[1]+'°</b><small>media</small>')+'</li>'}).join("")+'</ul><span>'+(rain?"Qualche giorno di pioggia: porta un ombrello. Al coperto: musei, Notre-Dame, la Galerie Vivienne.":anyF?"Giornate buone per camminare.":"Le previsioni vere compaiono qui circa due settimane prima.")+(cold?" La sera fa fresco.":"")+'</span></div>'}
+if(window.PARRAIN!==rain){window.PARRAIN=rain;if(PREADY)renderConsigli()}}
+if(d1<today||d0>maxD){clim(null);return}
+if(sv)clim(sv);else clim(null);
+if(!window.fetch)return;var s=d0<today?today:d0,e=d1>maxD?maxD:d1;
+fetch("https://api.open-meteo.com/v1/forecast?latitude=48.8566&longitude=2.3522&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FParis&start_date="+s+"&end_date="+e).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){var o={};d.daily.time.forEach(function(t,i){if(d.daily.weathercode[i]==null||d.daily.temperature_2m_max[i]==null)return;o[t]={c:d.daily.weathercode[i],mx:d.daily.temperature_2m_max[i],mn:d.daily.temperature_2m_min[i],pp:d.daily.precipitation_probability_max[i]}});ls(key,JSON.stringify(o));clim(o)}).catch(function(){})}
+var PREADY=false;
 
 /* ===== sezione voli (dati) ===== */
-function renderVoli(){var c=CFG,A=P.A,F=fromInfo(c),fr=function(n){return n?'<a class="vch" target="_blank" rel="noopener" href="https://www.flightradar24.com/data/flights/'+encodeURIComponent(n.replace(/\s+/g,"").toLowerCase())+'">Flightradar24 ↗︎</a>':""};
-function card(side){var a=side==="a",num=a?c.a_num:c.r_num,o=a?F.code||"—":c.to,d=a?c.to:F.code||"—";
-var rows=a?[["Numero volo",num||"—"],["Partenza",c.a_dep||"—"],["Atterraggio a Parigi",c.a_arr]]:[["Numero volo",num||"—"],["Apertura imbarco",c.r_imb||"—"],["Partenza",c.r_dep]];
+function renderVoli(){var c=CFG,A=TRIP.A,F=fromInfo(c),DL=TRIP.days[TRIP.n-1],fr=function(n){return n?'<a class="vch" target="_blank" rel="noopener" href="https://www.flightradar24.com/data/flights/'+encodeURIComponent(n.replace(/\s+/g,"").toLowerCase())+'">Flightradar24 ↗︎</a>':""};
+function card(side){var a=side==="a",num=a?c.a_num:c.r_num,o=a?F.code||"—":c.to,d=a?c.to:F.code||"—",dt=a?c.date:(c.date_r||c.date);
+var rows=a?[["Data",cap(dateLong(dt))],["Numero volo",num||"—"],["Partenza",c.a_dep||"—"],["Atterraggio a Parigi",c.a_arr]]:[["Data",cap(dateLong(dt))],["Numero volo",num||"—"],["Apertura imbarco",c.r_imb||"—"],["Partenza",c.r_dep]];
 var lk=a?[[F.url,"🛫 Partenze "+F.name],[A.url,"🛬 Arrivi "+A.n]]:[[A.url,"🛫 Partenze "+A.n],[F.url,"🛬 Arrivi "+F.name]];
 return '<div class="vcard"><div class="vleg"><span class="iata">'+esc(o)+'</span><i class="pl">✈︎</i><span class="iata">'+esc(d)+'</span> '+(a?"Andata":"Ritorno")+'</div>'+rows.map(function(r){return '<div class="vrw"><span>'+r[0]+'</span><b>'+esc(r[1])+'</b></div>'}).join("")+'<div class="vlive" data-l="'+side+'" hidden></div><div class="vlinks">'+lk.filter(function(x){return x[0]}).map(function(x){return '<a class="vch" target="_blank" rel="noopener" href="'+esc(x[0])+'">'+esc(x[1])+' ↗︎</a>'}).join("")+fr(num)+'</div></div>'}
 $("#vgrid").innerHTML=card("a")+card("r");
-$("#vtips").innerHTML='<details><summary>🛬 Dall\'aeroporto di '+esc(A.n)+' al centro</summary><ul><li>'+esc(A.arr)+'</li><li>'+esc(A.tk)+'</li>'+(c.to!=="BVA"?'<li>Con il Paris Visite 1 giorno (30,60 €) i viaggi da e per l\'aeroporto e tutte le corse in città sono compresi: conviene se fate almeno due corse in metro oltre all\'andata e al ritorno.</li>':'<li>La navetta parte e arriva in base agli orari dei voli: per il ritorno l\'aeroporto consiglia di essere alla fermata di Porte Maillot con largo anticipo (l\'app calcola circa 2 h 20 prima del decollo).</li>')+'</ul></details><details><summary>🛫 Ritorno in aeroporto</summary><ul><li>Parti dall\'ultima tappa alle '+fmt(P.leave)+'. '+esc(P.items[P.items.length-1].ret.txt)+'</li><li>Calcolo l\'arrivo in aeroporto almeno '+fdur(A.buf)+' prima del decollo'+(P.imb!=null?' e 45 minuti prima dell\'apertura dell\'imbarco':'')+'.</li></ul></details>'}
-window.PARVOLI=function(){return CFG};
+var pv=TRIP.n<=5?PD.PVIS[TRIP.n===4?5:TRIP.n]:0;
+$("#vtips").innerHTML='<details><summary>🛬 Dall\'aeroporto di '+esc(A.n)+(TRIP.multi?' all\'alloggio':' al centro')+'</summary><ul><li>'+esc(A.arr)+'</li><li>'+esc(A.tk)+'</li>'+(c.to!=="BVA"?(pv?'<li>Con il Paris Visite '+(TRIP.n===4?5:TRIP.n)+(TRIP.n===1?' giorno':' giorni')+' ('+eur(pv)+') i viaggi da e per l\'aeroporto e tutte le corse in città sono compresi: la sezione Costi sceglie da sola la soluzione più economica.</li>':''):'<li>La navetta parte e arriva in base agli orari dei voli: per il ritorno l\'aeroporto consiglia di essere alla fermata di Porte Maillot con largo anticipo.</li>')+'</ul></details><details><summary>🛫 Ritorno in aeroporto</summary><ul><li>'+(TRIP.multi?"L'ultimo giorno parti alle "+fmt(DL.leave)+". ":"Parti dall'ultima tappa alle "+fmt(DL.leave)+". ")+esc(DL.items[DL.items.length-1].ret.txt)+'</li><li>Calcolo l\'arrivo in aeroporto almeno '+fdur(A.buf)+' prima del decollo'+(DL.imb!=null?' e 45 minuti prima dell\'apertura dell\'imbarco':'')+'.</li></ul></details>'}
 
 /* ===== pasti ===== */
 function renderPasti(){var it=P.items,meals=it.filter(function(x){return x.k==="meal"||x.k==="snk"}),h="";
+$("#mlead").textContent=TRIP.multi?"Giorno "+(P.i+1)+", "+dateLong(P.date)+": i pasti in ordine e, nel mezzo, cosa assaggiare lungo il percorso.":"La giornata a tavola, in ordine: i pasti e, nel mezzo, cosa assaggiare lungo il percorso.";
 if(!meals.length){$("#mgrid").innerHTML='<p class="meta">Con questi orari non ci sono pasti in città.</p>';return}
 var acts=function(a,b){return it.filter(function(x){return x.k==="act"&&x.t>a&&x.t<b})};
 var prevT=P.c0;
 meals.forEach(function(m,mi){var between=acts(prevT,m.t);
 if(mi>0||(!P.B&&between.length)){h+=btw(between,meals[mi-1],m)}
-if(m.k==="snk"){var L0=vSorted(PD.MEAL.snk[m.z]||PD.MEAL.snk.A,WD,m.t);h+='<div class="eat"><h3>'+fmt(m.t)+' · Ultimo assaggio</h3><ul>'+L0.map(function(o){return vLi(o,WD)}).join("")+'</ul></div>'}
-else{var L=vSorted(mealIds(m.m,m.z),WD,m.t);h+='<div class="eat"><h3>'+fmt(m.t)+' · '+esc(mealTitle(m))+'</h3><ul>'+L.map(function(o){return vLi(o,WD)}).join("")+'</ul>'+ordBox(m.m)+'</div>'}
+var ids=m.k==="snk"?(PD.MEAL.snk[m.z]||(m.z==="X"?null:PD.MEAL.snk.A)):mealIds(m.m,m.z),ttl=m.k==="snk"?"Ultimo assaggio":mealTitle(m);
+if(!ids)h+='<div class="eat"><h3>'+fmt(m.t)+' · '+esc(ttl)+'</h3></div>'+nearBox(m.m||"snk");
+else h+='<div class="eat"><h3>'+fmt(m.t)+' · '+esc(ttl)+'</h3><ul>'+vSorted(ids,WD,m.t).map(function(o){return vLi(o,WD)}).join("")+'</ul>'+(m.k==="meal"?ordBox(m.m):"")+'</div>';
 prevT=m.t});
 var tail=acts(prevT,1e9);if(tail.length)h+=btw(tail,meals[meals.length-1],null);
-h+='<div class="btw"><div class="btwh"><span class="btwi">⏳</span><div><small>'+fmt(P.leave)+' · Ritorno</small><b>Prima dell\'aeroporto</b></div></div><ul class="btwt"><li><span>🛫</span><p>In aeroporto si spende di più: se volete qualcosa per il volo, prendetelo in città.</p></li><li><span>🧴</span><p>Ai controlli non passano liquidi oltre i 100 ml: portate la borraccia vuota e riempitela dopo.</p></li></ul></div>';
+if(P.kind==="single"||P.kind==="last")h+='<div class="btw"><div class="btwh"><span class="btwi">⏳</span><div><small>'+fmt(P.leave)+' · Ritorno</small><b>Prima dell\'aeroporto</b></div></div><ul class="btwt"><li><span>🛫</span><p>In aeroporto si spende di più: se volete qualcosa per il volo, prendetelo in città.</p></li><li><span>🧴</span><p>Ai controlli non passano liquidi oltre i 100 ml: portate la borraccia vuota e riempitela dopo.</p></li></ul></div>';
+else h+='<div class="btw"><div class="btwh"><span class="btwi">🌙</span><div><small>Dopo cena</small><b>Prima di dormire</b></div></div><ul class="btwt"><li><span>🍷</span><p>Per un bicchiere dopo cena scegliete un bar di quartiere vicino all\'alloggio: nelle zone dei monumenti costa il doppio.</p></li><li><span>🥐</span><p>Molte boulangerie aprono alle 7: la colazione di domani è nella prima tappa dell\'itinerario.</p></li></ul></div>';
 $("#mgrid").innerHTML=h;
 function btw(between,a,b){var zs=[];between.forEach(function(x){var z=S[x.id].z;if(zs.indexOf(z)<0)zs.push(z)});
 var ids=[];zs.forEach(function(z){(PD.MEAL.snk[z]||[]).forEach(function(id){if(ids.indexOf(id)<0)ids.push(id)})});
@@ -1134,41 +1469,60 @@ if(a&&a.m==="col"&&b&&b.m==="pra")tips.push(["🚫","Evitate i caffè con vista 
 if(b&&b.m==="cen")tips.push(["🕓","Molti bistrot chiudono la cucina tra le 15 e le 19: le crêperie e i locali scelti qui sono aperti anche al pomeriggio."]);
 if(b&&b.m==="pra")tips.push(["🥖","Tenetevi leggeri: al massimo un dolce da dividere, il pranzo arriva presto."]);
 var sn=vSorted(ids,WD,mid).slice(0,4);
-return '<div class="btw"><div class="btwh"><span class="btwi">⏳</span><div><small>'+fmt(t0)+' – '+fmt(t1)+(between.length?' · '+esc(between.map(function(x){return S[x.id].t.split(" e ")[0]}).join(", ")):'')+'</small><b>'+(a?(b?"Tra "+(a.m?MN[a.m].toLowerCase():"un pasto")+" e "+(b.m?MN[b.m].toLowerCase():"l'assaggio"):"Dopo "+(a.m?MN[a.m].toLowerCase():"l'assaggio")):"Prima di "+(b&&b.m?MN[b.m].toLowerCase():"mangiare"))+'</b></div></div><ul class="btwt">'+tips.map(function(t){return '<li><span>'+t[0]+'</span><p>'+esc(t[1])+'</p></li>'}).join("")+'</ul>'+(sn.length?'<div class="snacks">'+sn.map(function(o){var v=o.v,q=v.n+" "+v.a+" Paris";return '<div class="snk'+(o.s.c==="ko"?" closed":"")+'"><span class="se">'+({berthillon:"🍨",manege:"🥞",pauline:"🍰",castel:"🥐",marques:"🥖",grenier:"🥖",painpain:"🥐",stlouis:"🥪",brigat:"🍮"}[o.id]||"🥐")+'</span><div><b><a target="_blank" rel="noopener" href="'+esc(PD.G(q))+'">'+esc(v.n)+'</a></b> <span class="st '+o.s.c+'">'+esc(o.s.t)+'</span><small class="sz">'+esc(v.a)+'</small><p>'+esc(v.d)+'</p><small>'+v.r+' ★ · '+esc(hrsTxt(v,WD))+' · '+esc(v.pr)+'</small> <a class="go sm" href="'+esc(gdir(q))+'" target="_blank" rel="noopener">↗︎ Portami lì</a></div></div>'}).join("")+'</div>':'')+'</div>'}}
+return '<div class="btw"><div class="btwh"><span class="btwi">⏳</span><div><small>'+fmt(t0)+' – '+fmt(t1)+(between.length?' · '+esc(between.map(function(x){return S[x.id].t.split(" e ")[0]}).join(", ")):'')+'</small><b>'+(a?(b?"Tra "+(a.m?MN[a.m].toLowerCase():"un pasto")+" e "+(b.m?MN[b.m].toLowerCase():"l'assaggio"):"Dopo "+(a.m?MN[a.m].toLowerCase():"l'assaggio")):"Prima di "+(b&&b.m?MN[b.m].toLowerCase():"mangiare"))+'</b></div></div><ul class="btwt">'+tips.map(function(t){return '<li><span>'+t[0]+'</span><p>'+esc(t[1])+'</p></li>'}).join("")+'</ul>'+(sn.length?'<div class="snacks">'+sn.map(function(o){var v=o.v,q=v.n+" "+v.a+(/Versailles/.test(v.a)?"":" Paris");return '<div class="snk'+(o.s.c==="ko"?" closed":"")+'"><span class="se">'+({berthillon:"🍨",manege:"🥞",pauline:"🍰",castel:"🥐",marques:"🥖",grenier:"🥖",painpain:"🥐",stlouis:"🥪",brigat:"🍮",union:"🍫",miche:"🥐",fournil:"🥐",copains:"🍮",marie:"🥖",fermepains:"🥖",polome:"🥐"}[o.id]||"🥐")+'</span><div><b><a target="_blank" rel="noopener" href="'+esc(PD.G(q))+'">'+esc(v.n)+'</a></b> <span class="st '+o.s.c+'">'+esc(o.s.t)+'</span><small class="sz">'+esc(v.a)+'</small><p>'+esc(v.d)+'</p><small>'+v.r+' ★ · '+esc(hrsTxt(v,WD))+' · '+esc(v.pr)+'</small> <a class="go sm" href="'+esc(gdir(q))+'" target="_blank" rel="noopener">↗︎ Portami lì</a></div></div>'}).join("")+'</div>':'')+'</div>'}}
 
 /* ===== costi ===== */
 var COPT=lj("par-copt",{});
-function costModel(){var c=CFG,N=c.ppl,mo=dateObj(c.date).getUTCMonth(),rides=0;
-P.items.forEach(function(x){if(x.k==="act"&&x.leg.mode==="metro")rides++});
-var T=[],AT=[],F=[];
-if(c.to==="BVA"){rides+=2;T.push(["tr1","Navetta Aérobus a/r online",29.9]);var met=Math.min(rides*2.55,12.30);T.push(["tr2",rides*2.55<=12.30?"Metro in città, "+rides+" corse da 2,55 €":"Navigo Jour (metro illimitata)",met])}
-else{var single=28+rides*2.55,pv=30.60;if(pv<single){T.push(["tr1","Paris Visite 1 giorno",pv])}else{T.push(["tr1","Biglietto aeroporto a/r (2 × 14 €)",28]);if(rides)T.push(["tr2","Metro in città, "+rides+" corse da 2,55 €",rides*2.55])}}
-T.push(["nav","Carta Navigo Easy",2,1]);
-if(P.acts.indexOf("saintechapelle")>=0)AT.push(["sc","Sainte-Chapelle",(mo>=10||mo<=2)?15:20,1]);
+var PRICE={louvremus:[22,"Museo del Louvre (residenti UE)"],orsay:[16,"Musée d'Orsay (online)"],opera:[15,"Opéra Garnier (residenti UE)"],versailles:[22,"Versailles, Passeport"]};
+function allActs(){var a=[];TRIP.days.forEach(function(d){d.acts.forEach(function(x){if(a.indexOf(x)<0)a.push(x)})});return a}
+function transport(){var c=CFG,n=TRIP.n,T=[],alt=[],cityDay=function(r){return Math.min(r*2.55,12.30)},city=TRIP.days.reduce(function(s,d){return s+cityDay(d.rides)},0),rides=TRIP.days.reduce(function(s,d){return s+d.rides},0);
+function cityRows(){if(!rides)return[];var navJ=TRIP.days.filter(function(d){return d.rides*2.55>12.30}).length;return[["tr2",navJ?"Metro e RER in città ("+rides+" corse, con "+navJ+" Navigo Jour)":"Metro e RER in città, "+rides+" corse da 2,55 €",city]]}
+var bva=c.to==="BVA",pre=bva?[["tr0","Navetta Aérobus a/r online",29.9]]:[];
+if(bva&&n===1)return{T:pre.concat(cityRows()),alt:alt};
+var opts=[{k:"single",v:(bva?0:28)+city,rows:(bva?[]:[["tr1","Biglietto aeroporto a/r (2 × 14 €)",28]]).concat(cityRows())}];
+var pk=n<=3?n:n<=5?5:0;if(pk)opts.push({k:"pv",v:PD.PVIS[pk],rows:[["tr1","Paris Visite "+pk+(pk===1?" giorno":" giorni")+(pk>n?" (non esiste da "+n+")":""),PD.PVIS[pk]]]});
+var w0=TRIP.days[0].wd;if(n>=3&&w0+n-1<=6)opts.push({k:"ns",v:32.4+5,rows:[["tr1","Navigo Semaine (da lunedì a domenica, "+(bva?"Beauvais escluso":"aeroporti compresi")+")",32.4],["tr3","Carta Navigo Découverte (con foto tessera)",5]]});
+opts.sort(function(a,b){return a.v-b.v});opts.slice(1).forEach(function(o){alt.push((o.k==="single"?"biglietti singoli":o.k==="pv"?"Paris Visite":"Navigo Semaine")+" "+eur(o.v))});
+return{T:pre.concat(opts[0].rows),alt:alt,best:opts[0].k}}
+function costModel(){var c=CFG,N=c.ppl,mo=dateObj(c.date).getUTCMonth(),acts=allActs(),tr=transport(),T=tr.T.slice(),AT=[],F=[],AL=[],h=TRIP.multi?home():null,nights=TRIP.n-1;
+if(tr.best!=="ns")T.push(["nav","Carta Navigo Easy",2,1]);
+if(acts.indexOf("saintechapelle")>=0)AT.push(["sc","Sainte-Chapelle",(mo>=10||mo<=2)?15:20,1]);
 AT.push(["nd","Notre-Dame",0]);
+Object.keys(PRICE).forEach(function(k){if(acts.indexOf(k)>=0)AT.push([k,PRICE[k][1],PRICE[k][0],1])});
 AT.push(["tnd","Torri di Notre-Dame",16,1,1]);
-if(P.acts.indexOf("eiffel")>=0)AT.push(["te","Tour Eiffel, a piedi al 2° piano",14.8,1,1]);
-if(P.B)F.push(["co","Colazione in boulangerie",8]);if(P.L)F.push(["pr","Pranzo in bistrot",25]);if(P.D)F.push(["ce","Cena in crêperie",14]);
-F.push(["sp","Spuntini e assaggi",6]);
+if(acts.indexOf("eiffel")>=0)AT.push(["te","Tour Eiffel, a piedi al 2° piano",14.8,1,1]);
+if(acts.indexOf("latin")>=0)AT.push(["pan","Panthéon",11.5,1,1]);
+var nb=0,nl=0,nd=0;TRIP.days.forEach(function(d){if(d.B)nb++;if(d.L)nl++;if(d.D)nd++});
+var x=function(k){return TRIP.n>1&&k>1?" (× "+k+")":""};
+if(nb)F.push(["co","Colazione in boulangerie"+x(nb),8*nb]);if(nl)F.push(["pr","Pranzo in bistrot"+x(nl),25*nl]);if(nd)F.push(["ce","Cena in crêperie"+x(nd),14*nd]);
+F.push(["sp","Spuntini e assaggi"+x(TRIP.n),6*TRIP.n]);
+if(TRIP.multi){var tx=PD.TAX.filter(function(t){return t[0]===h.type})[0]||PD.TAX[2],pp=tx[2]<0?(h.price?Math.min(15.93,0.1625*(h.price/nights/N)):0):tx[2];
+AL.push(["al",h.price?"Alloggio, "+nights+(nights===1?" notte":" notti")+" ("+eur(h.price)+" in tutto"+(N>1?", diviso per "+N:"")+")":"Alloggio: inserisci il prezzo totale (⚙️)",h.price?h.price/N:0]);
+if(pp)AL.push(["tax","Tassa di soggiorno ("+eur(pp)+" a notte"+(tx[2]<0?", stima":"")+")",pp*nights,1])}
 function on(r){if(!r[3])return true;var k=COPT[r[0]];return k==null?!r[4]:!!k}
 var sum=function(a){return a.reduce(function(s,r){return s+(on(r)?r[2]:0)},0)};
-return{N:N,T:T,AT:AT,F:F,on:on,tT:sum(T),tA:sum(AT),tF:sum(F),rides:rides}}
-function renderCosti(anim){var M=costModel(),N=M.N,tot=M.tT+M.tA+M.tF;
-var cat=[["Trasporti",M.tT,"var(--c3)"],["Attrazioni",M.tA,"var(--c4)"],["Cibo",M.tF,"var(--c2)"]],off=0,i=0;
+return{N:N,T:T,AT:AT,F:F,AL:AL,on:on,tT:sum(T),tA:sum(AT),tF:sum(F),tL:sum(AL),alt:tr.alt,best:tr.best}}
+function renderCosti(anim){var M=costModel(),N=M.N,tot=M.tT+M.tA+M.tF+M.tL;
+var cat=[["Trasporti",M.tT,"var(--c3)"],["Attrazioni",M.tA,"var(--c4)"],["Cibo",M.tF,"var(--c2)"]];if(TRIP.multi)cat.push(["Alloggio",M.tL,"#e0a82e"]);var off=0,i=0;
 var arcs=cat.map(function(c){var len=tot?Math.max(0,c[1]/tot*100-1.2):0,o='<circle class="arc'+(anim?" anim":"")+'" cx="60" cy="60" r="46" pathLength="100" stroke="'+c[2]+'" style="--len:'+len.toFixed(2)+';--off:'+(-off).toFixed(2)+';--i:'+(i++)+'"/>';off+=tot?c[1]/tot*100:0;return o}).join("");
-$("#cdonut").innerHTML='<div class="donut"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="46" class="arc-bg"/>'+arcs+'</svg><div class="dc"><b>'+eur(tot)+'</b><span>a persona</span>'+(N>1?'<small>'+eur(tot*N)+' in '+N+'</small>':'')+'</div></div><ul class="dleg">'+cat.map(function(c){return '<li><i style="background:'+c[2]+'"></i><span>'+c[0]+'</span><b>'+eur(c[1])+'</b></li>'}).join("")+'</ul>';
-function rows(t,a){return '<tr class="grp"><td colspan="'+(N>1?3:2)+'">'+t+'</td></tr>'+a.map(function(r){var o=M.on(r);return '<tr class="'+(o?"":"off")+'"><td>'+(r[3]?'<label class="opt"><input type="checkbox" data-o="'+r[0]+'"'+(o?" checked":"")+'><span>'+esc(r[1])+'</span></label>':esc(r[1]))+'</td><td>'+(r[2]?eur(r[2]):"gratis")+'</td>'+(N>1?'<td>'+(r[2]?eur(r[2]*N):"gratis")+'</td>':'')+'</tr>'}).join("")}
-$("#ctab").innerHTML='<tr><th>Voce</th><th>A persona</th>'+(N>1?'<th>In '+N+'</th>':'')+'</tr>'+rows("Trasporti",M.T)+rows("Attrazioni",M.AT)+rows("Cibo",M.F)+'<tr class="tot"><td>Totale</td><td>'+eur(tot)+'</td>'+(N>1?'<td>'+eur(tot*N)+'</td>':'')+'</tr>';
+$("#cdonut").innerHTML='<div class="donut"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="46" class="arc-bg"/>'+arcs+'</svg><div class="dc"><b>'+eur(tot)+'</b><span>a persona'+(TRIP.n>1?" in "+TRIP.n+" giorni":"")+'</span>'+(N>1?'<small>'+eur(tot*N)+' in '+N+'</small>':'')+'</div></div><ul class="dleg">'+cat.map(function(c){return '<li><i style="background:'+c[2]+'"></i><span>'+c[0]+'</span><b>'+eur(c[1])+'</b></li>'}).join("")+'</ul>';
+function rows(t,a){if(!a.length)return"";return '<tr class="grp"><td colspan="'+(N>1?3:2)+'">'+t+'</td></tr>'+a.map(function(r){var o=M.on(r);return '<tr class="'+(o?"":"off")+'"><td>'+(r[3]?'<label class="opt"><input type="checkbox" data-o="'+r[0]+'"'+(o?" checked":"")+'><span>'+esc(r[1])+'</span></label>':esc(r[1]))+'</td><td>'+(r[2]?eur(r[2]):(r[0]==="al"?"—":"gratis"))+'</td>'+(N>1?'<td>'+(r[2]?eur(r[2]*N):(r[0]==="al"?"—":"gratis"))+'</td>':'')+'</tr>'}).join("")}
+$("#ctab").innerHTML='<tr><th>Voce</th><th>A persona</th>'+(N>1?'<th>In '+N+'</th>':'')+'</tr>'+rows("Trasporti",M.T)+rows("Attrazioni",M.AT)+rows("Cibo",M.F)+rows("Alloggio",M.AL)+'<tr class="tot"><td>Totale</td><td>'+eur(tot)+'</td>'+(N>1?'<td>'+eur(tot*N)+'</td>':'')+'</tr>';
 $$("#ctab input[data-o]").forEach(function(x){x.addEventListener("change",function(){COPT[x.dataset.o]=x.checked?1:0;ls("par-copt",JSON.stringify(COPT));renderCosti(false);renderSpese()})});
-$("#cnote").textContent="Voli esclusi. Le voci con la casella sono facoltative: toccale per includerle o toglierle. "+(CFG.to!=="BVA"?(M.T[0][2]===30.6?"Il Paris Visite 1 giorno copre aeroporto e metro illimitati e qui costa meno dei biglietti singoli. ":"Con poche corse in metro i biglietti singoli costano meno del Paris Visite (30,60 €). "):"")+"La carta Navigo Easy serve solo se non comprate i biglietti nell'app sul telefono. Prezzi dei trasporti 2026 di Île-de-France Mobilités"+(CFG.to==="BVA"?" e di Aérobus":"")+"; i pasti sono stime per locali di quartiere: colazione e cena restano sotto i 15 € a persona. Il biglietto «Paris Région <> Aéroports» e i biglietti della metro non possono stare sulla stessa carta Navigo Easy: usate l'app sul telefono o due carte.";
+var nt="Voli esclusi. Le voci con la casella sono facoltative: toccale per includerle o toglierle. ";
+if(CFG.to!=="BVA")nt+=(M.best==="pv"?"Il Paris Visite copre aeroporto, metro e RER senza limiti e qui costa meno dei biglietti singoli. ":M.best==="ns"?"Il Navigo Semaine vale da lunedì a domenica, aeroporti compresi: si carica su una carta Navigo Découverte da 5 € con una foto tessera (in biglietteria). ":"Con poche corse i biglietti singoli costano meno degli abbonamenti. ")+(M.alt.length?"Alternative: "+M.alt.join(", ")+". ":"");
+nt+="La carta Navigo Easy serve solo se non comprate i biglietti nell'app sul telefono. Il biglietto metro-treno-RER da 2,55 € vale in tutta l'Île-de-France, Versailles compresa, ma non per gli aeroporti. Prezzi 2026 di Île-de-France Mobilités"+(CFG.to==="BVA"?" e di Aérobus":"")+"; i pasti sono stime per locali di quartiere: colazione e cena restano sotto i 15 € a persona.";
+if(allActs().some(function(a){return PRICE[a]}))nt+=" Musei: prezzi per i residenti UE; Louvre e Orsay sono gratis sotto i 26 anni per i residenti UE.";
+if(TRIP.multi)nt+=" La tassa di soggiorno di Parigi si paga a persona e a notte (gli under 18 sono esenti): spesso non è compresa nel prezzo e si paga alla struttura.";
+$("#cnote").textContent=nt;
 window.PAREST=tot*N}
 
 /* spese reali, divise tra i partecipanti */
 var SP=lj("par-spese",{});
-var CATS=[["tr","Trasporti"],["co","Colazione"],["pr","Pranzo"],["ce","Cena"],["sp","Spuntini"],["ex","Extra"]];
+function cats(){var a=[["tr","Trasporti"],["co","Colazioni"],["pr","Pranzi"],["ce","Cene"],["sp","Spuntini"],["ex","Extra"]];if(TRIP&&TRIP.multi){a.splice(5,0,["mu","Musei"]);a.push(["al","Alloggio"])}else a[1][1]="Colazione",a[2][1]="Pranzo",a[3][1]="Cena";return a}
 function names(){var N=CFG.ppl,a=[];for(var i=0;i<N;i++)a.push(((SP.n||[])[i]||"").trim()||(i===0?"Io":"Persona "+(i+1)));return a}
 function saveSP(){ls("par-spese",JSON.stringify(SP))}
-function renderSpese(){var N=CFG.ppl;SP.n=SP.n||[];SP.v=SP.v||{};SP.p=SP.p||{};
+function renderSpese(){var N=CFG.ppl,CATS=cats();SP.n=SP.n||[];SP.v=SP.v||{};SP.p=SP.p||{};
 $("#sppl").textContent=N===1?"solo tu":"in "+N;
 var who=$("#who");who.hidden=N<2;who.innerHTML=N<2?"":names().map(function(nm,i){return '<input type="text" maxlength="14" data-i="'+i+'" value="'+esc((SP.n[i]||""))+'" placeholder="'+esc(i===0?"Io":"Persona "+(i+1))+'" aria-label="Nome persona '+(i+1)+'">'}).join("");
 $("#sgrid").innerHTML=CATS.map(function(c){var p=Math.min(N-1,SP.p[c[0]]||0);return '<div class="sv"><label><span>'+c[1]+'</span><input type="number" inputmode="decimal" min="0" step="0.5" data-s="'+c[0]+'" placeholder="0" value="'+esc(SP.v[c[0]]||"")+'"></label>'+(N>1?'<button type="button" class="payer p'+(p%4)+'" data-s="'+c[0]+'" aria-label="Chi ha pagato '+c[1]+'">paga: <b>'+esc(names()[p])+'</b></button>':'')+'</div>'}).join("");
@@ -1177,7 +1531,7 @@ $$("#sgrid input").forEach(function(x){x.addEventListener("input",function(){SP.
 $$("#sgrid .payer").forEach(function(b){b.addEventListener("click",function(){var p=((SP.p[b.dataset.s]||0)+1)%N;SP.p[b.dataset.s]=p;saveSP();b.className="payer p"+(p%4);$("b",b).textContent=names()[p];tot()})});
 tot()}
 function tot(){var N=CFG.ppl,EST=window.PAREST||0,paid=[],t=0,i;for(i=0;i<N;i++)paid.push(0);
-CATS.forEach(function(c){var v=parseFloat(String(SP.v[c[0]]||"").replace(",","."))||0;t+=v;paid[Math.min(N-1,SP.p[c[0]]||0)]+=v});
+cats().forEach(function(c){var v=parseFloat(String(SP.v[c[0]]||"").replace(",","."))||0;t+=v;paid[Math.min(N-1,SP.p[c[0]]||0)]+=v});
 $("#stot").textContent=eur(t);var sb=$("#sbar"),sd=$("#sdiff"),over=t>EST;sb.style.width=Math.min(100,EST?t/EST*100:0)+"%";sb.classList.toggle("over",over);sd.classList.toggle("over",over);
 sd.textContent=t===0?"Stima: "+eur(EST)+(N>1?" in "+N:""):over?"Sopra la stima di "+eur(t-EST):"Restano "+eur(EST-t)+" rispetto alla stima di "+eur(EST);
 var sp=$("#split");if(N<2||t===0){sp.innerHTML="";return}
@@ -1188,48 +1542,70 @@ sp.innerHTML=out.length?"<div>"+out.join("</div><div>")+"</div>":"Siete pari �
 
 /* ===== consigli ===== */
 var CK=lj("par-check",{});
-function renderConsigli(){var c=CFG,A=P.A,N=c.ppl,nu=NUM[Math.min(10,N)]||NUM[2];
+function renderConsigli(){var c=CFG,A=TRIP.A,N=c.ppl,nu=NUM[Math.min(10,N)]||NUM[2],acts=allActs(),has=function(id){return acts.indexOf(id)>=0},M=TRIP.multi;
 var items=[["doc","Carta d'identità o passaporto"],["bp","Carte d'imbarco di andata e ritorno"],["nav",c.to==="BVA"?"Biglietto della navetta Aérobus comprato online":"App Île-de-France Mobilités o Bonjour RATP installata (o carta Navigo Easy) per i biglietti"],["nd","Slot gratuito per Notre-Dame prenotato (si apre 48 ore prima)"]];
-if(P.acts.indexOf("saintechapelle")>=0)items.push(["sc","Biglietto con orario per la Sainte-Chapelle"]);
+if(has("saintechapelle"))items.push(["sc","Biglietto con orario per la Sainte-Chapelle"]);
+if(has("louvremus"))items.push(["lv","Biglietto con orario per il Louvre (ticket.louvre.fr)"]);
+if(has("orsay"))items.push(["or","Biglietto per il Musée d'Orsay (meglio online)"]);
+if(has("opera"))items.push(["op","Biglietto per l'Opéra Garnier (solo online, si apre 30 giorni prima)"]);
+if(has("versailles"))items.push(["ve","Biglietto con orario per Versailles (obbligatorio)"]);
+if(M)items=items.concat([["st","Conferma e indirizzo dell'alloggio salvati sul telefono"],["ch","Caricabatterie"],["pl","Adattatore, se hai caricatori con la spina italiana a tre poli in linea"]]);
 items=items.concat([["bor","Borraccia vuota (da riempire alle fontane Wallace)"],["pb","Power bank e cavo"],["sc2","Scarpe comode: si cammina tanto"],["fe",window.PARRAIN?"Ombrello o k-way":"Giacca leggera per la sera"],["off","Aprire l'app con internet prima di partire, per averla offline"]]);
 $("#ckbox").innerHTML='<h3>✅ Prima di partire <small id="ckn"></small></h3><div class="ckbar"><i id="ckbar"></i></div><ul>'+items.map(function(x){return '<li><label><input class="ckin" type="checkbox" data-k="'+x[0]+'"'+(CK[x[0]]?" checked":"")+'><span class="bx" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.6 3.6L17.5 8.5"/></svg></span><span class="tx">'+esc(x[1])+'</span></label></li>'}).join("")+'</ul>';
 var cks=$$("#ckbox input");function cnt(){var n=cks.filter(function(x){return x.checked}).length;$("#ckn").textContent=n+"/"+cks.length+(n===cks.length?" 🎉":"");$("#ckbar").style.width=(n/cks.length*100)+"%"}
 cks.forEach(function(x){x.addEventListener("change",function(){CK[x.dataset.k]=x.checked;ls("par-check",JSON.stringify(CK));cnt()})});cnt();
-var fr=[["Buongiorno / Buonasera","Bonjour / Bonsoir","bon-JUR / bon-SUAR"],[N===1?"Un tavolo per una persona, per favore":"Un tavolo per "+N+", per favore","Une table pour "+nu[0]+", s'il vous plaît","ün TABL pur "+nu[1]+", sil vu PLÈ"],["Un caffè e un croissant, per favore","Un café et un croissant, s'il vous plaît","an ka-FÈ e an krua-SAN, sil vu PLÈ"],["Una caraffa d'acqua, per favore","Une carafe d'eau, s'il vous plaît","ün ka-RAF DO, sil vu PLÈ"],["Il conto, per favore","L'addition, s'il vous plaît","la-di-SIÒN, sil vu PLÈ"],["Posso pagare con la carta?","Je peux payer par carte ?","jö PÖ pe-IÉ par KART"],["Quanto costa?","C'est combien ?","sè kom-BIÀN"],["Dov'è la metro?","Où est le métro ?","u È lö me-TRÒ"],["Un biglietto per l'aeroporto","Un billet pour l'aéroport","an bi-IÈ pur la-e-ro-PÒR"],["Mi scusi","Excusez-moi","ek-skü-ZÉ-mua"],["Grazie mille!","Merci beaucoup !","mer-SÌ bo-KÙ"]];
+var fr=[["Buongiorno / Buonasera","Bonjour / Bonsoir","bon-JUR / bon-SUAR"],[N===1?"Un tavolo per una persona, per favore":"Un tavolo per "+N+", per favore","Une table pour "+nu[0]+", s'il vous plaît","ün TABL pur "+nu[1]+", sil vu PLÈ"],["Un caffè e un croissant, per favore","Un café et un croissant, s'il vous plaît","an ka-FÈ e an krua-SAN, sil vu PLÈ"],["Una caraffa d'acqua, per favore","Une carafe d'eau, s'il vous plaît","ün ka-RAF DO, sil vu PLÈ"],["Il conto, per favore","L'addition, s'il vous plaît","la-di-SIÒN, sil vu PLÈ"],["Posso pagare con la carta?","Je peux payer par carte ?","jö PÖ pe-IÉ par KART"],["Quanto costa?","C'est combien ?","sè kom-BIÀN"],["Dov'è la metro?","Où est le métro ?","u È lö me-TRÒ"],["Un biglietto per l'aeroporto","Un billet pour l'aéroport","an bi-IÈ pur la-e-ro-PÒR"]];
+if(M)fr=fr.concat([["Ho una prenotazione","J'ai une réservation","jè ün re-zer-va-SIÒN"],["Posso lasciare i bagagli?","Je peux laisser mes bagages ?","jö PÖ le-SÉ me ba-GÀJ"],["A che ora è il check-out?","Le départ est à quelle heure ?","lö de-PÀR è a kel ÖR"]]);
+fr=fr.concat([["Mi scusi","Excusez-moi","ek-skü-ZÉ-mua"],["Grazie mille!","Merci beaucoup !","mer-SÌ bo-KÙ"]]);
+var h=M?home():null,tx=M?(PD.TAX.filter(function(t){return t[0]===h.type})[0]||PD.TAX[2]):null;
 var avv=avvList(),Z=[
-["✈️ Aeroporto e trasporti",[A.arr,A.tk,c.to!=="BVA"?"Con il Paris Visite 1 giorno (30,60 €) aeroporto e metro sono illimitati per tutta la giornata: l'app sceglie da sola la soluzione più economica nella sezione Costi.":"In città il biglietto metro-RER costa 2,55 € ed è valido 2 ore con i cambi; dalle 5 corse in su conviene il Navigo Jour da 12,30 €.","Tenete il biglietto fino all'uscita: sul RER serve anche per passare i tornelli in uscita, e i controlli sono frequenti.","💧 Passate i controlli con la borraccia vuota e riempitela dopo: l'acqua in aeroporto costa cara."],1],
+["✈️ Aeroporto e trasporti",[A.arr,A.tk,c.to!=="BVA"?"Paris Visite, Navigo Semaine o biglietti singoli: l'app sceglie da sola la soluzione più economica nella sezione Costi.":"In città il biglietto metro-RER costa 2,55 € ed è valido 2 ore con i cambi; dalle 5 corse in su conviene il Navigo Jour da 12,30 €.","Tenete il biglietto fino all'uscita: sul RER serve anche per passare i tornelli in uscita, e i controlli sono frequenti.","💧 Passate i controlli con la borraccia vuota e riempitela dopo: l'acqua in aeroporto costa cara."],1],
+M?["🏨 Alloggio e bagagli",[(h.addr?"Il tuo alloggio: "+h.addr+(h.alt?"":" (zona "+h.zn+")"):"Il tuo alloggio è in zona "+h.zn)+". Check-in dalle "+h.cin+", check-out entro le "+h.cout+".","Il primo giorno l'itinerario passa dall'alloggio per lasciare i bagagli; l'ultimo giorno ripassa a prenderli prima dell'aeroporto. Chiedi alla struttura di tenerli: quasi tutte lo fanno gratis.","Se la struttura non tiene i bagagli, ci sono depositi a pagamento come Nannybag o Bounce, prenotabili online.","Tassa di soggiorno 2026: "+(tx[2]<0?"per appartamenti e alloggi non classificati è il 5% del prezzo a persona e a notte più le maggiorazioni, fino a 15,93 €":tx[2]?eur(tx[2])+" a persona e a notte ("+tx[1].toLowerCase()+")":"non si paga se sei ospite di amici o parenti")+". Gli under 18 non pagano.","La sera, prima di rientrare, controlla l'ultima corsa della metro: di solito verso l'1 (più tardi il venerdì e il sabato)."]]:null,
 ["🧱 Marais e Place des Vosges",["Il quartiere più vivo anche la domenica, quando molti negozi qui restano aperti.","Rue des Rosiers è la via storica del quartiere ebraico: a pranzo ci sono lunghe code per il falafel.","💧 Le fontane Wallace verdi sono sparse per tutto il quartiere: attivate «Acqua» sulla mappa."]],
 ["⛪ Notre-Dame e Île de la Cité",["Prenotate lo slot gratuito su notredamedeparis.fr: si apre 48 ore prima, a mezzanotte. Diffidate di chi vende biglietti «salta-fila» per la cattedrale: l'ingresso è gratis.","Il momento più tranquillo è presto la mattina; il giovedì la cattedrale resta aperta fino alle 22.","Le torri (16 €) e la Sainte-Chapelle vanno prenotate a parte.","💧 Prima di mettervi in coda riempite la borraccia: la fila all'aperto può essere lunga."]],
 ["🖼️ Louvre, Palais-Royal e Tuileries",["Il museo è chiuso il martedì: da fuori Piramide e cortili sono sempre visitabili.","Se piove, la Galerie Vivienne, a due passi dal Palais-Royal, è un passage coperto dell'Ottocento.","I giardini del Palais-Royal hanno panchine all'ombra, buone per un panino.","💧 Nel Jardin des Tuileries ci sono fontanelle: controllate sulla mappa quelle attive."]],
+has("louvremus")?["🎨 Dentro il Louvre",["Biglietto 22 € per i residenti UE (32 € per gli altri); gratis sotto i 18 anni e per i residenti UE sotto i 26. Prenota l'orario su ticket.louvre.fr.","Mercoledì e venerdì è aperto fino alle 21: la sera c'è meno gente.","La sala della Gioconda è la più affollata: andateci subito all'apertura o verso la chiusura.","L'ultimo ingresso è un'ora prima della chiusura e le sale si svuotano mezz'ora prima."]]:null,
+has("orsay")||has("latin")||has("stgermain")?["📚 Rive gauche: Saint-Germain, Quartiere Latino e Orsay",["Il Musée d'Orsay è chiuso il lunedì e il giovedì resta aperto fino alle 21:45; biglietto 16 € online.","Il Jardin du Luxembourg è gratuito e chiude al tramonto: l'orario cambia con le stagioni.","Il Panthéon (11,50 €) è aperto tutti i giorni; dalla terrazza panoramica (3,50 € in più) si vede tutta Parigi.","Rue Mouffetard è la via-mercato del quartiere: boulangerie, formaggi e frutta a prezzi da residenti."]]:null,
 ["🗼 Tour Eiffel e Trocadéro",["Per la foto classica uscite a Trocadéro, non a Bir-Hakeim.","Intorno alla torre girano venditori abusivi e giochi delle tre carte: tirate dritto.","Rue Cler, a 10 minuti, è una via-mercato con boulangerie e frutta: perfetta per uno spuntino.","Dal tramonto, all'inizio di ogni ora, la torre scintilla per qualche minuto."]],
+has("opera")?["🎭 Opéra e Galeries Lafayette",["La visita dell'Opéra Garnier costa 15 € per i residenti UE e si compra solo online: alla cassa non si vendono biglietti.","La sala può essere chiusa per le prove: il biglietto non garantisce di vederla.","La terrazza sul tetto delle Galeries Lafayette è gratuita, segue gli orari del negozio e può chiudere con il maltempo."]]:null,
 ["🎨 Montmartre e Sacré-Cœur",["Alla base della scalinata qualcuno vi annoda un braccialetto al polso e poi chiede soldi: tenete le mani in tasca e proseguite.","La funicolare evita la scalinata e accetta i biglietti dei trasporti.","Place du Tertre è bella ma cara: per mangiare scendete verso Abbesses.","💧 Riempite la borraccia prima di salire: in cima ci sono poche fontanelle."]],
+has("canal")||has("perelachaise")?["🛶 Canal Saint-Martin e Père-Lachaise",["Il Père-Lachaise è gratuito: fino al 5 novembre è aperto 8–18 (sabato dalle 8:30, domenica dalle 9), poi l'orario è invernale.","All'ingresso principale, su Boulevard de Ménilmontant, c'è la mappa con le tombe famose.","Lungo il canale i bistrot sono frequentati dai parigini e costano meno che in centro."]]:null,
+has("versailles")?["🏰 Versailles",["Chiuso il lunedì. Il castello è aperto 9–18:30 da aprile a ottobre e 9–17:30 da novembre a marzo; il Trianon apre a mezzogiorno.","Passeport da 22 € (32 € nei giorni di Grandes Eaux e Jardins musicaux), 3 € in più per i non residenti UE. L'orario d'ingresso è obbligatorio: prenota online.","Si arriva col RER C fino a Versailles Château Rive Gauche: basta il biglietto metro-treno-RER da 2,55 €, valido in tutta l'Île-de-France.","Per pranzo: picnic nei giardini con un panino da Aux Pains de la Ferme, oppure una crêperie in città."]]:null,
 ["💧 Acqua e fontanelle",["Le fontane Wallace, verdi in ghisa con le quattro cariatidi, danno acqua potabile gratis.","Attivate «Acqua» sulla mappa: mostra le fontanelle vicine al percorso secondo i dati aperti del Comune di Parigi.","Alcune fontane vengono spente d'inverno o per lavori: la mappa nasconde quelle segnalate fuori servizio.","Al ristorante chiedete «une carafe d'eau»: l'acqua del rubinetto è sempre gratuita."]],
 ["🗣️ Frasario",null,2],
 ["📞 Numeri utili",null,3],
 ["🚨 Scioperi e avvisi",null,4],
-["📋 In generale",["Italia e Francia hanno lo stesso fuso orario.","La mancia non è obbligatoria: il servizio è già compreso nel conto. Lasciare qualche euro per un buon servizio è gentile.","La carta (anche contactless) si accetta quasi ovunque; tenete qualche euro in contanti per chioschi e mercati.","Sulla metro 1, sul RER B e nelle stazioni affollate attenzione ai borseggiatori: zaino davanti.","Le toilette pubbliche automatiche (sanisettes) sono gratuite.","Controllate orari e prezzi dei locali qualche giorno prima: possono cambiare."]]];
-$("#zones").innerHTML=Z.map(function(z,i){var body;
+["📋 In generale",["Italia e Francia hanno lo stesso fuso orario.","La mancia non è obbligatoria: il servizio è già compreso nel conto. Lasciare qualche euro per un buon servizio è gentile.","La carta (anche contactless) si accetta quasi ovunque; tenete qualche euro in contanti per chioschi e mercati.","Sulla metro 1, sul RER B e nelle stazioni affollate attenzione ai borseggiatori: zaino davanti.","Le toilette pubbliche automatiche (sanisettes) sono gratuite.","Controllate orari e prezzi dei locali qualche giorno prima: possono cambiare."]]].filter(Boolean);
+$("#zones").innerHTML=Z.map(function(z){var body;
 if(z[2]===2)body='<p class="fh">Tocca una frase per sentirla in francese. Sotto c\'è la pronuncia all\'italiana.</p><ul class="fras">'+fr.map(function(f){return '<li><span class="it">'+esc(f[0])+'</span><button type="button" class="say" data-t="'+esc(f[1])+'">🔊 '+esc(f[1])+'<small>'+esc(f[2])+'</small></button></li>'}).join("")+'</ul>';
 else if(z[2]===3)body='<ul><li><a class="call" href="tel:112">📞 112</a> Emergenze: gratis, anche senza credito.</li><li><a class="call" href="tel:15">📞 15</a> Ambulanza (SAMU) · <a class="call" href="tel:17">📞 17</a> Polizia · <a class="call" href="tel:18">📞 18</a> Vigili del fuoco</li><li>🚇 Traffico in tempo reale e oggetti smarriti sui mezzi: <a href="https://www.ratp.fr/infos-trafic" target="_blank" rel="noopener">ratp.fr</a> o l\'app Bonjour RATP.</li><li>🇮🇹 Consolato Generale d\'Italia a Parigi: <a href="https://consparigi.esteri.it" target="_blank" rel="noopener">consparigi.esteri.it</a>, per documenti persi o rubati.</li></ul>';
-else if(z[2]===4)body='<ul>'+(avv.length?avv.map(function(a){return "<li><b>⚠️ "+esc(a.t)+".</b> "+esc(a.x)+"</li>"}).join(""):"<li>Per "+esc(dateLong(c.date))+" non risultano scioperi o lavori che riguardano il tuo percorso (verifica del 9 ottobre 2026).</li>")+'<li>Nei giorni prima controllate il traffico sull\'app Bonjour RATP o su <a href="https://www.ratp.fr/infos-trafic" target="_blank" rel="noopener">ratp.fr</a> e il calendario degli scioperi in Italia su <a href="https://scioperi.mit.gov.it/" target="_blank" rel="noopener">scioperi.mit.gov.it</a>.</li></ul>';
+else if(z[2]===4)body='<ul>'+(avv.length?avv.map(function(a){return "<li><b>⚠️ "+esc(a.t)+".</b> "+esc(a.x)+"</li>"}).join(""):"<li>Per "+(TRIP.n===1?esc(dateLong(c.date)):"i giorni del viaggio")+" non risultano scioperi o lavori che riguardano il tuo percorso (verifica del 9 ottobre 2026).</li>")+'<li>Nei giorni prima controllate il traffico sull\'app Bonjour RATP o su <a href="https://www.ratp.fr/infos-trafic" target="_blank" rel="noopener">ratp.fr</a> e il calendario degli scioperi in Italia su <a href="https://scioperi.mit.gov.it/" target="_blank" rel="noopener">scioperi.mit.gov.it</a>.</li></ul>';
 else body='<ul>'+z[1].map(function(x){return "<li>"+esc(x)+"</li>"}).join("")+'</ul>';
 return '<details'+((z[1]&&z[2]===1)||(z[2]===4&&avv.length)?" open":"")+'><summary>'+z[0]+(z[2]===4&&avv.length?' <span class="st ko">'+avv.length+'</span>':'')+'</summary>'+body+'</details>'}).join("");
 $$(".say").forEach(function(b){b.addEventListener("click",function(){try{var u=new SpeechSynthesisUtterance(b.dataset.t);u.lang="fr-FR";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u);b.classList.add("on");u.onend=function(){b.classList.remove("on")};setTimeout(function(){b.classList.remove("on")},3000)}catch(e){}})});
-$("#foot").textContent="Itinerario per "+(N===1?"una persona":N+" persone")+", "+dateShort(c.date)+" "+dateObj(c.date).getUTCFullYear()+". Dati verificati il 9 ottobre 2026."}
+$("#foot").textContent="Itinerario per "+(N===1?"una persona":N+" persone")+", "+rangeTxt()+" "+dateObj(c.date).getUTCFullYear()+". Dati verificati il 9 ottobre 2026."}
 
-function renderAll(){if(!CFG)return;WD=wdOf(CFG.date);P=plan(CFG);lastNow=-2;
-renderHero();renderShort();renderItin();renderAvv();meteo();renderVoli();renderPasti();renderCosti(false);renderSpese();renderConsigli();liveTick();PAR.emit();
-var sp=$("#sps");if(sp)sp.textContent="in un giorno · "+dateShort(CFG.date)}
+function renderAll(){if(!CFG)return;TRIP=buildTrip(CFG);var ti=todayIdx();SEL=ti>=0?ti:Math.min(SEL,TRIP.n-1);if(SEL<0)SEL=0;P=TRIP.days[SEL];WD=P.wd;lastNow=-2;
+renderHero();renderDays();renderBar();renderStay();renderShort();renderItin();renderAvv();PREADY=false;meteo();PREADY=true;renderVoli();renderPasti();renderCosti(false);renderSpese();renderConsigli();liveTick();PAR.emit()}
 PAR.render=renderAll;
 setInterval(liveTick,30000);window.addEventListener("vlive",liveTick);
 document.getElementById("t-costi").addEventListener("change",function(){if(this.checked&&CFG)renderCosti(true)});
 
 /* ===== schermata «Il tuo viaggio» ===== */
-var setup=$("#setup"),form=$("#sform"),serr=$("#serr");
+var setup=$("#setup"),form=$("#sform"),serr=$("#serr"),stayF=$("#stayf");
 $("#aplist").innerHTML=PD.FROM.map(function(f){return '<option value="'+esc(f[1]+" ("+f[0]+")")+'">'}).join("");
-function openSetup(first){var c=CFG||{};form.date.value=c.date||"";form.date.min=paris().d;$("#ppl").textContent=c.ppl||2;form.from.value=c.from||"";
+form.sz.innerHTML=PD.HZ.map(function(z){return '<option value="'+z[0]+'">'+esc(z[1])+'</option>'}).join("");
+form.stype.innerHTML=PD.TAX.map(function(t){return '<option value="'+t[0]+'">'+esc(t[1])+'</option>'}).join("");
+function dnote(){var a=form.date.value,b=form.date_r.value,n=1;if(a&&b&&b>a)n=Math.round((dateObj(b)-dateObj(a))/864e5)+1;
+$("#dnote").textContent=!a?"Scegli le date: per una gita in giornata lascia il ritorno uguale all'andata.":n===1?"Gita in giornata, senza alloggio.":n+" giorni e "+(n-1)+(n===2?" notte: aggiungi l'alloggio qui sotto.":" notti: aggiungi l'alloggio qui sotto.");
+var multi=n>1;if(stayF.hidden===multi){stayF.hidden=!multi;if(multi){stayF.classList.remove("pop");void stayF.offsetWidth;stayF.classList.add("pop")}}
+$("#rlab").textContent=multi?"Ritorno":"Ritorno (stesso giorno)"}
+form.date.addEventListener("change",function(){form.date_r.min=form.date.value;if(!form.date_r.value||form.date_r.value<form.date.value)form.date_r.value=form.date.value;dnote()});
+form.date_r.addEventListener("change",dnote);form.date.addEventListener("input",dnote);form.date_r.addEventListener("input",dnote);
+function openSetup(first){var c=CFG||{},s=c.stay||{};form.date.value=c.date||"";form.date.min=paris().d;form.date_r.value=c.date_r||c.date||"";form.date_r.min=c.date||paris().d;$("#ppl").textContent=c.ppl||2;form.from.value=c.from||"";
 $$('input[name=to]',form).forEach(function(r){r.checked=r.value===(c.to||"CDG")});["a_num","a_dep","a_arr","r_num","r_imb","r_dep"].forEach(function(k){form[k].value=c[k]||""});
-$$("input",form).forEach(function(x){x.classList.remove("bad")});serr.textContent="";$("#scancel").hidden=!CFG;
+form.sz.value=s.zone||"chatelet";form.saddr.value=s.addr||"";form.sin.value=s.cin||"15:00";form.sout.value=s.cout||"11:00";form.sprice.value=s.price||"";form.stype.value=s.type||"h3";
+$$("input,select",form).forEach(function(x){x.classList.remove("bad")});serr.textContent="";$("#scancel").hidden=!CFG;stayF.hidden=true;dnote();
 closeSheet();setup.classList.add("on");setup.setAttribute("aria-hidden","false");setup.scrollTop=0}
 function closeSetup(){setup.classList.remove("on");setup.setAttribute("aria-hidden","true")}
 PAR.openSetup=openSetup;
@@ -1237,19 +1613,30 @@ $$("[data-st]",form).forEach(function(b){b.addEventListener("click",function(){v
 $("#scancel").addEventListener("click",closeSetup);
 form.addEventListener("submit",function(e){e.preventDefault();var bad=[],msg="";
 function req(k,t){if(!form[k].value){bad.push(k);msg=msg||t}}
-req("date","Scegli la data del viaggio.");req("a_arr","Inserisci l'orario di atterraggio a Parigi.");req("r_dep","Inserisci l'orario di partenza del volo di ritorno.");
+req("date","Scegli la data di andata.");req("a_arr","Inserisci l'orario di atterraggio a Parigi.");req("r_dep","Inserisci l'orario di partenza del volo di ritorno.");
+var d0=form.date.value,d1=form.date_r.value||d0,multi=d1>d0,n=multi?Math.round((dateObj(d1)-dateObj(d0))/864e5)+1:1;
 var la=toMin(form.a_arr.value),rd=toMin(form.r_dep.value),ri=toMin(form.r_imb.value),ad=toMin(form.a_dep.value);
-if(!msg&&rd<=la){bad.push("r_dep");msg="Il volo di ritorno deve partire dopo l'atterraggio (gita in giornata)."}
+if(!msg&&d1<d0){bad.push("date_r");msg="Il ritorno non può essere prima dell'andata."}
+if(!msg&&n>MAXD){bad.push("date_r");msg="L'app pianifica viaggi fino a "+MAXD+" giorni."}
+if(!msg&&!multi&&rd<=la){bad.push("r_dep");msg="Il volo di ritorno deve partire dopo l'atterraggio (gita in giornata)."}
 if(!msg&&ri!=null&&ri>=rd){bad.push("r_imb");msg="L'apertura dell'imbarco deve essere prima della partenza."}
 if(!msg&&ad!=null&&ad>=la){bad.push("a_dep");msg="La partenza dell'andata deve essere prima dell'atterraggio."}
-$$("input",form).forEach(function(x){x.classList.toggle("bad",bad.indexOf(x.name)>=0)});
+if(!msg&&multi&&form.sz.value==="altro"&&!form.saddr.value.trim()){bad.push("saddr");msg="Scrivi l'indirizzo dell'alloggio, oppure scegli una zona."}
+$$("input,select",form).forEach(function(x){x.classList.toggle("bad",bad.indexOf(x.name)>=0)});
 if(msg){serr.textContent=msg;var f=form[bad[0]];if(f)try{f.focus()}catch(x){}return}
-var to=($('input[name=to]:checked',form)||{}).value||"CDG";
-var c={date:form.date.value,ppl:+$("#ppl").textContent||2,from:form.from.value.trim(),fromCode:fromCode(form.from.value),to:to,a_num:form.a_num.value.replace(/\s+/g,"").toUpperCase(),a_dep:form.a_dep.value,a_arr:form.a_arr.value,r_num:form.r_num.value.replace(/\s+/g,"").toUpperCase(),r_imb:form.r_imb.value,r_dep:form.r_dep.value};
-var first=!CFG;CFG=c;ls("par-trip",JSON.stringify(c));closeSetup();renderAll();window.dispatchEvent(new Event("voli"));
+var to=($('input[name=to]:checked',form)||{}).value||"CDG",old=(CFG&&CFG.stay)||{};
+var c={date:d0,date_r:d1,ppl:+$("#ppl").textContent||2,from:form.from.value.trim(),fromCode:fromCode(form.from.value),to:to,a_num:form.a_num.value.replace(/\s+/g,"").toUpperCase(),a_dep:form.a_dep.value,a_arr:form.a_arr.value,r_num:form.r_num.value.replace(/\s+/g,"").toUpperCase(),r_imb:form.r_imb.value,r_dep:form.r_dep.value};
+if(multi){var addr=form.saddr.value.trim();c.stay={zone:form.sz.value,addr:addr,cin:form.sin.value||"15:00",cout:form.sout.value||"11:00",price:parseFloat(String(form.sprice.value).replace(",","."))||0,type:form.stype.value};
+if(addr&&addr===old.addr&&old.geo){c.stay.pos=old.pos;c.stay.geo=1}}
+var first=!CFG;CFG=c;ls("par-trip",JSON.stringify(c));closeSetup();SEL=0;renderAll();window.dispatchEvent(new Event("voli"));
 var t0=$("#t-itinerario");if(!t0.checked){t0.checked=true;t0.dispatchEvent(new Event("change",{bubbles:true}))}
 var blk=$("#itinerario");try{blk.scrollTo({top:0,behavior:"smooth"})}catch(x){blk.scrollTop=0}
-toast(first?"Itinerario pronto ✨":"Viaggio aggiornato ✓")});
+toast(first?"Itinerario pronto ✨":"Viaggio aggiornato ✓");
+if(multi&&c.stay.addr&&!c.stay.geo)geocode()});
+/* posizione dell'alloggio dall'indirizzo (OpenStreetMap Nominatim) */
+function geocode(){var s=CFG&&CFG.stay;if(!s||!s.addr||!window.fetch)return;var q=s.addr+(/paris|versailles|\d{5}/i.test(s.addr)?"":", Paris");
+fetch("https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=fr&accept-language=fr&q="+encodeURIComponent(q)).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){var x=j&&j[0];if(!x)throw 0;var p=[+(+x.lat).toFixed(5),+(+x.lon).toFixed(5)];if(hav(p,[48.8566,2.3522])>45)throw 0;
+if(!CFG||!CFG.stay||CFG.stay.addr!==s.addr)return;CFG.stay.pos=p;CFG.stay.geo=1;ls("par-trip",JSON.stringify(CFG));renderAll();toast("Alloggio trovato sulla mappa 📍")}).catch(function(){})}
 
 /* impostazioni */
 var sheet=$("#sheet");
@@ -1260,11 +1647,11 @@ sheet.addEventListener("click",function(e){if(e.target===sheet)closeSheet()});
 $$("[data-edit]").forEach(function(b){b.addEventListener("click",function(){openSetup(false)})});
 $("#shvoli").addEventListener("click",function(){closeSheet();var r=$("#t-voli");r.checked=true;r.dispatchEvent(new Event("change",{bubbles:true}));setTimeout(function(){var k=$("#vkey");k.open=true;k.scrollIntoView({behavior:"smooth",block:"center"})},350)});
 $("#shreset").addEventListener("click",function(){if(!confirm("Cancellare viaggio, spese, lista e chiave salvati su questo telefono?"))return;
-["par-trip","par-spese","par-check","par-copt","par-adb-key","par-vlive","par-vlive-n"].forEach(function(k){ls(k,null)});CFG=null;SP={};CK={};COPT={};closeSheet();openSetup(true)});
+["par-trip","par-spese","par-check","par-copt","par-adb-key","par-vlive","par-vlive-n","par-water"].forEach(function(k){ls(k,null)});CFG=null;TRIP=null;SP={};CK={};COPT={};closeSheet();openSetup(true)});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeSheet();if(CFG)closeSetup()}});
 
 /* avvio */
-if(CFG&&CFG.date&&CFG.a_arr&&CFG.r_dep){renderAll()}
+if(CFG&&CFG.date&&CFG.a_arr&&CFG.r_dep){if(!CFG.date_r)CFG.date_r=CFG.date;renderAll();if(TRIP.multi&&CFG.stay&&CFG.stay.addr&&!CFG.stay.geo)geocode()}
 else{CFG=null;setTimeout(function(){openSetup(true)},matchMedia("(prefers-reduced-motion: reduce)").matches?0:1900)}
 })();
 
@@ -1285,10 +1672,11 @@ function pop(t,d,q){return '<div class="lpop"><b>'+esc(t)+'</b><p>'+esc(d)+'</p>
 function show(t,d,q){info.innerHTML='<h3></h3><p></p>'+(q?'<a target="_blank" rel="noopener">Apri in Google Maps</a>':'');info.querySelector("h3").textContent=t;info.querySelector("p").textContent=d;if(q)info.querySelector("a").href=PD.G(q)}
 function bind(mk,t,d,q){mk.bindPopup(pop(t,d,q),{className:"lglass",maxWidth:240,minWidth:180,autoPanPaddingTopLeft:[12,124],autoPanPaddingBottomRight:[64,64]});mk.on("click",function(){show(t,d,q)})}
 function draw(){try{draw0()}catch(e){console.error("draw",e&&e.stack)}}
-function draw0(){var P=PAR.plan,c=PAR.cfg;if(!map||!P)return;
+function vq(v){return v.n+" "+v.a+(/Versailles/.test(v.a)?"":" Paris")}
+function draw0(){var P=PAR.plan,c=PAR.cfg,T=PAR.trip;if(!map||!P)return;var multi=!!(T&&T.multi),H=multi?PAR.home():null,ends=P.kind==="single"||P.kind==="first"||P.kind==="last";
 [gRoute,gStops,gFood,gPh].forEach(function(g){if(g)g.clearLayers()});lines=[];
 var used={},all=[];function add(g){chunks(g).forEach(function(ch){all.push(ch);if(!used[ch.k])used[ch.k]=ch})}
-add(PD.ARR[c.to]);P.items.forEach(function(it){if(it.k==="act")add(it.leg.g);if(it.k==="ret")add(it.ret.g)});
+if(P.kind==="single"||P.kind==="first")add(PD.ARR[c.to]);P.items.forEach(function(it){if((it.k==="act"||it.k==="free"||it.k==="night"||(it.k==="home"&&it.arr))&&it.leg)add(it.leg.g);if(it.k==="ret")add(it.ret.g)});
 var d=dark(),stn={};
 all.forEach(function(ch){var walk=ch.k==="walk",col=walk?getComputedStyle(document.documentElement).getPropertyValue("--c4").trim()||"#5468d8":ch.c;
 var ll=ch.p.map(function(q){return[q[0],q[1]]});var halo=L.polyline(ll,{color:d?"#090c1a":"#ffffff",weight:walk?7:9,opacity:.75,interactive:false}).addTo(gRoute);
@@ -1299,22 +1687,23 @@ lines.push({pl:pl,halo:halo,walk:walk,k:ch.k});
 if(!walk)ch.p.forEach(function(s){if(s[2]&&!stn[s[2]])stn[s[2]]=s})});
 Object.keys(stn).forEach(function(n){var s=stn[n],key=s[3]||0,m=L.circleMarker([s[0],s[1]],{radius:key?5:3.5,color:d?"#eef0ff":"#0f1430",weight:2,fillColor:d?"#141832":"#ffffff",fillOpacity:1}).addTo(gRoute);
 m.bindTooltip(n,{permanent:key>=1,direction:"right",offset:[6,0],className:"lst"+(key===2?" key":"")});if(!key)m.on("click",function(){m.openTooltip()})});
-var A=P.A;var am=L.marker(A.pos,{icon:icon("lap","✈️",30),zIndexOffset:900}).addTo(gStops);bind(am,"Aeroporto di "+A.n,A.arr,A.gm);
+var A=P.A;if(ends){var am=L.marker(A.pos,{icon:icon("lap","✈️",30),zIndexOffset:900}).addTo(gStops);bind(am,"Aeroporto di "+A.n,A.arr,A.gm)}
+if(multi){var hm=L.marker(H.pos,{icon:icon("lap lhm","🏨",32),zIndexOffset:950,title:"Alloggio"}).addTo(gStops);bind(hm,"🏨 "+H.name,"Zona "+H.zn+". Check-in dalle "+H.cin+", check-out entro le "+H.cout+"."+(H.geo?"":" Posizione indicativa."),H.q)}
 P.items.forEach(function(it){if(it.k!=="act")return;var s=PD.STOPS[it.id],mk=L.marker(s.pos,{icon:icon("lpin",it.n,30),zIndexOffset:1000,title:"Tappa "+it.n}).addTo(gStops);bind(mk,it.n+" · "+PAR.fmt(it.t)+" · "+s.t,s.d,s.q)});
 var wd=PAR.wd(),seen={};
-P.items.forEach(function(it){var ids,L0;if(it.k==="meal"){ids=PAR.mealIds(it.m,it.z);L0={col:"C",pra:"P",cen:"D"}[it.m]}else if(it.k==="snk"){ids=PD.MEAL.snk[it.z]||[];L0="S"}else return;
-PAR.vSorted(ids,wd,it.t).forEach(function(o){if(seen[o.id])return;seen[o.id]=1;var v=o.v,q=v.n+" "+v.a+" Paris",mk=L.marker(v.pos,{icon:icon("lfd",L0,24),zIndexOffset:500});bind(mk,v.n+" · "+v.r+" ★",(o.s.c==="ok"?"✓ ":"⚠️ ")+o.s.t+". "+v.d,q);mk.addTo(gFood)})});
-var snkSeen={};P.items.filter(function(x){return x.k==="act"}).forEach(function(x){(PD.MEAL.snk[PD.STOPS[x.id].z]||[]).forEach(function(id){if(seen[id]||snkSeen[id])return;snkSeen[id]=1;var v=PD.V[id],q=v.n+" "+v.a+" Paris",st=PAR.vSorted([id],wd,x.t)[0].s,mk=L.marker(v.pos,{icon:icon("lfd","S",22),zIndexOffset:450});bind(mk,v.n+" · "+v.r+" ★",(st.c==="ok"?"✓ ":"⚠️ ")+st.t+". "+v.d,q);mk.addTo(gFood)})});
+P.items.forEach(function(it){var ids,L0;if(it.k==="meal"){ids=PAR.mealIds(it.m,it.z)||[];L0={col:"C",pra:"P",cen:"D"}[it.m]}else if(it.k==="snk"){ids=PD.MEAL.snk[it.z]||[];L0="S"}else return;
+PAR.vSorted(ids,wd,it.t).forEach(function(o){if(seen[o.id])return;seen[o.id]=1;var v=o.v,q=vq(v),mk=L.marker(v.pos,{icon:icon("lfd",L0,24),zIndexOffset:500});bind(mk,v.n+" · "+v.r+" ★",(o.s.c==="ok"?"✓ ":"⚠️ ")+o.s.t+". "+v.d,q);mk.addTo(gFood)})});
+var snkSeen={};P.items.filter(function(x){return x.k==="act"}).forEach(function(x){(PD.MEAL.snk[PD.STOPS[x.id].z]||[]).forEach(function(id){if(seen[id]||snkSeen[id])return;snkSeen[id]=1;var v=PD.V[id],q=vq(v),st=PAR.vSorted([id],wd,x.t)[0].s,mk=L.marker(v.pos,{icon:icon("lfd","S",22),zIndexOffset:450});bind(mk,v.n+" · "+v.r+" ★",(st.c==="ok"?"✓ ":"⚠️ ")+st.t+". "+v.d,q);mk.addTo(gFood)})});
 PD.PH.forEach(function(p){var mk=L.marker(p[4],{icon:icon("lph",p[0],28),zIndexOffset:600});bind(mk,p[0]+" "+p[1],p[2]+": "+p[3],p[5]);mk.addTo(gPh)});
-var b=L.latLngBounds([PD.START]);P.items.forEach(function(it){if(it.k==="act")b.extend(PD.STOPS[it.id].pos)});if(!P.acts.length)b.extend([48.8584,2.2945]);bnds=b;
+var b=L.latLngBounds([multi?H.pos:PD.START]);P.items.forEach(function(it){if(it.k==="act")b.extend(PD.STOPS[it.id].pos)});if(!P.acts.length)b.extend(multi?PD.START:[48.8584,2.2945]);bnds=b;
 map.fitBounds(b,{paddingTopLeft:[16,24],paddingBottomRight:[48,24],maxZoom:15});
 legend(used);sync();
 if(document.getElementById("t-mappa").checked)setTimeout(anim,250)}
 function legend(used){var h=Object.keys(used).map(function(k){var u=used[k];return '<span><i style="border-color:'+(k==="walk"?"var(--c4)":u.c)+(k==="walk"?";border-top-style:dotted":"")+'"></i>'+esc(k==="walk"?"A piedi":u.n)+'</span>'}).join("");
-lgp.innerHTML=h+'<span>Numeri: le tappe in ordine. ✈️ aeroporto.</span><span><i style="border-color:var(--food)"></i>Locali: C colazione, P pranzo, D cena, S spuntini</span><span>💧 Fontanelle: dati aperti del Comune di Parigi.</span><span>Tracciati indicativi. Tocca punti e linee per i dettagli.</span>'}
+lgp.innerHTML=h+'<span>Numeri: le tappe in ordine. ✈️ aeroporto'+(PAR.trip&&PAR.trip.multi?", 🏨 alloggio":"")+'.</span><span><i style="border-color:var(--food)"></i>Locali: C colazione, P pranzo, D cena, S spuntini</span><span>💧 Fontanelle: dati aperti del Comune di Parigi.</span><span>Tracciati indicativi. Tocca punti e linee per i dettagli.</span>'}
 function sync(){if(!map)return;function t(btn,g){if(btn.getAttribute("aria-checked")==="true")g.addTo(map);else g.remove()}t(tg,gFood);t(tp,gPh);t(tw,gWater);if(tw.getAttribute("aria-checked")==="true")water()}
 [tg,tp,tw].forEach(function(b){b.addEventListener("click",function(){b.setAttribute("aria-checked",b.getAttribute("aria-checked")!=="true");sync()})});
-function water(){if(waterLoaded||!map||!window.fetch)return;waterLoaded=true;var P=PAR.plan,pts=[PD.START];P.items.forEach(function(it){if(it.k==="act")pts.push(PD.STOPS[it.id].pos)});
+function water(){if(waterLoaded||!map||!window.fetch)return;waterLoaded=true;var P=PAR.plan,T=PAR.trip,pts=[T&&T.multi?PAR.home().pos:PD.START];P.items.forEach(function(it){if(it.k==="act")pts.push(PD.STOPS[it.id].pos)});
 var cache=PAR.lj("par-water",null);if(cache&&cache.t>Date.now()-7*864e5&&cache.k===pts.join("|")){paint(cache.r);return}
 show("💧 Fontanelle","Cerco le fontanelle vicine al percorso…");
 Promise.all(pts.map(function(p){var u="https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/fontaines-a-boire/records?limit=40&where="+encodeURIComponent("within_distance(geo_point_2d, geom'POINT("+p[1]+" "+p[0]+")', 550m)");
@@ -1354,16 +1743,25 @@ box.classList.toggle("fs",on);document.body.classList.toggle("fsmap",on);fsb.cla
 fsb.addEventListener("click",function(){setFs(!isFs)});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&isFs)setFs(false)});
 /* foto, mezzi in ordine, percorsi in Google Maps */
-function side(){var P=PAR.plan,c=PAR.cfg;if(!P)return;var inPlan={};P.acts.forEach(function(a){inPlan[a]=1});
-document.getElementById("shots").innerHTML='<summary>📸 Migliori scatti e selfie <small>'+PD.PH.length+' punti</small></summary><ul>'+PD.PH.map(function(p){return '<li><span class="shi">'+p[0]+'</span><div><b>'+esc(p[1])+'</b> <em>'+esc(p[2])+'</em><p>'+esc(p[3])+'</p><small>'+esc(PD.STOPS[p[6]].t)+(inPlan[p[6]]?"":" · fuori dal tuo percorso")+'</small> <a class="go sm" href="'+esc(PAR.gdir(p[5]))+'" target="_blank" rel="noopener">↗︎ Portami lì</a></div></li>'}).join("")+'</ul><p class="meta">Attiva «Foto» sulla mappa per vederli. I punti sono indicativi.</p>';
-var acts=P.items.filter(function(x){return x.k==="act"}),parts=[P.A.arr.split(".")[0]+"."];
-acts.forEach(function(a){parts.push("Verso "+PD.STOPS[a.id].t+": "+a.leg.txt.charAt(0).toLowerCase()+a.leg.txt.slice(1))});
-var ret=P.items[P.items.length-1].ret;parts.push("Ritorno: "+ret.txt.charAt(0).toLowerCase()+ret.txt.slice(1));
-document.getElementById("route").innerHTML="<b>I mezzi in ordine:</b> "+esc(parts.join(" "));
-var stops=[{q:"Châtelet-Les Halles, Paris",t:"Châtelet"}].concat(acts.map(function(a){return{q:PD.STOPS[a.id].q,t:PD.STOPS[a.id].t,m:a.leg.mode}})),h="";
-for(var i=1;i<stops.length;i++){h+='<li><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(stops[i-1].q)+'&destination='+encodeURIComponent(stops[i].q)+'&travelmode='+(stops[i].m==="walk"?"walking":"transit")+'">'+esc(stops[i-1].t+" → "+stops[i].t)+'</a></li>'}
-var last=stops[stops.length-1];h+='<li><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(last.q)+'&destination='+encodeURIComponent(P.A.gm)+'&travelmode=transit">'+esc("Ritorno: "+last.t+" → aeroporto di "+P.A.n)+'</a></li>';
-document.getElementById("gmroutes").innerHTML=h}
+function side(){var P=PAR.plan,c=PAR.cfg,T=PAR.trip;if(!P||!T)return;var multi=T.multi,H=multi?PAR.home():null,inDay={};
+T.days.forEach(function(d,i){d.acts.forEach(function(a){if(inDay[a]==null)inDay[a]=i})});
+document.getElementById("shots").innerHTML='<summary>📸 Migliori scatti e selfie <small>'+PD.PH.length+' punti</small></summary><ul>'+PD.PH.map(function(p){var di=inDay[p[6]];return '<li><span class="shi">'+p[0]+'</span><div><b>'+esc(p[1])+'</b> <em>'+esc(p[2])+'</em><p>'+esc(p[3])+'</p><small>'+esc(PD.STOPS[p[6]].t)+(di==null?" · fuori dal tuo percorso":multi?" · giorno "+(di+1):"")+'</small> <a class="go sm" href="'+esc(PAR.gdir(p[5]))+'" target="_blank" rel="noopener">↗︎ Portami lì</a></div></li>'}).join("")+'</ul><p class="meta">Attiva «Foto» sulla mappa per vederli. I punti sono indicativi.</p>';
+function lc(t){return t.charAt(0).toLowerCase()+t.slice(1)}
+var parts=[],nodes=[];
+function node(q,t,m){var l=nodes[nodes.length-1];if(l&&l.q===q)return;nodes.push({q:q,t:t,m:m})}
+if(P.kind==="single")node("Châtelet-Les Halles, Paris","Châtelet");
+else if(P.kind==="first")node(P.A.gm,"Aeroporto di "+P.A.n);
+else node(H.q,"Alloggio");
+P.items.forEach(function(it){
+if(it.k==="air"){parts.push(P.A.arr.split(".")[0]+".")}
+else if(it.k==="home"&&it.arr){parts.push("Verso l'alloggio: "+lc(it.leg.txt));node(H.q,"Alloggio","transit")}
+else if(it.k==="act"){var s=PD.STOPS[it.id];parts.push("Verso "+s.t+": "+lc(it.leg.txt));node(s.q,s.t,it.leg.mode)}
+else if(it.k==="free"&&it.leg){parts.push("Pausa all'alloggio: "+lc(it.leg.txt));node(H.q,"Alloggio",it.leg.mode)}
+else if(it.k==="night"){parts.push("Rientro: "+lc(it.leg.txt));node(H.q,"Alloggio",it.leg.mode)}
+else if(it.k==="ret"){parts.push("Ritorno: "+lc(it.ret.txt));if(it.multi&&it.ret.toHome)node(H.q,"Alloggio",it.ret.toHome.mode);else if(it.multi)node(H.q,"Alloggio");node(P.A.gm,"Aeroporto di "+P.A.n,"transit")}});
+document.getElementById("route").innerHTML=parts.length?"<b>I mezzi in ordine"+(multi?" (giorno "+(PAR.sel+1)+")":"")+":</b> "+esc(parts.join(" ")):"";
+var h="";for(var i=1;i<nodes.length;i++){h+='<li><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(nodes[i-1].q)+'&destination='+encodeURIComponent(nodes[i].q)+'&travelmode='+(nodes[i].m==="walk"?"walking":"transit")+'">'+esc(nodes[i-1].t+" → "+nodes[i].t)+'</a></li>'}
+document.getElementById("gmroutes").innerHTML=h||'<li>Oggi nessuno spostamento da pianificare.</li>'}
 PAR.on(side);side();
 })();
 
@@ -1377,7 +1775,7 @@ var box=document.getElementById("vkey"),kin=document.getElementById("vkin"),kok=
 var busy=false,timer;
 var ST={Expected:["In orario",""],Unknown:["Nessun dato","idle"],CanceledUncertain:["Da verificare","warn"],CheckIn:["Check-in aperto",""],Boarding:["Imbarco in corso",""],GateClosed:["Gate chiuso","warn"],Departed:["Decollato",""],EnRoute:["In volo",""],Approaching:["In avvicinamento",""],Delayed:["In ritardo","warn"],Arrived:["Atterrato",""],Canceled:["Cancellato","bad"],Diverted:["Dirottato","bad"]};
 function cfg(){return PAR.cfg}
-function DAY(){var c=cfg();return c?c.date:""}
+function DAY(side){var c=cfg();return c?(side==="r"?(c.date_r||c.date):c.date):""}
 function sides(){var c=cfg()||{},f=c.fromCode||"";return{a:{f:"a_num",dep:f,arr:c.to},r:{f:"r_num",dep:c.to,arr:f}}}
 function num(side){var c=cfg()||{};return String(c[sides()[side].f]||"").replace(/\s+/g,"").toUpperCase()}
 function hm(t){if(!t)return"";var x=typeof t==="string"?t:(t.local||"");var m=/[ T](\d{2}):(\d{2})/.exec(x);return m?m[1]+":"+m[2]:""}
@@ -1389,9 +1787,9 @@ return{st:f.status||"Unknown",dS:hm(d.scheduledTime||d.scheduledTimeLocal),dR:hm
 function esc(x){return PAR.esc(x)}
 function ago(t){var m=Math.round((Date.now()-t)/6e4);return m<1?"adesso":m<60?m+" min fa":Math.round(m/60)+" h fa"}
 function trow(lbl,s,r,w,dl){var now=w||r;var h=now&&now!==s?"<s>"+esc(s)+"</s>"+esc(now):esc(s||now||"—");if(dl>=5)h+='<span class="vdl">+'+dl+"′</span>";return'<div class="vrow"><span>'+lbl+"</span><b>"+h+"</b></div>"}
-function ck(n){return n+"@"+DAY()}
+function ck(n,side){return n+"@"+DAY(side)}
 function render(){var LIVE={};
-["a","r"].forEach(function(side){var el=document.querySelector('.vlive[data-l="'+side+'"]');if(!el)return;var n=num(side),c=C[ck(n)];
+["a","r"].forEach(function(side){var el=document.querySelector('.vlive[data-l="'+side+'"]');if(!el)return;var n=num(side),c=C[ck(n,side)];
 if(!key||!n){el.hidden=true;return}el.hidden=false;
 if(!c){el.className="vlive idle";el.innerHTML='<div class="vtop"><span class="vpill">In attesa</span></div><div class="verr">Tocca “Aggiorna stato” per leggere i dati del volo '+esc(n)+".</div>";return}
 if(c.err){el.className="vlive idle";el.innerHTML='<div class="vtop"><span class="vpill">Non disponibile</span><span class="vag">'+ago(c.t)+'</span></div><div class="verr">'+esc(c.err)+"</div>";return}
@@ -1401,26 +1799,26 @@ el.className="vlive "+cls;
 el.innerHTML='<div class="vtop"><span class="vpill">'+esc(s[0])+'</span><span class="vag">agg. '+ago(c.t)+"</span></div>"+trow("Partenza "+(d.dIata||sides()[side].dep),d.dS,d.dR,d.dW,d.dl)+trow("Arrivo "+(d.aIata||sides()[side].arr),d.aS,d.aR,d.aW,d.al)+(chips.length?'<div class="vchips">'+chips.map(function(x){return"<i>"+esc(x)+"</i>"}).join("")+"</div>":"")+(d.air||d.ac?'<div class="vag">'+esc([d.air,d.ac].filter(Boolean).join(" · "))+"</div>":"")});
 window.PARLIVE=LIVE;try{window.dispatchEvent(new Event("vlive"))}catch(e){}
 var any=!!(key&&(num("a")||num("r")));ref.hidden=!any;
-var ts=["a","r"].map(function(x){var c=C[ck(num(x))];return c&&c.t||0}),last=Math.max.apply(null,ts);
+var ts=["a","r"].map(function(x){var c=C[ck(num(x),x)];return c&&c.t||0}),last=Math.max.apply(null,ts);
 var mo=PAR.paris().d.slice(0,7),used=0;try{used=(JSON.parse(g(UK)||"{}")||{})[mo]||0}catch(e){}
 upd.textContent=any&&last?"Ultimo aggiornamento "+ago(last)+(used?" · "+used+" richieste questo mese":""):"";
 box.classList.toggle("on",!!key);ks.textContent=key?"Collegato ✓":"Non collegato";kdel.hidden=!key;kin.placeholder=key?"Chiave salvata •••• "+key.slice(-4):"Incolla la chiave"}
 function count(){var mo=PAR.paris().d.slice(0,7),U={};try{U=JSON.parse(g(UK)||"{}")||{}}catch(e){}U[mo]=(U[mo]||0)+1;p(UK,JSON.stringify(U))}
-function load(side){var n=num(side);if(!n||!DAY())return Promise.resolve();count();
-return fetch("https://"+HOST+"/flights/number/"+encodeURIComponent(n)+"/"+DAY()+"?withAircraftImage=false&withLocation=false",{headers:{"x-rapidapi-key":key,"x-rapidapi-host":HOST}}).then(function(r){
-if(r.status===204||r.status===404)throw"Volo "+n+" non trovato per il "+PAR.dateShort(DAY())+". Controlla il numero (es. FR1234): i dati compaiono di solito qualche giorno prima.";
+function load(side){var n=num(side);if(!n||!DAY(side))return Promise.resolve();count();
+return fetch("https://"+HOST+"/flights/number/"+encodeURIComponent(n)+"/"+DAY(side)+"?withAircraftImage=false&withLocation=false",{headers:{"x-rapidapi-key":key,"x-rapidapi-host":HOST}}).then(function(r){
+if(r.status===204||r.status===404)throw"Volo "+n+" non trovato per il "+PAR.dateShort(DAY(side))+". Controlla il numero (es. FR1234): i dati compaiono di solito qualche giorno prima.";
 if(r.status===401||r.status===403)throw"Chiave non valida o piano Basic non attivo su RapidAPI.";
 if(r.status===429)throw"Limite gratuito del mese raggiunto. Usa i pulsanti degli aeroporti qui sotto.";
 if(!r.ok)throw"Servizio non raggiungibile ("+r.status+"). Riprovo più tardi.";
-return r.json()}).then(function(j){var d=norm(pick(j,side));if(!d)throw"Nessun dato per il volo "+n+".";C[ck(n)]={t:Date.now(),d:d}},function(e){C[ck(n)]={t:Date.now(),err:typeof e==="string"?e:"Connessione assente. Riprovo più tardi."}}).then(function(){p(CK,JSON.stringify(C))})}
-function due(side){var n=num(side);if(!n)return false;var c=C[ck(n)];if(!c)return true;var age=Date.now()-c.t,today=PAR.paris().d,DAYv=DAY();
+return r.json()}).then(function(j){var d=norm(pick(j,side));if(!d)throw"Nessun dato per il volo "+n+".";C[ck(n,side)]={t:Date.now(),d:d}},function(e){C[ck(n,side)]={t:Date.now(),err:typeof e==="string"?e:"Connessione assente. Riprovo più tardi."}}).then(function(){p(CK,JSON.stringify(C))})}
+function due(side){var n=num(side);if(!n)return false;var c=C[ck(n,side)];if(!c)return true;var age=Date.now()-c.t,today=PAR.paris().d,DAYv=DAY(side);
 if(today>DAYv)return false;if(today<DAYv)return age>12*36e5;var d=c.d,now=Date.now();
 if(d&&isFinite(d.sDep)&&isFinite(d.sArr)){if(/Arrived|Canceled/.test(d.st))return age>60*6e4;if(now>d.sDep-3*36e5&&now<d.sArr+36e5)return age>10*6e4;return age>60*6e4}
 return age>(c.err?30:10)*6e4}
 function visible(){var t=document.getElementById("t-itinerario"),v=document.getElementById("t-voli");return !document.hidden&&((t&&t.checked)||(v&&v.checked))}
 function auto(force){if(!key||busy||!cfg())return;if(!force&&!visible())return;var list=["a","r"].filter(function(x){return force||due(x)});if(!list.length){render();return}
 busy=true;ref.disabled=true;ref.textContent="↻ Aggiorno…";Promise.all(list.map(load)).then(function(){busy=false;ref.disabled=false;ref.textContent="↻ Aggiorna stato";render()})}
-ref.addEventListener("click",function(){var ts=["a","r"].map(function(x){var c=C[ck(num(x))];return c&&c.t||0});if(Date.now()-Math.max.apply(null,ts)<6e4&&ts.every(Boolean)){render();return}auto(true)});
+ref.addEventListener("click",function(){var ts=["a","r"].map(function(x){var c=C[ck(num(x),x)];return c&&c.t||0});if(Date.now()-Math.max.apply(null,ts)<6e4&&ts.every(Boolean)){render();return}auto(true)});
 kok.addEventListener("click",function(){var v=kin.value.trim();if(!v)return;key=v;p(KK,v);kin.value="";C={};p(CK,"{}");box.open=false;render();auto(true)});
 kin.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();kok.click()}});
 kdel.addEventListener("click",function(){key="";p(KK,null);C={};p(CK,"{}");render()});
