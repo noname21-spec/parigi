@@ -652,6 +652,20 @@ body.tbmin .tabbar{box-shadow:inset 0 1.5px 0 var(--hi),0 12px 30px color-mix(in
 .home .t{color:var(--c2)!important}
 .air .t{color:var(--c2)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ===== campi d'inserimento: testo centrato in orizzontale e in verticale ===== */
+.sgrp input[type=text],.sgrp input[type=date],.sgrp input[type=time],.sgrp input[type=number],.sgrp select,.vkrow input,.who input,.sgrid input{position:relative;box-sizing:border-box;height:44px;padding:0 12px!important;line-height:42px;text-align:center;text-align-last:center;vertical-align:middle;-webkit-appearance:none;appearance:none}
+.who input,.sgrid input,.vkrow input{height:42px;line-height:40px}
+.sgrp select{padding:0 26px!important;background-position:right 10px center!important;text-overflow:ellipsis}
+.sgrp input::placeholder,.vkrow input::placeholder,.who input::placeholder,.sgrid input::placeholder{text-align:center;line-height:normal}
+.sgrp input[type=date],.sgrp input[type=time]{display:flex;align-items:center;justify-content:center}
+.sgrp input::-webkit-date-and-time-value{text-align:center!important;margin:0 auto!important;min-height:0;line-height:42px}
+.sgrp input::-webkit-datetime-edit{display:inline-flex;align-items:center;justify-content:center;height:100%;padding:0;line-height:normal}
+.sgrp input::-webkit-datetime-edit-fields-wrapper{padding:0}
+.sgrp input::-webkit-calendar-picker-indicator{display:none;-webkit-appearance:none}
+.sgrp input[type=number]::-webkit-inner-spin-button,.sgrp input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.sgrp label.f>span{text-align:center}
+.stepper output{line-height:44px}
 </style>
 </head>
 <body>
@@ -802,8 +816,8 @@ body.tbmin .tabbar{box-shadow:inset 0 1.5px 0 var(--hi),0 12px 30px color-mix(in
 <label class="f w"><span>Indirizzo (facoltativo)</span><input type="text" name="saddr" placeholder="es. 12 rue de Turenne, 75004" autocapitalize="words" spellcheck="false"></label>
 <label class="f"><span>Check-in dalle</span><input type="time" name="sin" value="15:00"></label>
 <label class="f"><span>Check-out entro le</span><input type="time" name="sout" value="11:00"></label>
-<label class="f"><span>Prezzo totale (€)</span><input type="number" name="sprice" inputmode="decimal" min="0" step="1" placeholder="tutte le notti"></label>
-<label class="f"><span>Tipo</span><select name="stype"></select></label>
+<label class="f w"><span>Prezzo totale (€)</span><input type="number" name="sprice" inputmode="decimal" min="0" step="1" placeholder="tutte le notti"></label>
+<label class="f w"><span>Tipo di alloggio</span><select name="stype"></select></label>
 <p class="snote w">Non hai ancora prenotato? Scegli la zona: l'itinerario parte da lì e i rientri serali si calcolano da lì. Il tipo serve per la tassa di soggiorno.</p>
 </fieldset>
 <fieldset class="sgrp"><legend>🛫 Da dove parti</legend>
@@ -1135,10 +1149,10 @@ var HZ=[
 ["marais","Marais / Bastille",[48.8566,2.3622],"A"],
 ["louvre","Louvre / Palais-Royal",[48.8640,2.3380],"B"],
 ["opera","Opéra / Grands Boulevards",[48.8740,2.3420],"F"],
-["latin","Quartiere Latino / Saint-Germain",[48.8500,2.3420],"G"],
+["latin","Quartiere Latino / St-Germain",[48.8500,2.3420],"G"],
 ["eiffel","Tour Eiffel / Invalides",[48.8560,2.3030],"C"],
 ["montmartre","Montmartre / Pigalle",[48.8840,2.3390],"D"],
-["canal","République / Canal Saint-Martin",[48.8700,2.3620],"H"],
+["canal","République / Canal St-Martin",[48.8700,2.3620],"H"],
 ["nord","Gare du Nord / Gare de l'Est",[48.8780,2.3570],"H"],
 ["montparnasse","Montparnasse",[48.8420,2.3210],""],
 ["lyon","Gare de Lyon / Bercy",[48.8440,2.3740],""],
@@ -1698,7 +1712,7 @@ $("#dnote").textContent=!a?"Scegli le date: per una gita in giornata lascia il r
 var multi=n>1;if(stayF.hidden===multi){stayF.hidden=!multi;if(multi){stayF.classList.remove("pop");void stayF.offsetWidth;stayF.classList.add("pop")}}
 $("#rlab").textContent=multi?"Ritorno":"Ritorno (stesso giorno)"}
 form.date.addEventListener("change",function(){form.date_r.min=form.date.value;if(!form.date_r.value||form.date_r.value<form.date.value)form.date_r.value=form.date.value;dnote()});
-form.date_r.addEventListener("change",dnote);form.date.addEventListener("input",dnote);form.date_r.addEventListener("input",dnote);
+form.date_r.addEventListener("change",dnote);$$('input[type=date],input[type=time]',form).forEach(function(i){i.addEventListener("click",function(){try{if(i.showPicker)i.showPicker()}catch(e){}})});form.date.addEventListener("input",dnote);form.date_r.addEventListener("input",dnote);
 function openSetup(first){var c=CFG||{},s=c.stay||{};form.date.value=c.date||"";form.date.min=paris().d;form.date_r.value=c.date_r||c.date||"";form.date_r.min=c.date||paris().d;$("#ppl").textContent=c.ppl||2;form.from.value=c.from||"";
 $$('input[name=to]',form).forEach(function(r){r.checked=r.value===(c.to||"CDG")});["a_num","a_dep","a_arr","r_num","r_imb","r_dep"].forEach(function(k){form[k].value=c[k]||""});
 form.sz.value=s.zone||"chatelet";form.saddr.value=s.addr||"";form.sin.value=s.cin||"15:00";form.sout.value=s.cout||"11:00";form.sprice.value=s.price||"";form.stype.value=s.type||"h3";
