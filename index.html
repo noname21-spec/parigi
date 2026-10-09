@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light dark">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Parigi">
+<meta name="theme-color" content="#0b3fa0">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
+<link rel="icon" type="image/png" href="icon-192.png?v=1">
+<script>try{var t=localStorage.getItem("par-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script>(function(){try{var sa=navigator.standalone===true||matchMedia("(display-mode: standalone)").matches;if(!sa)return;var r=document.documentElement;r.classList.add("sa");function f(){var p=innerHeight>=innerWidth,sh=p?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width);var h=Math.max(innerHeight,document.documentElement.clientHeight||0);if(sh>h&&sh-h<80)h=sh;r.style.setProperty("--apph",h+"px")}f();addEventListener("resize",f);addEventListener("orientationchange",function(){setTimeout(f,300)})}catch(e){}})();</script>
+<script>(function(){try{var h=Math.max(screen.height,screen.width),r=h>=926?55:h>=852?55:h>=844?47:h>=812?44:h>=736?0:39;if(r)document.documentElement.style.setProperty("--scr",r+"px")}catch(e){}})();</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" media="print" onload="this.media='all'">
+<title>Parigi in un giorno</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&display=swap">
+<style>
+/* ===== colori della Francia: blu, bianco, rosso ===== */
+:root{--c1:#0055a4;--c2:#e1253a;--c3:#0b3fa0;--c4:#5468d8;--c5:#3d6fd8;--pin:#0b3fa0;--blue:#0b3fa0;--food:#e1253a;--bg:#f3f5fb;--land:#e8ebf5;--ink:#0f1430;--mute:#5a6082;--line:#d3d7e8;--paper:#ffffff;--surf:#ffffff;--surf2:#eef1fa;--glass:rgba(255,255,255,.55);--glassb:rgba(255,255,255,.8);--gl:rgba(255,255,255,.5);--gl2:rgba(255,255,255,.58);--edge:rgba(15,20,48,.12);--hi:rgba(255,255,255,.9);--hi2:rgba(255,255,255,.35);--glsh:rgba(15,20,48,.12);--gltb:rgba(255,255,255,.2);--tb:74px;--scr:44px;--r1:max(22px,calc(var(--scr) - 10px));--r2:max(16px,calc(var(--scr) - 28px));--r3:max(12px,calc(var(--scr) - 38px));box-sizing:border-box}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c1:#4d8fe8;--c2:#ff5a6a;--c3:#6f9bff;--c4:#9aa8ff;--c5:#7f9ff0;--pin:#6f9bff;--blue:#9cc2ff;--food:#ff5a6a;--bg:#090c1a;--land:#12152a;--ink:#eef0ff;--mute:#a9aecb;--line:#2a2f4d;--paper:#141832;--surf:#151a33;--surf2:#1c2244;--glass:rgba(255,255,255,.06);--glassb:rgba(255,255,255,.12);--gl:rgba(26,30,58,.5);--gl2:rgba(34,38,70,.55);--edge:rgba(0,0,0,.5);--hi:rgba(255,255,255,.22);--hi2:rgba(255,255,255,.08);--glsh:rgba(0,0,0,.4);--gltb:rgba(18,22,46,.3)}}
+:root[data-theme="dark"],:root:has(#dm:checked){--c1:#4d8fe8;--c2:#ff5a6a;--c3:#6f9bff;--c4:#9aa8ff;--c5:#7f9ff0;--pin:#6f9bff;--blue:#9cc2ff;--food:#ff5a6a;--bg:#090c1a;--land:#12152a;--ink:#eef0ff;--mute:#a9aecb;--line:#2a2f4d;--paper:#141832;--surf:#151a33;--surf2:#1c2244;--glass:rgba(255,255,255,.06);--glassb:rgba(255,255,255,.12);--gl:rgba(26,30,58,.5);--gl2:rgba(34,38,70,.55);--edge:rgba(0,0,0,.5);--hi:rgba(255,255,255,.22);--hi2:rgba(255,255,255,.08);--glsh:rgba(0,0,0,.4);--gltb:rgba(18,22,46,.3)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg)!important;min-height:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:64px}
+html,body{height:100%;width:100%;overflow:hidden;overscroll-behavior:none!important;touch-action:pan-x pan-y}
+body{margin:0;background:transparent;color:var(--ink);font:400 16px/1.55 Manrope,system-ui,sans-serif;min-height:100dvh}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(52% 40% at 6% 4%,color-mix(in srgb,var(--c3) 40%,transparent),transparent 70%),radial-gradient(48% 40% at 96% 92%,color-mix(in srgb,var(--c2) 34%,transparent),transparent 70%),radial-gradient(40% 32% at 92% 18%,color-mix(in srgb,var(--c4) 26%,transparent),transparent 70%),radial-gradient(36% 30% at 10% 70%,color-mix(in srgb,#ffffff 30%,transparent),transparent 70%);background-size:140% 140%}
+:root[data-theme="dark"] body::before,:root:has(#dm:checked) body::before{opacity:.9}
+h1,h2,h3{font-family:Manrope,system-ui,sans-serif}
+a{color:var(--blue);text-underline-offset:3px}a:focus-visible,button:focus-visible{outline:3px solid var(--c2);outline-offset:2px}
+input,select,textarea{font-size:16px!important}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+html,body,.blk,.tabbar,.stage{transition:background-color .5s ease,color .5s ease}
+/* ===== pannelli ===== */
+main{position:fixed;inset:0;max-width:none;margin:0;padding:0}
+.tabr,.dmin{position:fixed;opacity:0;pointer-events:none;width:1px;height:1px}
+.blk{position:absolute;top:calc(70px + env(safe-area-inset-top,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px)*.45);left:max(10px,calc((100% - 760px)/2));right:max(10px,calc((100% - 760px)/2));margin:0;padding:18px;padding-bottom:calc(var(--tb) + 30px);scroll-padding-bottom:calc(var(--tb) + 30px);overflow-y:auto;overflow-x:hidden;overscroll-behavior:none;-webkit-overflow-scrolling:touch;opacity:0;visibility:hidden;border-radius:var(--r1);background:linear-gradient(180deg,var(--hi2),transparent 38%),var(--gl);-webkit-backdrop-filter:blur(30px) saturate(185%);backdrop-filter:blur(30px) saturate(185%);border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi),inset 0 0 0 1px var(--hi2),0 18px 50px var(--glsh);contain:layout paint style;transition:opacity .32s ease,visibility 0s linear .32s}
+html.sa .blk{bottom:auto;height:calc(var(--apph) - 70px - env(safe-area-inset-top,0px) - 12px - env(safe-area-inset-bottom,0px)*.45)}
+body:has(#t-itinerario:checked) #itinerario,body:has(#t-voli:checked) #voli,body:has(#t-mappa:checked) #mappa,body:has(#t-mangiare:checked) #mangiare,body:has(#t-costi:checked) #costi,body:has(#t-consigli:checked) #consigli{opacity:1;visibility:visible;transition:opacity .32s ease,visibility 0s}
+body.dir-r .blk.on{animation:slideInR .55s cubic-bezier(.22,1.2,.36,1) both}
+body.dir-l .blk.on{animation:slideInL .55s cubic-bezier(.22,1.2,.36,1) both}
+@keyframes slideInR{from{opacity:0;transform:translate3d(42px,0,0) scale(.97)}to{opacity:1;transform:none}}
+@keyframes slideInL{from{opacity:0;transform:translate3d(-42px,0,0) scale(.97)}to{opacity:1;transform:none}}
+.blk.on>*{animation:riseIn .6s cubic-bezier(.2,1.25,.4,1) both}
+.blk>*:nth-child(2){animation-delay:.05s!important}.blk>*:nth-child(3){animation-delay:.1s!important}.blk>*:nth-child(4){animation-delay:.15s!important}.blk>*:nth-child(5){animation-delay:.2s!important}.blk>*:nth-child(n+6){animation-delay:.25s!important}
+@keyframes riseIn{0%{opacity:0;transform:translate3d(0,22px,0) scale(.96)}100%{opacity:1;transform:none}}
+@keyframes up{from{opacity:0;transform:translate3d(0,14px,0)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translate3d(0,8px,0)}to{opacity:1;transform:none}}
+@keyframes popIn{0%{opacity:0;transform:translateY(26px) scale(.94) rotate(-1.5deg)}60%{opacity:1;transform:translateY(-4px) scale(1.01) rotate(.4deg)}100%{opacity:1;transform:none}}
+@keyframes jelly{0%{opacity:0;transform:scale(.3)}40%{opacity:1;transform:scale(1.18,.86)}60%{transform:scale(.92,1.08)}80%{transform:scale(1.04,.97)}100%{opacity:1;transform:none}}
+h2.sec{font-size:1.7rem;font-weight:800;margin:0 0 12px;letter-spacing:-.02em}
+h2.sec::after{content:"";display:block;width:56px;height:6px;margin-top:8px;border-radius:3px;background:linear-gradient(90deg,var(--c3),#fff 50%,var(--c2));box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 8%,transparent)}
+.meta{color:var(--mute);font-size:.92rem}
+.lead{margin:-4px 0 14px;color:var(--mute);font-size:.9rem}
+footer{text-align:center;margin:26px 0 8px;opacity:.7;color:var(--mute);font-size:.88rem}
+/* ===== intestazione ===== */
+.hero{position:relative;isolation:isolate;padding:6px 0 18px}
+.hero h1{font-size:clamp(1.75rem,7vw,2.6rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin:0;background:linear-gradient(100deg,var(--c3),var(--c4) 55%,var(--c2));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:up .9s ease both}
+.sub{margin:12px 0 22px;opacity:.9;max-width:52ch;animation:up .9s .12s ease both}
+.bar{display:flex;height:14px;gap:3px;animation:up .9s .24s ease both}.bar i{display:block;border-radius:7px;min-width:4px}
+.bar i:nth-child(odd){background:var(--c3)}.bar i:nth-child(even){background:var(--c2)}
+.ends{display:flex;justify-content:space-between;font:600 1rem Manrope,system-ui,sans-serif;margin-top:8px;animation:up .9s .32s ease both}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background-image:var(--pav);background-size:46px;opacity:.04;-webkit-mask-image:linear-gradient(180deg,#000 30%,transparent);mask-image:linear-gradient(180deg,#000 30%,transparent);border-radius:20px 20px 0 0}
+:root[data-theme="dark"] .hero::before,:root:has(#dm:checked) .hero::before{filter:invert(1);opacity:.09}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero::before{filter:invert(1);opacity:.09}}
+:root{--pav:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.3%22%3E%3Cpath%20d%3D%22M0%2014h56M0%2042h56M28%200v14M0%2014v28M56%2014v28M14%2042v14M42%2042v14M28%2014v28%22/%3E%3Cpath%20d%3D%22M28%2021l2%205h5l-4%203%201.5%205-4.5-3-4.5%203%201.5-5-4-3h5z%22/%3E%3C/g%3E%3C/svg%3E")}
+/* sagoma di Parigi */
+.sky{display:block;width:100%;max-width:620px;margin:20px auto 4px;height:auto;overflow:visible;animation:up 1.2s .4s ease both}
+.sky .sk-main *{fill:url(#skyg)}.spsky .sk-main *{fill:url(#skyg2)}
+.sky .sk-ground{fill:url(#skyg)}.spsky .sk-ground{fill:url(#skyg2)}
+.sk-back *{fill:var(--c4);opacity:.16}
+.sk-back circle{fill:var(--c2);opacity:.2}
+.sk-lines path{fill:none;stroke:var(--bg);stroke-width:.8;opacity:.6;stroke-linecap:round}
+.sk-sea path{fill:none;stroke:var(--c3);stroke-width:1.5;opacity:.45;stroke-linecap:round}
+.sky .sk-sea path{animation:wave 4s ease-in-out infinite alternate}
+.sky .sk-sea path+path{animation-delay:-2s}
+@keyframes wave{from{transform:translateX(-6px)}to{transform:translateX(6px)}}
+.sk-spark circle{fill:#ffd56b;opacity:0}
+.sky .sk-spark circle{animation:spark 2.6s ease-in-out infinite}
+.sky .sk-spark circle:nth-child(2){animation-delay:.4s}.sky .sk-spark circle:nth-child(3){animation-delay:.9s}.sky .sk-spark circle:nth-child(4){animation-delay:1.3s}.sky .sk-spark circle:nth-child(5){animation-delay:1.8s}.sky .sk-spark circle:nth-child(6){animation-delay:2.1s}
+@keyframes spark{0%,70%,100%{opacity:0;transform:scale(.4)}80%{opacity:1;transform:scale(1.3)}90%{opacity:.6;transform:scale(1)}}
+.sk-spark circle{transform-box:fill-box;transform-origin:center}
+body:not(:has(#t-itinerario:checked)) .sky *,body:not(:has(#t-itinerario:checked)) .live .dot{animation-play-state:paused!important}
+/* ===== splash ===== */
+#splash{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:var(--bg);animation:spOut .55s 1.75s ease forwards;pointer-events:none;overflow:hidden}
+#splash::before{content:"";position:absolute;inset:-48px;background-image:var(--pav);background-size:48px;opacity:.06;animation:spPan2 2.4s linear both;will-change:transform}
+:root[data-theme="dark"] #splash::before,:root:has(#dm:checked) #splash::before{filter:invert(1)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #splash::before{filter:invert(1)}}
+html.sa #splash{bottom:auto;height:var(--apph)}
+.sp-in{position:relative;text-align:center;width:min(86vw,380px)}
+.spsky{width:100%;height:auto;overflow:visible}
+.spsky .sk-main>g{transform-box:fill-box;transform-origin:50% 100%;animation:spRise .6s cubic-bezier(.3,1.5,.5,1) both;animation-delay:calc(var(--k,0)*90ms)}
+.spsky>g:not(.sk-main){animation:spText .5s both;animation-delay:calc(var(--k,0)*90ms)}
+.sp-t{margin-top:14px;font:800 2.2rem/1 Manrope,system-ui,sans-serif;letter-spacing:-.03em;background:linear-gradient(100deg,var(--c3),var(--c4) 50%,var(--c2));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:spText .6s .75s cubic-bezier(.3,1.5,.5,1) both}
+.sp-s{margin-top:6px;color:var(--mute);font:600 .95rem Manrope,system-ui,sans-serif;animation:spText .6s .95s ease both}
+.sp-flag{display:flex;justify-content:center;gap:0;margin:12px auto 0;width:54px;height:6px;border-radius:3px;overflow:hidden;animation:spText .6s 1.05s ease both}
+.sp-flag i{flex:1}.sp-flag i:nth-child(1){background:#0b3fa0}.sp-flag i:nth-child(2){background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}.sp-flag i:nth-child(3){background:#e1253a}
+@keyframes spRise{from{transform:scaleY(0);opacity:0}to{transform:none;opacity:1}}
+@keyframes spText{from{opacity:0;transform:translateY(12px) scale(.9)}to{opacity:1;transform:none}}
+@keyframes spOut{to{opacity:0;visibility:hidden;transform:scale(1.06)}}
+@keyframes spPan2{from{transform:translate3d(0,0,0)}to{transform:translate3d(48px,48px,0)}}
+@media (prefers-reduced-motion:reduce){#splash{display:none}}
+/* ===== barra in alto ===== */
+.appbar{position:fixed;z-index:55;top:0;left:0;right:0;height:calc(60px + env(safe-area-inset-top,0px));display:flex;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 8px) max(26px,calc((100% - 760px)/2 + 16px)) 0;font:700 .9rem Manrope,system-ui,sans-serif;color:var(--mute);pointer-events:none;isolation:isolate}
+.appbar::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,var(--hi2),transparent),var(--gl);-webkit-backdrop-filter:blur(30px) saturate(185%);backdrop-filter:blur(30px) saturate(185%);box-shadow:inset 0 -1px 0 var(--edge),inset 0 -2px 0 var(--hi2)}
+.appt{color:var(--c3);font-weight:800;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:transform .45s cubic-bezier(.3,1.3,.5,1),opacity .3s}
+.appt b{color:var(--c2);font-weight:800}
+body.scrolled .appt{transform:translate3d(-2px,0,0) scale(.94);transform-origin:left center}
+.wx{margin-left:auto;margin-right:112px;flex:none;display:inline-flex;align-items:center;gap:5px;padding:4px 10px 4px 6px;border-radius:999px;background:linear-gradient(180deg,var(--hi2),transparent),var(--gl);border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi);color:var(--ink);font:800 .88rem Manrope,system-ui,sans-serif;opacity:0;transform:translate3d(0,-14px,0) scale(.8);transition:opacity .35s ease,transform .5s cubic-bezier(.3,1.5,.5,1)}
+body.scrolled .wx{opacity:1;transform:none}
+.wxi{display:inline-block;font-style:normal;font-size:1.15rem;line-height:1}
+.wx.sun .wxi{animation:wxSun 9s linear infinite}.wx.cloud .wxi{animation:wxCloud 3.2s ease-in-out infinite alternate}.wx.rain .wxi{animation:wxRain 1.1s ease-in-out infinite}.wx.storm .wxi{animation:wxStorm 2.4s steps(1) infinite}.wx.fog .wxi{animation:wxFog 3s ease-in-out infinite alternate}.wx.snow .wxi{animation:wxSnow 2.6s ease-in-out infinite}
+@keyframes wxSun{to{transform:rotate(360deg)}}@keyframes wxCloud{from{transform:translate3d(-3px,0,0)}to{transform:translate3d(3px,0,0)}}@keyframes wxRain{0%,100%{transform:none}50%{transform:translate3d(0,2px,0) scale(1.05,.95)}}@keyframes wxStorm{0%,88%,100%{opacity:1}90%,94%{opacity:.35}}@keyframes wxFog{from{opacity:.6;transform:translate3d(-2px,0,0)}to{opacity:1;transform:translate3d(2px,0,0)}}@keyframes wxSnow{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(12deg) translate3d(0,2px,0)}}
+body:not(.scrolled) .wxi{animation-play-state:paused!important}
+/* interruttore stile iPhone */
+.iosw{position:fixed;z-index:60;top:calc(18px + env(safe-area-inset-top,0px));right:max(16px,calc((100% - 760px)/2 + 6px));cursor:pointer}
+.iosw .trk{position:relative;display:block;width:58px;height:32px;border-radius:16px;background:linear-gradient(180deg,var(--hi2),transparent 50%),var(--gl);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi),0 6px 16px var(--glsh);transition:background .35s ease}
+.iosw .ic{position:absolute;top:50%;font-size:.85rem;font-weight:400;line-height:1;transform:translateY(-50%);transition:opacity .3s,transform .5s cubic-bezier(.3,1.6,.5,1)}
+.iosw .sun{right:7px}.iosw .moon{left:7px;opacity:0;transform:translateY(-50%) scale(.4) rotate(-90deg)}
+.iosw .knob{position:absolute;top:1px;left:1px;width:28px;height:28px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.18),0 1px 1px rgba(0,0,0,.12);transition:transform .45s cubic-bezier(.3,1.5,.5,1),width .2s ease}
+.iosw:active .knob{width:34px}
+:root:has(#dm:checked) .iosw .trk{background:linear-gradient(135deg,var(--c3),var(--c2))}
+:root:has(#dm:checked) .iosw .knob{transform:translateX(26px)}
+:root:has(#dm:checked) .iosw:active .knob{transform:translateX(20px)}
+:root:has(#dm:checked) .iosw .moon{opacity:1;transform:translateY(-50%) scale(1) rotate(0)}
+:root:has(#dm:checked) .iosw .sun{opacity:0;transform:translateY(-50%) scale(.4) rotate(90deg)}
+body:has(.dmin:focus-visible) .iosw .trk{outline:2px solid var(--c2);outline-offset:3px}
+.gear{position:fixed;z-index:60;top:calc(16px + env(safe-area-inset-top,0px));right:calc(max(16px,(100% - 760px)/2 + 6px) + 68px);width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--edge);background:linear-gradient(180deg,var(--hi2),transparent 50%),var(--gl);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);box-shadow:inset 0 1px 0 var(--hi),0 6px 16px var(--glsh);font-size:1.05rem;cursor:pointer;transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.gear:active{transform:rotate(60deg) scale(.9)}
+/* ===== barra delle sezioni ===== */
+.tabbar{position:fixed;z-index:50;right:max(10px,calc((100% - 580px)/2));bottom:calc(env(safe-area-inset-bottom,0px)*.3 + 4px);width:min(580px,calc(100% - 20px));height:var(--tb);display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;padding:7px;border-radius:var(--r1);background:linear-gradient(180deg,var(--hi2),transparent 55%),var(--gltb);-webkit-backdrop-filter:blur(16px) saturate(210%) brightness(1.04);backdrop-filter:blur(16px) saturate(210%) brightness(1.04);border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi),inset 0 0 0 1px var(--hi2),0 18px 50px var(--glsh);transition:width .5s cubic-bezier(.3,1.25,.5,1),border-radius .5s ease,box-shadow .4s ease,height .4s ease;touch-action:none}
+html.sa .tabbar{bottom:auto;top:calc(var(--apph) - var(--tb) - 10px - env(safe-area-inset-bottom,0px)*.45)}
+.tabbar label{position:relative;z-index:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:0 1px;border-radius:max(16px,calc(var(--r1) - 7px));cursor:pointer;color:color-mix(in srgb,var(--ink) 72%,transparent);text-shadow:0 1px 2px color-mix(in srgb,var(--bg) 70%,transparent);font:700 .64rem Manrope,system-ui,sans-serif;letter-spacing:0;transition:color .4s ease,transform .15s ease}
+.tabbar label:active{transform:scale(.92)}
+.tabbar label span{position:relative;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.tabbar label::after{content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:transparent;opacity:0;pointer-events:none;box-shadow:0 -24px 0 var(--c3),21px -12px 0 #fff,21px 12px 0 var(--c2),0 24px 0 var(--c3),-21px 12px 0 #fff,-21px -12px 0 var(--c2),12px -21px 0 #ffd56b,-12px 21px 0 #ffd56b}
+.tabbar .em{position:relative;display:block;font-size:1.42rem;line-height:1;font-weight:400;font-style:normal;filter:grayscale(.35) opacity(.85);transition:transform .4s ease,filter .4s ease}
+.tabbar label:hover .em{transform:translateY(-2px)}
+body:has(#t-itinerario:checked) label[for=t-itinerario],body:has(#t-voli:checked) label[for=t-voli],body:has(#t-mappa:checked) label[for=t-mappa],body:has(#t-mangiare:checked) label[for=t-mangiare],body:has(#t-costi:checked) label[for=t-costi],body:has(#t-consigli:checked) label[for=t-consigli]{color:#fff!important;text-shadow:none}
+body:has(#t-itinerario:checked) label[for=t-itinerario] .em,body:has(#t-voli:checked) label[for=t-voli] .em,body:has(#t-mappa:checked) label[for=t-mappa] .em,body:has(#t-mangiare:checked) label[for=t-mangiare] .em,body:has(#t-costi:checked) label[for=t-costi] .em,body:has(#t-consigli:checked) label[for=t-consigli] .em{filter:none;animation:var(--emA) .9s cubic-bezier(.3,1.4,.5,1) both,idleWiggle 4.5s 1.2s ease-in-out infinite}
+body:has(#t-itinerario:checked) label[for=t-itinerario] span,body:has(#t-voli:checked) label[for=t-voli] span,body:has(#t-mappa:checked) label[for=t-mappa] span,body:has(#t-mangiare:checked) label[for=t-mangiare] span,body:has(#t-costi:checked) label[for=t-costi] span,body:has(#t-consigli:checked) label[for=t-consigli] span{animation:lblPop .5s cubic-bezier(.3,1.6,.5,1) both}
+body:has(#t-itinerario:checked) label[for=t-itinerario]::after,body:has(#t-voli:checked) label[for=t-voli]::after,body:has(#t-mappa:checked) label[for=t-mappa]::after,body:has(#t-mangiare:checked) label[for=t-mangiare]::after,body:has(#t-costi:checked) label[for=t-costi]::after,body:has(#t-consigli:checked) label[for=t-consigli]::after{animation:sparkle .7s ease-out both}
+.em-spin{--emA:emSpin}.em-unfold{--emA:emUnfold}.em-bob{--emA:emBob}.em-flip{--emA:emFlip}.em-glow{--emA:emGlow}.em-fly{--emA:emFly}
+@keyframes lblPop{0%{opacity:0;transform:translate3d(0,8px,0) scale(.7)}100%{opacity:1;transform:none}}
+@keyframes sparkle{0%{opacity:1;transform:scale(.2) rotate(0)}60%{opacity:1}100%{opacity:0;transform:scale(1.7) rotate(-35deg)}}
+@keyframes idleWiggle{0%,86%,100%{transform:none}89%{transform:rotate(-14deg) scale(1.1)}92%{transform:rotate(12deg) scale(1.1)}95%{transform:rotate(-6deg)}}
+@keyframes emSpin{0%{transform:rotate(0)}20%{transform:rotate(-25deg) scale(1.3)}40%{transform:rotate(25deg) scale(1.3)}60%{transform:rotate(-12deg) scale(1.15)}80%{transform:rotate(8deg)}100%{transform:none}}
+@keyframes emUnfold{0%{transform:perspective(60px) rotateY(90deg) scale(.6)}55%{transform:perspective(60px) rotateY(-20deg) scale(1.35)}100%{transform:none}}
+@keyframes emBob{0%,100%{transform:none}15%{transform:translate3d(-3px,0,0) rotate(-8deg) scale(1.2)}30%{transform:translate3d(3px,-4px,0) rotate(8deg) scale(1.25)}45%{transform:translate3d(-3px,-8px,0) rotate(-6deg) scale(1.25)}60%{transform:translate3d(2px,-2px,0) rotate(4deg)}}
+@keyframes emFlip{0%{transform:translate3d(0,0,0) rotateX(0)}45%{transform:translate3d(0,-18px,0) rotateX(540deg) scale(1.3)}75%{transform:translate3d(0,2px,0) rotateX(720deg) scale(.95)}100%{transform:rotateX(720deg)}}
+@keyframes emGlow{0%{transform:scale(.6);opacity:.4}15%{opacity:1}25%{opacity:.3}35%{opacity:1;transform:scale(1.4)}45%{opacity:.5}55%{opacity:1;transform:scale(1.2) rotate(-8deg)}100%{transform:none;opacity:1}}
+@keyframes emFly{0%{opacity:0;transform:translate3d(-16px,12px,0) rotate(-8deg) scale(.5)}45%{opacity:1;transform:translate3d(10px,-14px,0) rotate(-22deg) scale(1.4)}70%{transform:translate3d(-2px,2px,0) rotate(4deg) scale(.95)}100%{transform:none}}
+body:has(#t-itinerario:checked) .tabbar{--ti:0}body:has(#t-voli:checked) .tabbar{--ti:1}body:has(#t-mappa:checked) .tabbar{--ti:2}body:has(#t-mangiare:checked) .tabbar{--ti:3}body:has(#t-costi:checked) .tabbar{--ti:4}body:has(#t-consigli:checked) .tabbar{--ti:5}
+.tbind{position:absolute;z-index:0;top:7px;bottom:7px;left:calc(7px + var(--ti,0) * ((100% - 24px) / 6 + 2px));width:calc((100% - 24px) / 6);border-radius:max(16px,calc(var(--r1) - 7px));background:linear-gradient(135deg,var(--c3),var(--c2));box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 8px 18px color-mix(in srgb,var(--c3) 40%,transparent);transition:left .55s cubic-bezier(.3,1.35,.45,1),width .4s ease,border-radius .4s ease,top .4s ease,bottom .4s ease;will-change:left,transform;pointer-events:none}
+.tbind::after{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.55),transparent 55%);opacity:.7}
+.tabbar.moving .tbind{animation:stretch .55s cubic-bezier(.3,1.2,.5,1)}
+@keyframes stretch{0%{transform:scale(1,1)}30%{transform:scale(1.35,.82)}60%{transform:scale(.92,1.08)}100%{transform:none}}
+.tabbar.scrub .tbind{transition:left .22s cubic-bezier(.3,1.2,.5,1),width .4s ease!important}
+.tabbar.opening{animation:barOpen .55s cubic-bezier(.3,1.3,.5,1)}
+@keyframes barOpen{0%{transform:scale(.9,1.05)}60%{transform:scale(1.02,.98)}100%{transform:none}}
+.tbdots{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:var(--paper);color:var(--c3);font:900 .7rem/18px Manrope,system-ui,sans-serif;font-style:normal;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.2);opacity:0;transform:scale(.4);transition:opacity .3s,transform .4s cubic-bezier(.3,1.6,.5,1);pointer-events:none}
+body.tbmin .tbdots{opacity:1;transform:none}
+body.tbmin .tabbar{width:var(--tb);border-radius:50%!important;grid-template-columns:minmax(0,1fr);padding:5px;cursor:pointer;box-shadow:0 12px 30px color-mix(in srgb,var(--c3) 30%,rgba(0,0,0,.15))}
+body.tbmin:has(#t-itinerario:checked) .tabbar label:not([for=t-itinerario]),body.tbmin:has(#t-voli:checked) .tabbar label:not([for=t-voli]),body.tbmin:has(#t-mappa:checked) .tabbar label:not([for=t-mappa]),body.tbmin:has(#t-mangiare:checked) .tabbar label:not([for=t-mangiare]),body.tbmin:has(#t-costi:checked) .tabbar label:not([for=t-costi]),body.tbmin:has(#t-consigli:checked) .tabbar label:not([for=t-consigli]){display:none!important}
+body.tbmin .tabbar label{width:100%;height:100%;gap:1px;border-radius:50%}
+body.tbmin .tabbar label::after{display:none}
+body.tbmin .tabbar label span{display:block;font-size:.56rem;color:#fff;margin-top:-1px;max-width:90%}
+body.tbmin .tabbar label .em{font-size:1.45rem;animation:hop .5s cubic-bezier(.3,1.6,.5,1) both!important}
+body.tbmin .tbind{left:5px!important;top:5px;bottom:5px;width:calc(100% - 10px);border-radius:50%}
+@keyframes hop{0%{transform:scale(.4) rotate(-30deg)}100%{transform:none}}
+body:has(.tabr:focus-visible) .tabbar{outline:2px solid var(--c3);outline-offset:3px}
+/* ===== superfici interne ===== */
+.eat,.btwc,.checklist,.spese,.voli,.live,.meteo,.shots,.snk,.wheelwrap,#costi table,.tips,.zones details,.avv,.golink,.vcard{background:linear-gradient(180deg,var(--hi2),transparent 45%),var(--gl2);border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi),0 6px 18px color-mix(in srgb,var(--glsh) 60%,transparent);border-radius:var(--r2)}
+.zones details,.snk,.shots li,.eat li,.fras li,.checklist li{content-visibility:auto;contain-intrinsic-size:auto 80px}
+.go{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:7px 14px;border-radius:999px;background:linear-gradient(135deg,var(--c3),var(--c2));color:#fff!important;font:700 .85rem Manrope,system-ui,sans-serif;letter-spacing:.01em;text-decoration:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 6px 14px color-mix(in srgb,var(--c3) 28%,transparent);transition:transform .15s}
+.go:active{transform:scale(.94)}
+.go.sm{margin:4px 0 0;padding:3px 10px;font-size:.74rem;background:color-mix(in srgb,var(--c3) 12%,transparent);color:var(--c3)!important;box-shadow:none;vertical-align:1px}
+/* ===== itinerario ===== */
+.live{display:flex;gap:12px;align-items:center;margin:0 0 16px;padding:12px 14px;border-color:color-mix(in srgb,var(--c3) 30%,transparent)}
+.live[hidden]{display:none}
+.live .dot{flex:none;width:12px;height:12px;border-radius:50%;background:var(--c2);animation:pulse 1.8s ease-out infinite}
+.live .lt{display:flex;flex-direction:column;gap:2px;font-size:.92rem;line-height:1.35}.live .lt b{font-size:1rem}.live .lt span{color:var(--mute)}
+.live.alert{border-color:var(--c2);background:linear-gradient(180deg,var(--hi2),transparent 45%),color-mix(in srgb,var(--c2) 14%,var(--gl2))}
+.live.alert .lt b{color:var(--c2)}
+.live.calm .dot{background:var(--c4);animation:none}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--c2) 55%,transparent)}100%{box-shadow:0 0 0 12px transparent}}
+.avv{margin:0 0 16px;padding:10px 14px;border-color:color-mix(in srgb,var(--c2) 45%,transparent)}
+.avv[hidden]{display:none}
+.avv b{color:var(--c2)}.avv p{margin:4px 0 0;font-size:.88rem}
+.golink{display:grid;grid-template-columns:auto 1fr auto;grid-template-rows:auto auto;column-gap:12px;align-items:center;margin:0 0 16px;padding:12px 14px;cursor:pointer;transition:transform .15s ease;border-color:color-mix(in srgb,var(--c3) 22%,transparent);color:inherit;text-decoration:none;font:inherit;text-align:left;width:100%}
+.golink:active{transform:scale(.98)}
+.golink>span{grid-row:1/3;font-size:1.5rem;line-height:1;animation:gofly 3.5s ease-in-out infinite}
+.golink b{font-size:.95rem}.golink small{grid-column:2;color:var(--mute);font-size:.78rem;font-weight:600}
+.golink i{grid-row:1/3;grid-column:3;font-style:normal;font-size:1.4rem;font-weight:800;color:var(--c3)}
+@keyframes gofly{0%,70%,100%{transform:none}80%{transform:translate3d(4px,-4px,0) rotate(-10deg)}90%{transform:translate3d(-1px,1px,0)}}
+.meteo{display:flex;gap:12px;align-items:flex-start;margin:0 0 16px;padding:12px 14px}
+.meteo .mi{font-size:1.8rem;line-height:1}
+.meteo div{display:flex;flex-direction:column;gap:2px;font-size:.9rem}.meteo div span{color:var(--mute)}
+.meteo.rain{border-color:color-mix(in srgb,#3a7bd5 45%,transparent)}
+ol.steps{list-style:none;margin:0;padding:0}
+.step{display:grid;grid-template-columns:74px 1fr;gap:0 12px;padding:16px 0 20px;border-top:1px solid color-mix(in srgb,var(--c3) 30%,var(--line))}
+.step:first-child{border-top:0;padding-top:0}
+.t{font-weight:800;font-size:1.45rem;line-height:1.2;color:var(--c3)}
+.air .t{color:var(--c2)}.walk .t{color:var(--c4)}
+.food .t{background:linear-gradient(135deg,var(--c3),var(--c2));color:#fff;align-self:start;text-align:center;border-radius:4px;padding:0 4px}
+.step h2{font-size:1.3rem;font-weight:700;margin:0 0 4px}
+.body p{margin:6px 0 0}
+.leg{display:flex;gap:8px;align-items:flex-start;margin:8px 0 0;padding:7px 10px;border-radius:12px;background:color-mix(in srgb,var(--c3) 8%,transparent);font-size:.86rem;color:var(--ink)}
+.leg i{font-style:normal}
+.wheelwrap{position:relative;overflow:hidden;background:linear-gradient(180deg,color-mix(in srgb,var(--c3) 10%,var(--gl2)),var(--gl2))}
+.wheelwrap::after{content:"";position:absolute;left:12px;right:12px;top:88px;height:44px;border-top:2px solid var(--c3);border-bottom:2px solid var(--c2);background:color-mix(in srgb,var(--c3) 10%,transparent);pointer-events:none;z-index:2}
+.wheel{height:220px;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;padding:88px 0;overscroll-behavior:none;-webkit-mask-image:linear-gradient(transparent,#000 32%,#000 68%,transparent);mask-image:linear-gradient(transparent,#000 32%,#000 68%,transparent)}
+.wheel::-webkit-scrollbar{display:none}
+.wheel:focus-visible{outline:3px solid var(--c2);outline-offset:-3px}
+.wi{display:flex;align-items:center;gap:14px;width:100%;height:44px;padding:0 22px;background:none;border:0;color:inherit;text-align:left;cursor:pointer;scroll-snap-align:center;font:500 1rem Manrope,system-ui,sans-serif}
+.wt{width:62px;flex:none;font:800 1.25rem Manrope,system-ui,sans-serif}
+.wn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wi.sel{color:var(--c3)}.wi.sel .wn{font-weight:700}
+.wi.now .wn::after{content:"ora";margin-left:8px;padding:1px 7px;border-radius:999px;background:var(--c2);color:#fff;font:700 .68rem Manrope,system-ui,sans-serif;vertical-align:2px}
+#detail{padding:16px 2px 8px}
+#detail>*{animation:fadeUp .4s ease both}
+.wbox .ctl{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.wbox .ctl button,.btn{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:8px 18px;border:0;border-radius:999px;color:#fff;font:700 .88rem Manrope,system-ui,sans-serif;cursor:pointer;background:linear-gradient(135deg,var(--c3),var(--c2));box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 8px 20px color-mix(in srgb,var(--c3) 35%,transparent);transition:transform .2s,box-shadow .2s}
+.wbox .ctl button:active,.btn:active{transform:scale(.96)}
+.btn.ghost{background:color-mix(in srgb,var(--c3) 12%,transparent);color:var(--c3);box-shadow:none}
+body:not(.showall) #itinerario ol.steps{display:none}
+.showall .wheelwrap,.showall #detail{display:none}
+.step.now .body{box-shadow:inset 3px 0 0 var(--c2);padding-left:10px;border-radius:4px}
+.short{margin:0 0 14px;padding:10px 14px;border-radius:var(--r3);background:color-mix(in srgb,var(--c2) 10%,transparent);border:1px solid color-mix(in srgb,var(--c2) 30%,transparent);font-size:.88rem}
+.short[hidden]{display:none}
+/* locali */
+.eat{padding:10px 14px;margin-top:12px}
+.eat h3{font-size:1rem;margin:0 0 4px;letter-spacing:-.01em}
+.eat ul{margin:0;padding:0;list-style:none}
+.eat li{padding:9px 0;border-top:1px dashed color-mix(in srgb,var(--ink) 18%,transparent);font-size:.92rem}.eat li:first-child{border-top:0}
+.eat li b a{color:var(--ink);text-decoration:none}
+.st{display:inline-block;margin:0 0 0 4px;padding:1px 8px;border-radius:999px;font:800 .7rem Manrope,system-ui,sans-serif;vertical-align:1px;white-space:nowrap}
+.st.ok{background:color-mix(in srgb,#1f9d55 16%,transparent);color:#178048}
+.st.ko{background:color-mix(in srgb,var(--c2) 16%,transparent);color:var(--c2)}
+.st.mid{background:color-mix(in srgb,#d97706 16%,transparent);color:#b45f06}
+:root[data-theme="dark"] .st.ok,:root:has(#dm:checked) .st.ok{color:#5ad38e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .st.ok{color:#5ad38e}}
+li.closed{opacity:.62}
+.hrs{display:block;margin-top:3px;color:var(--mute);font-size:.78rem}
+.ord{margin-top:10px;padding:10px 12px;border-radius:14px;background:color-mix(in srgb,var(--c3) 9%,transparent);border:1px solid color-mix(in srgb,var(--c3) 18%,transparent)}
+.ord>b{display:block;font-size:.82rem;margin-bottom:4px}.ord p{margin:4px 0 0;font-size:.85rem;line-height:1.4}.ord i{font-style:normal;font-weight:800}
+.subh{margin:22px 0 10px;font-size:1.1rem;letter-spacing:-.01em}
+.btw{position:relative;margin:2px 0 14px;padding:4px 0 2px 22px}
+.btw::before{content:"";position:absolute;left:8px;top:0;bottom:0;width:2px;border-radius:2px;background:repeating-linear-gradient(180deg,color-mix(in srgb,var(--c3) 55%,transparent) 0 6px,transparent 6px 12px)}
+.btwh{display:flex;align-items:center;gap:10px;margin:4px 0 8px}
+.btwi{position:absolute;left:-1px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:.72rem;background:linear-gradient(135deg,var(--c3),var(--c2));box-shadow:0 0 0 4px var(--bg);animation:btwSpin 4s ease-in-out infinite}
+@keyframes btwSpin{0%,70%{transform:none}80%{transform:rotate(180deg)}100%{transform:rotate(180deg)}}
+.btwh small{display:block;color:var(--c3);font-weight:800;font-size:.72rem;letter-spacing:.02em}.btwh b{font-size:1rem}
+.btwt{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:6px}
+.btwt li{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:14px;background:color-mix(in srgb,var(--c2) 8%,transparent);border:1px solid color-mix(in srgb,var(--c2) 18%,transparent)}
+.btwt li span{font-size:1.05rem;line-height:1.3}.btwt p{margin:0;font-size:.86rem;line-height:1.4}
+.snacks{display:flex;flex-direction:column;gap:8px}
+.snk{display:flex;gap:12px;padding:12px 14px;transition:transform .2s}
+.snk:active{transform:scale(.98)}
+.snk .se{font-size:1.7rem;line-height:1}
+.snk b a{color:var(--ink);text-decoration:none}
+.snk .sz{display:block;color:var(--c3);font-weight:700;font-size:.78rem;margin-top:2px}
+.snk p{margin:6px 0;font-size:.9rem}.snk small{color:var(--mute);font-size:.8rem}
+/* ===== voli ===== */
+.voli{margin:0 0 16px;padding:12px 14px}
+.vh2{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.vh2 b{letter-spacing:-.01em}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.vcard{padding:10px 12px 12px;border-radius:var(--r3);display:grid;gap:6px;background:color-mix(in srgb,var(--paper) 18%,transparent);box-shadow:none}
+.vleg{display:flex;align-items:center;gap:6px;font-size:.8rem;font-weight:800;color:var(--mute)}
+.iata{font:800 .78rem Manrope,system-ui,sans-serif;letter-spacing:.04em;color:#fff;background:linear-gradient(135deg,var(--c3),var(--c2));padding:2px 7px;border-radius:7px}
+.vleg .pl{font-style:normal;color:var(--c3);font-size:.9rem}
+.vrw{display:flex;justify-content:space-between;gap:8px;font-size:.88rem}.vrw span{color:var(--mute);font-weight:600}.vrw b{font-weight:800;text-align:right}
+.vlinks{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.vch{font-size:.76rem;font-weight:700;color:var(--c3);text-decoration:none;padding:5px 10px;border-radius:999px;background:color-mix(in srgb,var(--c3) 10%,transparent);border:1px solid color-mix(in srgb,var(--c3) 22%,transparent);white-space:nowrap}
+.vch:active{transform:scale(.96)}
+.vch[hidden],.vlive[hidden],.vbtn[hidden],.vlnk[hidden]{display:none!important}
+.vlive{border-radius:12px;padding:9px 11px;background:color-mix(in srgb,var(--ink) 4%,transparent);border:1px solid color-mix(in srgb,var(--ink) 8%,transparent);display:grid;gap:5px;font-size:.84rem;animation:fadeUp .35s ease both}
+.vlive .vtop{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.vlive .vpill{font-size:.74rem;font-weight:800;padding:3px 9px;border-radius:999px;color:#fff;background:#1f9d55;display:inline-flex;align-items:center;gap:5px}
+.vlive .vpill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;animation:vblink 1.6s ease-in-out infinite}
+.vlive.warn .vpill{background:#d97706}.vlive.bad .vpill{background:#c81e3a}.vlive.idle .vpill{background:color-mix(in srgb,var(--ink) 45%,transparent)}
+.vlive.idle .vpill::before{animation:none}
+.vlive .vag{font-size:.7rem;color:var(--mute);font-weight:600}
+.vlive .vrow{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.vlive .vrow span{color:var(--mute);font-weight:600;font-size:.76rem}.vlive .vrow b{font-weight:800;text-align:right}
+.vlive s{color:var(--mute);font-weight:600;margin-right:4px}.vlive .vdl{color:#d97706;font-weight:800;margin-left:4px}
+.vlive .vchips{display:flex;flex-wrap:wrap;gap:5px}
+.vlive .vchips i{font-style:normal;font-size:.74rem;font-weight:800;padding:2px 8px;border-radius:8px;background:color-mix(in srgb,var(--c2) 14%,transparent);color:var(--ink)}
+.vlive .verr{color:var(--mute);font-weight:600;font-size:.8rem}
+@keyframes vblink{50%{opacity:.35}}
+.vbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px}
+.vbar:has(#vref[hidden]):has(#vupd:empty){display:none}
+.vbar small{color:var(--mute);font-size:.72rem;font-weight:600}
+.vbtn{font:800 .8rem Manrope,system-ui,sans-serif;color:#fff;border:0;border-radius:999px;padding:8px 14px;background:linear-gradient(135deg,var(--c3),var(--c2));cursor:pointer;white-space:nowrap;flex:none}
+.vbtn:active{transform:scale(.96)}.vbtn:disabled{opacity:.55}
+.vkey{margin-top:10px;border-radius:14px;border:1px solid color-mix(in srgb,var(--ink) 9%,transparent);overflow:hidden}
+.vkey summary{cursor:pointer;list-style:none;padding:10px 12px;font-weight:800;font-size:.86rem;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.vkey summary::-webkit-details-marker{display:none}
+.vkey summary small{font-size:.72rem;font-weight:700;color:var(--mute)}
+.vkey.on summary small{color:#1f9d55}
+.vkey p,.vkey ol,.vkey .vknote{margin:0 12px 8px;font-size:.8rem;color:var(--mute);line-height:1.45}
+.vkey ol{padding-left:18px;list-style:decimal}.vkey ol li{margin:0 0 3px}
+.vkey a{color:var(--c3);font-weight:700}
+.vkey .vknote{display:block;font-size:.72rem}
+.vkrow{display:flex;gap:8px;margin:0 12px 8px}
+.vkrow input{flex:1;min-width:0;height:40px;padding:0 10px;border-radius:11px;border:1px solid var(--edge);background:color-mix(in srgb,var(--paper) 55%,transparent);color:var(--ink);font:600 16px Manrope,system-ui,sans-serif}
+.vlnk{background:none;border:0;color:#c81e3a;font:700 .78rem Manrope,system-ui,sans-serif;margin:0 12px 10px;padding:0;cursor:pointer}
+.vkey[open]>*:not(summary){animation:fadeUp .3s ease both}
+/* ===== mappa ===== */
+.map{position:relative}
+.stage{position:relative;height:clamp(380px,68vh,660px);border-radius:var(--r2);overflow:hidden;background:var(--land);touch-action:pan-y;overscroll-behavior:none}
+#lmap[hidden]{display:none}
+#lmap{position:absolute;inset:0;z-index:1;background:var(--land);font:500 12px Manrope,system-ui,sans-serif}
+.mapoff{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--mute);font-size:.9rem;z-index:0}
+.mc{position:absolute;z-index:1000}
+.mc-tl{left:10px;top:10px;display:flex;flex-direction:column;gap:6px}.mc-bl{left:10px;bottom:10px}
+.mc-tr{right:10px;top:10px;display:flex;flex-direction:column;border-radius:12px;overflow:hidden}
+.mc-tr button{width:40px;height:40px;display:grid;place-items:center;background:none;border:0;border-top:1px solid var(--edge);color:var(--ink);cursor:pointer;font:600 1.3rem Manrope,system-ui,sans-serif;padding:0}
+.mc-tr button:first-child{border-top:0}
+.mc-tr svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#fs .ic2{display:none}#fs.on .ic1{display:none}#fs.on .ic2{display:block}
+.sw,#lg{display:flex;align-items:center;gap:8px;font:600 .85rem Manrope,system-ui,sans-serif;color:var(--ink);border-radius:999px;cursor:pointer;min-height:38px;transition:background .25s,transform .2s,box-shadow .2s}
+.sw{padding:4px 14px 4px 5px;width:112px}#lg{padding:4px 16px}
+.sw i{position:relative;flex:none;width:34px;height:22px;border-radius:11px;background:var(--line);transition:background .2s}
+.sw i::after{content:"";position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:var(--paper);box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .2s}
+.sw[aria-checked="true"] i{background:linear-gradient(90deg,var(--c3),var(--c2))}
+.sw[aria-checked="true"] i::after{transform:translateX(12px)}
+.mc-tr,.sw,#lg,.lgp.legend{background:linear-gradient(180deg,var(--hi2),transparent 50%),var(--gl);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi),0 6px 16px var(--glsh)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.85rem;color:var(--mute)}
+.legend i{display:inline-block;width:22px;height:0;border-top:4px solid;vertical-align:middle;margin-right:5px}
+.lgp.legend{position:absolute;left:0;bottom:46px;display:flex;flex-direction:column;flex-wrap:nowrap;gap:7px;width:max-content;max-width:min(80vw,300px);max-height:46vh;overflow:auto;margin:0;padding:10px 12px;border-radius:var(--r3);color:var(--ink);font-size:.82rem}
+.lgp[hidden]{display:none}
+.map.fs{position:fixed;inset:0;z-index:100;background:var(--paper);margin:0}
+html.sa .map.fs{bottom:auto;height:var(--apph)}
+.map.fs .stage{height:100%;border-radius:0!important}
+.map.fs #info{display:none}
+.map.fs .mc-tl,.map.fs .mc-tr{top:calc(10px + env(safe-area-inset-top,0px))}
+.map.fs .mc-bl{bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+body.fsmap{overflow:hidden}
+#info{margin:10px 2px 4px;min-height:60px}#info h3{font-size:1.1rem;margin:0}#info p{margin:4px 0 0;font-size:.92rem}
+#info>*{animation:fadeUp .4s ease both}
+.lmk{display:grid;place-items:center;cursor:pointer}
+.lmk span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;font:800 14px Manrope,system-ui,sans-serif;box-shadow:0 3px 10px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.4);transition:transform .2s cubic-bezier(.3,1.6,.5,1)}
+.lmk:active span{transform:scale(.85)}
+.lpin span{background:linear-gradient(135deg,var(--c3),var(--c2));color:#fff;border:2.5px solid #fff}
+.lfd span{background:var(--food);color:#fff;border:2px solid #fff;font-size:11px}
+.lph span{background:#fff;border:2.5px solid var(--c2);font-size:14px}
+.lwt span{background:#2a8de0;color:#fff;border:2px solid #fff;font-size:10px}
+.lap span{background:#fff;color:var(--c3);border:2.5px solid var(--c3);font-size:15px}
+#lmap.far .lmk span{transform:scale(.8)}#lmap.far .lfd span,#lmap.far .lph span,#lmap.far .lwt span{transform:scale(.7)}
+.leaflet-tooltip.lst{background:none;border:0;box-shadow:none;padding:0 2px;font:700 11px Manrope,system-ui,sans-serif;color:var(--ink);text-shadow:0 0 3px var(--bg),0 0 3px var(--bg),0 0 3px var(--bg)}
+.leaflet-tooltip.lst::before{display:none}
+#lmap.far .leaflet-tooltip.lst:not(.key){display:none}
+.leaflet-tooltip.ltip{background:var(--gl);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--edge);color:var(--ink);border-radius:12px;box-shadow:0 6px 16px var(--glsh);font:500 12px Manrope,system-ui,sans-serif}
+.leaflet-container{background:var(--land)}
+.leaflet-container .leaflet-control-attribution{background:color-mix(in srgb,var(--paper) 70%,transparent);color:var(--mute);font-size:9px;border-radius:8px 0 0 0}
+.leaflet-container .leaflet-control-attribution a{color:var(--c3)}
+#lmap .leaflet-attribution-flag{display:none!important}
+#lmap svg{max-width:none!important}
+#lmap .leaflet-tile-pane{transition:filter .5s ease}
+#lmap:not(.dk) .leaflet-tile-pane{filter:saturate(.75) contrast(.96)}
+#lmap.dk .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.85) contrast(.88) saturate(.55)}
+.lglass .leaflet-popup-content-wrapper{background:linear-gradient(180deg,var(--hi2),transparent 45%),var(--gl2);-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);color:var(--ink);border:1px solid var(--edge);border-radius:var(--r2);box-shadow:inset 0 1px 0 var(--hi),0 10px 28px var(--glsh)}
+.lglass .leaflet-popup-tip{background:var(--gl2);border:1px solid var(--edge)}
+.lglass .leaflet-popup-content{margin:12px 14px;font:500 13px/1.4 Manrope,system-ui,sans-serif}
+.lglass a.leaflet-popup-close-button{color:var(--mute);top:6px;right:6px}
+.lpop b{display:block;font-weight:800;font-size:14px;margin-right:14px}.lpop p{margin:6px 0 8px!important;color:var(--ink)}
+.lpa{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.lpa .go.sm{margin:0}
+.lpm{font-weight:700;font-size:12px;color:var(--c3)!important;text-decoration:none}
+.leaflet-popup{animation:popUp .35s cubic-bezier(.3,1.5,.5,1)}
+@keyframes popUp{from{opacity:0;transform:translate3d(0,8px,0) scale(.9)}to{opacity:1;transform:none}}
+.route{margin:12px 0 18px;color:var(--mute);font-size:.95rem}
+.tips{padding:6px 18px 6px 34px;margin:0 0 18px}.tips li{margin:10px 0}
+.shots{margin:12px 0 0;overflow:hidden}
+.shots summary{cursor:pointer;list-style:none;padding:12px 16px;font-weight:800;display:flex;justify-content:space-between;align-items:center}
+.shots summary::-webkit-details-marker{display:none}
+.shots summary small{color:var(--c2);font-weight:700}
+.shots ul{list-style:none;margin:0;padding:0 14px 6px}
+.shots li{display:flex;gap:12px;padding:10px 0;border-top:1px solid color-mix(in srgb,var(--ink) 7%,transparent)}
+.shots .shi{font-size:1.5rem;line-height:1}
+.shots em{font-style:normal;font-size:.75rem;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--c3),var(--c2));padding:1px 8px;border-radius:999px;vertical-align:1px}
+.shots p{margin:4px 0;font-size:.9rem}.shots small{color:var(--mute);font-size:.8rem}
+.shots .meta{margin:0 16px 12px}
+.shots[open] ul{animation:fadeUp .35s ease both}
+/* ===== costi ===== */
+.donut{position:relative;width:min(220px,62vw);margin:4px auto 10px}
+.donut svg{display:block;width:100%;height:auto;transform:rotate(-90deg)}
+.arc-bg{fill:none;stroke:color-mix(in srgb,var(--ink) 8%,transparent);stroke-width:14}
+.arc{fill:none;stroke-width:14;stroke-linecap:round;stroke-dasharray:var(--len) 100;stroke-dashoffset:var(--off)}
+.arc.anim{animation:arcIn 1s cubic-bezier(.3,1.2,.5,1) both;animation-delay:calc(.25s + var(--i)*.22s)}
+@keyframes arcIn{0%{stroke-dasharray:0 100;opacity:0}12%{opacity:1}100%{stroke-dasharray:var(--len) 100;opacity:1}}
+.dc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.dc b{font:800 1.6rem/1 Manrope,system-ui,sans-serif;letter-spacing:-.02em}.dc span{color:var(--mute);font-size:.85rem;margin-top:4px}.dc small{color:var(--c2);font-weight:700;font-size:.8rem;margin-top:2px}
+.dleg{list-style:none;margin:0 0 18px;padding:0;display:flex;justify-content:center;flex-wrap:wrap;gap:8px 16px;font-size:.88rem}
+.dleg li{display:flex;align-items:center;gap:6px}.dleg i{width:10px;height:10px;border-radius:3px}.dleg span{color:var(--mute)}
+#costi table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;margin-bottom:8px}
+th,td{padding:9px 10px;text-align:right;border-top:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+td:not(:first-child),th:not(:first-child){white-space:nowrap}
+th{font:700 .9rem Manrope,system-ui,sans-serif;color:var(--mute);border-top:0}
+tr.grp td{font:700 1rem Manrope,system-ui,sans-serif;background:color-mix(in srgb,var(--c3) 9%,transparent)}
+tr.tot td{font:800 1.05rem Manrope,system-ui,sans-serif;border-top:2px solid var(--c2)}
+tr.tot td:not(:first-child){font-size:1.1rem;color:var(--c3)}
+tr.off td{opacity:.45;text-decoration:line-through}
+.opt{display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.opt input{width:18px;height:18px;accent-color:var(--c3);margin:0}
+.spese{margin:18px 0 6px;padding:14px}
+.spese h3{margin:0 0 10px;font-size:1rem}.spese h3 small{color:var(--mute);font-weight:600}
+.who{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.who input{flex:1 1 90px;min-width:0;padding:8px 10px;border-radius:12px;border:1px solid var(--edge);background:color-mix(in srgb,var(--paper) 55%,transparent);color:var(--ink);font:700 .9rem Manrope,system-ui,sans-serif}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px}
+.sv{display:flex;flex-direction:column;gap:4px}
+.sgrid label{display:flex;flex-direction:column;gap:4px;font-size:.8rem;color:var(--mute);font-weight:600}
+.sgrid input{width:100%;padding:9px 10px;border-radius:12px;border:1px solid var(--edge);background:color-mix(in srgb,var(--paper) 55%,transparent);color:var(--ink);font:700 1rem Manrope,system-ui,sans-serif}
+.sgrid input:focus,.who input:focus{outline:2px solid var(--c2);outline-offset:1px}
+.payer{align-self:flex-start;border:0;border-radius:999px;padding:3px 9px;font:600 .74rem Manrope,system-ui,sans-serif;color:var(--mute);background:color-mix(in srgb,var(--ink) 7%,transparent);cursor:pointer;transition:background .2s,transform .15s;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.payer b{color:var(--c3)}.payer:active{transform:scale(.92)}
+.payer.p1{background:color-mix(in srgb,var(--c2) 16%,transparent)}.payer.p2{background:color-mix(in srgb,var(--c4) 18%,transparent)}.payer.p3{background:color-mix(in srgb,#1f9d55 16%,transparent)}
+.stot{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+.stot>div:first-child{display:flex;align-items:baseline;gap:8px}
+.stot b{font:800 1.5rem Manrope,system-ui,sans-serif}.stot span{color:var(--mute);font-size:.85rem}
+.sbar{height:10px;border-radius:5px;background:color-mix(in srgb,var(--ink) 8%,transparent);overflow:hidden}
+.sbar i{display:block;height:100%;width:0;border-radius:5px;background:linear-gradient(90deg,var(--c3),var(--c4));transition:width .5s cubic-bezier(.3,1.3,.5,1),background .3s}
+.sbar i.over{background:linear-gradient(90deg,var(--c4),var(--c2))}
+#sdiff.over{color:var(--c2);font-weight:700}
+.split{margin-top:4px;padding:9px 12px;border-radius:12px;background:color-mix(in srgb,var(--c3) 10%,transparent);font-weight:700;font-size:.92rem}
+.split:empty{display:none}.split div+div{margin-top:4px}
+/* ===== consigli ===== */
+.checklist{margin:0 0 16px;padding:12px 14px}
+.checklist h3{margin:0 0 6px;font-size:1rem;display:flex;justify-content:space-between;align-items:center}
+.checklist h3 small{font-weight:700;color:var(--c3)}
+.checklist ul{list-style:none;margin:0;padding:0}
+.checklist li{border-top:1px solid color-mix(in srgb,var(--ink) 7%,transparent)}.checklist li:first-child{border-top:0}
+.checklist label{position:relative;display:flex;gap:12px;align-items:center;padding:9px 0;cursor:pointer}
+.checklist input.ckin{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.checklist .bx{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid color-mix(in srgb,var(--ink) 22%,transparent);display:grid;place-items:center;transition:background .25s,border-color .25s}
+.checklist .bx svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .35s ease .05s}
+.checklist input.ckin:checked+.bx{background:linear-gradient(135deg,var(--c3),var(--c2));border-color:transparent;animation:jelly .5s cubic-bezier(.3,1.6,.5,1)}
+.checklist input.ckin:checked+.bx svg{stroke-dashoffset:0}
+.checklist input.ckin:focus-visible+.bx{outline:2px solid var(--c2);outline-offset:2px}
+.checklist input.ckin:checked~.tx{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--c2)}
+.ckbar{height:6px;border-radius:3px;background:color-mix(in srgb,var(--ink) 8%,transparent);overflow:hidden;margin:2px 0 8px}
+.ckbar i{display:block;height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,var(--c3),var(--c2));transition:width .45s cubic-bezier(.3,1.3,.5,1)}
+.zones{display:flex;flex-direction:column;gap:10px}
+.zones details{overflow:hidden;transition:background .3s}
+.zones details[open]{box-shadow:inset 0 1px 0 var(--hi),0 0 0 1px color-mix(in srgb,var(--c3) 35%,transparent),0 6px 18px color-mix(in srgb,var(--glsh) 60%,transparent)}
+.zones summary{cursor:pointer;list-style:none;padding:12px 16px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.zones summary::-webkit-details-marker{display:none}
+.zones summary::after{content:"+";font-size:1.2rem;color:var(--c2);transition:transform .3s}
+.zones details[open] summary::after{transform:rotate(45deg)}
+.zones details[open] summary{animation:jelly .5s cubic-bezier(.3,1.6,.5,1) both}
+.zones ul{margin:0;padding:0 16px 12px 34px}.zones li{margin:7px 0}
+.zones details[open] ul{animation:fadeUp .35s ease both}
+.zones summary:active{transform:scale(.97)}
+.fh{margin:0 16px 6px;color:var(--mute);font-size:.85rem}
+.fras{list-style:none!important;padding:0 12px 12px!important}
+.fras li{display:flex;flex-direction:column;gap:5px;padding:9px 4px;margin:0!important;border-top:1px solid color-mix(in srgb,var(--ink) 7%,transparent)}
+.fras li:first-child{border-top:0}
+.fras .it{font-size:.8rem;color:var(--mute);font-weight:600}
+.say{text-align:left;font:600 .95rem Manrope,system-ui,sans-serif;color:var(--ink);background:color-mix(in srgb,var(--c3) 8%,transparent);border:0;border-radius:12px;padding:7px 11px;cursor:pointer;transition:transform .15s,background .2s}
+.say small{display:block;color:var(--c2);font-weight:600;font-size:.76rem;margin-top:2px}
+.say:active,.say.on{transform:scale(.97);background:color-mix(in srgb,var(--c3) 22%,transparent)}
+.call{display:inline-block;margin-right:6px;padding:3px 10px;border-radius:999px;background:linear-gradient(135deg,var(--c3),var(--c2));color:#fff!important;font-weight:800;text-decoration:none}
+/* ===== schermata «Il tuo viaggio» ===== */
+#setup{position:fixed;inset:0;z-index:150;display:flex;justify-content:center;overflow-y:auto;overscroll-behavior:none;-webkit-overflow-scrolling:touch;padding:calc(18px + env(safe-area-inset-top,0px)) 12px calc(24px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg) 55%,transparent);-webkit-backdrop-filter:blur(26px) saturate(170%);backdrop-filter:blur(26px) saturate(170%);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s}
+html.sa #setup{bottom:auto;height:var(--apph)}
+#setup.on{opacity:1;visibility:visible;transition:opacity .35s ease,visibility 0s}
+.scard{width:min(620px,100%);height:max-content;padding:20px 18px 18px;border-radius:var(--r1);background:linear-gradient(180deg,var(--hi2),transparent 38%),var(--gl);border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi),0 18px 50px var(--glsh)}
+#setup.on .scard>*{animation:riseIn .6s cubic-bezier(.2,1.25,.4,1) both}
+#setup.on .scard>*:nth-child(2){animation-delay:.05s}#setup.on .scard>*:nth-child(3){animation-delay:.1s}#setup.on .scard>*:nth-child(4){animation-delay:.15s}#setup.on .scard>*:nth-child(5){animation-delay:.2s}#setup.on .scard>*:nth-child(n+6){animation-delay:.25s}
+.scard h2{margin:0;font-size:1.8rem;font-weight:800;letter-spacing:-.03em;background:linear-gradient(100deg,var(--c3),var(--c4) 55%,var(--c2));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.scard .lead{margin:6px 0 14px}
+.sgrp{margin:0 0 12px;padding:12px;border-radius:var(--r3);border:1px solid var(--edge);background:color-mix(in srgb,var(--paper) 22%,transparent);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.sgrp>legend{grid-column:1/-1;float:left;width:100%;padding:0;margin:0 0 2px;font-size:.82rem;font-weight:800;color:var(--mute);display:flex;align-items:center;gap:6px}
+.sgrp label.f{display:flex;flex-direction:column;gap:4px;font-size:.76rem;color:var(--mute);font-weight:700;min-width:0}
+.sgrp label.f.w{grid-column:1/-1}
+.sgrp input[type=text],.sgrp input[type=date],.sgrp input[type=time]{display:block;width:100%;max-width:100%;min-width:0;height:44px;margin:0;padding:0 10px;border-radius:11px;border:1px solid var(--edge);background:color-mix(in srgb,var(--paper) 60%,transparent);color:var(--ink);font:700 16px Manrope,system-ui,sans-serif;-webkit-appearance:none;appearance:none;text-align:left}
+.sgrp input::-webkit-date-and-time-value{text-align:left;margin:0;min-height:1.2em}
+.sgrp input::-webkit-calendar-picker-indicator{margin-left:auto;opacity:.55}
+.sgrp input:focus{outline:2px solid var(--c2);outline-offset:1px}
+.sgrp input.bad{border-color:var(--c2);box-shadow:0 0 0 2px color-mix(in srgb,var(--c2) 25%,transparent)}
+.stepper{display:flex;align-items:center;gap:0;height:44px;border-radius:11px;border:1px solid var(--edge);background:color-mix(in srgb,var(--paper) 60%,transparent);overflow:hidden}
+.stepper button{width:44px;height:100%;border:0;background:none;color:var(--c3);font:800 1.3rem Manrope,system-ui,sans-serif;cursor:pointer}
+.stepper button:active{background:color-mix(in srgb,var(--c3) 12%,transparent)}
+.stepper output{flex:1;text-align:center;font:800 1.05rem Manrope,system-ui,sans-serif}
+.apts{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.apt{position:relative;display:flex;flex-direction:column;gap:2px;padding:10px 10px 9px;border-radius:12px;border:1px solid var(--edge);background:color-mix(in srgb,var(--paper) 50%,transparent);cursor:pointer;transition:transform .2s,background .3s,box-shadow .3s}
+.apt input{position:absolute;opacity:0;pointer-events:none}
+.apt b{font:800 1.05rem Manrope,system-ui,sans-serif;color:var(--c3)}
+.apt span{font-size:.72rem;color:var(--mute);font-weight:600;line-height:1.25}
+.apt:has(input:checked){background:linear-gradient(135deg,var(--c3),var(--c2));border-color:transparent;box-shadow:0 8px 20px color-mix(in srgb,var(--c3) 35%,transparent);animation:jelly .5s cubic-bezier(.3,1.6,.5,1)}
+.apt:has(input:checked) b,.apt:has(input:checked) span{color:#fff}
+.apt:has(input:focus-visible){outline:2px solid var(--c2);outline-offset:2px}
+.apt:active{transform:scale(.96)}
+.serr{min-height:1.2em;margin:4px 2px 10px;color:var(--c2);font-weight:700;font-size:.85rem}
+.sact{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sact .btn{min-height:48px;padding:10px 22px;font-size:.98rem}
+.snote{margin:12px 2px 0;color:var(--mute);font-size:.76rem}
+/* impostazioni */
+#sheet{position:fixed;inset:0;z-index:140;display:flex;align-items:flex-end;justify-content:center;padding:0 10px calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,#000 22%,transparent);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility 0s linear .3s}
+html.sa #sheet{bottom:auto;height:var(--apph)}
+#sheet.on{opacity:1;visibility:visible;transition:opacity .3s ease,visibility 0s}
+.shc{width:min(520px,100%);padding:16px;border-radius:var(--r1);background:linear-gradient(180deg,var(--hi2),transparent 38%),var(--gl);-webkit-backdrop-filter:blur(30px) saturate(185%);backdrop-filter:blur(30px) saturate(185%);border:1px solid var(--edge);box-shadow:inset 0 1px 0 var(--hi),0 18px 50px var(--glsh);transform:translate3d(0,40px,0);transition:transform .45s cubic-bezier(.3,1.3,.5,1)}
+#sheet.on .shc{transform:none}
+.shc h3{margin:2px 4px 10px;font-size:1.1rem}
+.shc button.row{display:flex;align-items:center;gap:12px;width:100%;padding:12px 12px;margin:0 0 8px;border:1px solid var(--edge);border-radius:var(--r3);background:color-mix(in srgb,var(--paper) 40%,transparent);color:var(--ink);font:700 .95rem Manrope,system-ui,sans-serif;text-align:left;cursor:pointer}
+.shc button.row small{display:block;color:var(--mute);font-weight:600;font-size:.76rem}
+.shc button.row:active{transform:scale(.98)}
+.shc button.row.danger{color:var(--c2)}
+.shc .cls{width:100%;margin-top:2px;justify-content:center}
+.toast{position:fixed;z-index:210;left:50%;top:calc(76px + env(safe-area-inset-top,0px));transform:translate(-50%,-20px);opacity:0;padding:9px 16px;border-radius:999px;background:linear-gradient(135deg,var(--c3),var(--c2));color:#fff;font:800 .86rem Manrope,system-ui,sans-serif;box-shadow:0 10px 26px var(--glsh);transition:opacity .3s,transform .45s cubic-bezier(.3,1.5,.5,1);pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@supports (animation-timeline:view()){.dish>div,.tips li,.route,.wbox{animation:revealIn linear both;animation-timeline:view();animation-range:entry 0% entry 35%}}
+@keyframes revealIn{from{opacity:0;transform:translate3d(0,16px,0) scale(.98)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media print{.blk{opacity:1!important;visibility:visible!important;position:static;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}.tabbar,.mc,.appbar,.iosw,.gear{display:none}}
+</style>
+</head>
+<body>
+<div id="splash" aria-hidden="true"><div class="sp-in"><svg class="spsky" viewBox="0 0 400 124" aria-hidden="true"><defs><linearGradient id="skyg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--c3)"/><stop offset=".55" style="stop-color:var(--c4)"/><stop offset="1" style="stop-color:var(--c2)"/></linearGradient></defs>
+<g class="sk-back" style="--k:0"><circle cx="262" cy="30" r="14"/><path d="M0 106 Q20 92 40 94 Q70 96 96 86 Q120 80 150 92 L150 106 Z"/><path d="M276 106 Q296 86 326 84 Q362 84 400 98 V106 Z"/></g>
+<g class="sk-main">
+<g style="--k:1"><path d="M30 106 V58 h18 V106 Z M62 106 V58 h18 V106 Z M48 106 V72 h14 V106 Z"/><path d="M29 58 h20 v-3 h-20z M61 58 h20 v-3 h-20z M30 55 v-3 h3 v3z M36 55 v-3 h3 v3z M42 55 v-3 h3 v3z M45 55 v-3 h3 v3z M62 55 v-3 h3 v3z M68 55 v-3 h3 v3z M74 55 v-3 h3 v3z M77 55 v-3 h3 v3z"/><path d="M80 106 V82 L84 78 H112 L116 82 V106 Z"/><path d="M97 78 L100 34 L103 78 Z M99.3 34 v-6 h1.4 v6z M97.5 30 h5 v1.3 h-5z"/></g>
+<g style="--k:2"><path d="M122 106 L146 78 L170 106 Z"/></g>
+<g style="--k:3"><path d="M176 106 Q184 86 190 66 L195 42 L198.4 20 L199.3 8 L199.3 2 L200.7 2 L200.7 8 L201.6 20 L205 42 L210 66 Q216 86 224 106 L213 106 Q211 92 200 90 Q189 92 187 106 Z"/><path d="M186 69 h28 v-3.2 h-28z M193 44 h14 v-2.6 h-14z M197.4 21 h5.2 v-2 h-5.2z"/></g>
+<g style="--k:4"><path d="M234 106 V72 h40 V106 h-11 V92 A9 9 0 0 0 245 92 V106 Z"/><path d="M232 72 h44 v-4 h-44z M235 68 h38 v-5 h-38z"/></g>
+<g style="--k:5"><path d="M298 106 V86 h64 V106 Z"/><path d="M318 86 V72 h24 V86 Z"/><path d="M315 72 Q330 34 345 72 Z"/><path d="M328.4 55 v-9 h3.2 v9z M329.4 46 v-4 h1.2 v4z"/><path d="M300 86 Q307 72 314 86 Z M346 86 Q353 72 360 86 Z"/><path d="M365 106 V62 h9 V106 Z M363.5 62 Q369.5 48 375.5 62 Z"/></g>
+</g>
+<g class="sk-lines"><path d="M71 80 a5 5 0 1 0 0.01 0 M39 64 v10 M71 64 v10 M39 80 v14 M71 86 v8"/><path d="M146 78 V106 M134 92 h24 M140 85 h12 M128 99 h36 M146 78 L134 106 M146 78 L158 106"/><path d="M190 69 L210 88 M210 69 L190 88 M195 44 L205 66 M205 44 L195 66 M198 21 L202 42 M202 21 L198 42"/><path d="M238 76 h32 M254 72 V82"/><path d="M330 72 V86 M322 76 v8 M338 76 v8 M306 92 v10 M318 92 v10 M330 92 v10 M342 92 v10 M354 92 v10"/></g>
+<g class="sk-spark" style="--k:6"><circle cx="200" cy="10" r="1.6"/><circle cx="196" cy="34" r="1.3"/><circle cx="204" cy="52" r="1.3"/><circle cx="192" cy="76" r="1.4"/><circle cx="209" cy="84" r="1.4"/><circle cx="200" cy="60" r="1.2"/></g>
+<rect class="sk-ground" x="0" y="105" width="400" height="2.5" rx="1.2" style="--k:7"/>
+<g class="sk-sea" style="--k:8"><path d="M18 113 q7 -4 14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0"/><path d="M30 120 q7 -4 14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0"/></g>
+</svg>
+<div class="sp-t">Parigi</div><div class="sp-s" id="sps">in un giorno</div><div class="sp-flag"><i></i><i></i><i></i></div></div></div>
+<input class="tabr" type="radio" name="tab" id="t-itinerario" checked aria-label="Tappe"><input class="tabr" type="radio" name="tab" id="t-voli" aria-label="Voli"><input class="tabr" type="radio" name="tab" id="t-mappa" aria-label="Mappa"><input class="tabr" type="radio" name="tab" id="t-mangiare" aria-label="Pasti"><input class="tabr" type="radio" name="tab" id="t-costi" aria-label="Costi"><input class="tabr" type="radio" name="tab" id="t-consigli" aria-label="Consigli">
+<input class="dmin" type="checkbox" id="dm" aria-label="Modalità scura">
+<main>
+
+<section class="blk on" id="itinerario">
+<header class="hero"><h1>Parigi in un giorno</h1>
+<p class="sub" id="hsub">Imposta il tuo viaggio per vedere l'itinerario.</p>
+<div class="bar" id="hbar" role="img" aria-label="La giornata"></div>
+<div class="ends"><span id="hs"></span><span id="he"></span></div>
+<svg class="sky" viewBox="0 0 400 124" aria-hidden="true"><defs><linearGradient id="skyg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--c3)"/><stop offset=".55" style="stop-color:var(--c4)"/><stop offset="1" style="stop-color:var(--c2)"/></linearGradient></defs>
+<g class="sk-back" style="--k:0"><circle cx="262" cy="30" r="14"/><path d="M0 106 Q20 92 40 94 Q70 96 96 86 Q120 80 150 92 L150 106 Z"/><path d="M276 106 Q296 86 326 84 Q362 84 400 98 V106 Z"/></g>
+<g class="sk-main">
+<g style="--k:1"><path d="M30 106 V58 h18 V106 Z M62 106 V58 h18 V106 Z M48 106 V72 h14 V106 Z"/><path d="M29 58 h20 v-3 h-20z M61 58 h20 v-3 h-20z M30 55 v-3 h3 v3z M36 55 v-3 h3 v3z M42 55 v-3 h3 v3z M45 55 v-3 h3 v3z M62 55 v-3 h3 v3z M68 55 v-3 h3 v3z M74 55 v-3 h3 v3z M77 55 v-3 h3 v3z"/><path d="M80 106 V82 L84 78 H112 L116 82 V106 Z"/><path d="M97 78 L100 34 L103 78 Z M99.3 34 v-6 h1.4 v6z M97.5 30 h5 v1.3 h-5z"/></g>
+<g style="--k:2"><path d="M122 106 L146 78 L170 106 Z"/></g>
+<g style="--k:3"><path d="M176 106 Q184 86 190 66 L195 42 L198.4 20 L199.3 8 L199.3 2 L200.7 2 L200.7 8 L201.6 20 L205 42 L210 66 Q216 86 224 106 L213 106 Q211 92 200 90 Q189 92 187 106 Z"/><path d="M186 69 h28 v-3.2 h-28z M193 44 h14 v-2.6 h-14z M197.4 21 h5.2 v-2 h-5.2z"/></g>
+<g style="--k:4"><path d="M234 106 V72 h40 V106 h-11 V92 A9 9 0 0 0 245 92 V106 Z"/><path d="M232 72 h44 v-4 h-44z M235 68 h38 v-5 h-38z"/></g>
+<g style="--k:5"><path d="M298 106 V86 h64 V106 Z"/><path d="M318 86 V72 h24 V86 Z"/><path d="M315 72 Q330 34 345 72 Z"/><path d="M328.4 55 v-9 h3.2 v9z M329.4 46 v-4 h1.2 v4z"/><path d="M300 86 Q307 72 314 86 Z M346 86 Q353 72 360 86 Z"/><path d="M365 106 V62 h9 V106 Z M363.5 62 Q369.5 48 375.5 62 Z"/></g>
+</g>
+<g class="sk-lines"><path d="M71 80 a5 5 0 1 0 0.01 0 M39 64 v10 M71 64 v10 M39 80 v14 M71 86 v8"/><path d="M146 78 V106 M134 92 h24 M140 85 h12 M128 99 h36 M146 78 L134 106 M146 78 L158 106"/><path d="M190 69 L210 88 M210 69 L190 88 M195 44 L205 66 M205 44 L195 66 M198 21 L202 42 M202 21 L198 42"/><path d="M238 76 h32 M254 72 V82"/><path d="M330 72 V86 M322 76 v8 M338 76 v8 M306 92 v10 M318 92 v10 M330 92 v10 M342 92 v10 M354 92 v10"/></g>
+<g class="sk-spark" style="--k:6"><circle cx="200" cy="10" r="1.6"/><circle cx="196" cy="34" r="1.3"/><circle cx="204" cy="52" r="1.3"/><circle cx="192" cy="76" r="1.4"/><circle cx="209" cy="84" r="1.4"/><circle cx="200" cy="60" r="1.2"/></g>
+<rect class="sk-ground" x="0" y="105" width="400" height="2.5" rx="1.2" style="--k:7"/>
+<g class="sk-sea" style="--k:8"><path d="M18 113 q7 -4 14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0"/><path d="M30 120 q7 -4 14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0"/></g>
+</svg>
+
+</header>
+<div id="live" class="live" hidden></div>
+<div id="avv" class="avv" hidden></div>
+<label for="t-voli" class="golink"><span>✈️</span><b>Voli e stato live</b><small>Orari, gate, ritardi e pagine degli aeroporti</small><i>›</i></label>
+<div id="meteo" class="meteo"><span class="mi">🌤️</span><div><b>Meteo</b><span>Caricamento…</span></div></div>
+<h2 class="sec">Itinerario</h2>
+<p id="short" class="short" hidden></p>
+<ol class="steps" id="steps"></ol>
+</section>
+
+<section class="blk" id="voli">
+<h2 class="sec">Voli e stato live</h2>
+<div class="voli" id="vcard">
+<div class="vh2"><b>I tuoi voli</b><button type="button" class="vbtn" data-edit>✏️ Modifica</button></div>
+<div class="vgrid" id="vgrid"></div>
+<div class="vbar"><button type="button" id="vref" class="vbtn" hidden>↻ Aggiorna stato</button><small id="vupd"></small></div>
+<details class="vkey" id="vkey"><summary><span>📡 Stato live dei voli</span><small id="vks">Non collegato</small></summary>
+<p>Gli aeroporti non danno i loro dati alle app esterne: i pulsanti qui sopra aprono le loro pagine ufficiali. Per vedere ritardi, gate, terminal e nastro bagagli direttamente qui, collega il servizio gratuito AeroDataBox (piano Basic gratuito, con un numero limitato di richieste al mese).</p>
+<ol><li>Crea un account su <a href="https://rapidapi.com/aedbx-aedbx/api/aerodatabox" target="_blank" rel="noopener">RapidAPI · AeroDataBox ↗︎</a> e attiva il piano <b>Basic</b> gratuito.</li><li>Copia la tua chiave <b>X-RapidAPI-Key</b> e incollala qui sotto.</li></ol>
+<div class="vkrow"><input type="password" id="vkin" placeholder="Incolla la chiave" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="vbtn" id="vkok">Collega</button></div>
+<small class="vknote">La chiave resta solo su questo telefono, non finisce nel sito pubblicato. Nel giorno del viaggio l'app aggiorna da sola ogni 10 minuti intorno ai voli.</small>
+<button type="button" class="vlnk" id="vkdel" hidden>Scollega</button>
+</details>
+</div>
+<div class="zones" id="vtips"></div>
+</section>
+
+<section class="blk" id="mappa">
+<h2 class="sec">Mappa e spostamenti</h2>
+<div class="map" id="mapbox">
+<div class="stage">
+<div class="mapoff" id="mapoff">Carico la mappa… Serve una connessione la prima volta: dopo le zone già viste restano sul telefono.</div>
+<div id="lmap" hidden></div>
+<div class="mc mc-tl"><button id="tg" class="sw" type="button" role="switch" aria-checked="false" aria-label="Mostra i locali dove mangiare"><i></i><span>Locali</span></button><button id="tp" class="sw" type="button" role="switch" aria-checked="false" aria-label="Mostra i punti per foto e selfie"><i></i><span>Foto</span></button><button id="tw" class="sw" type="button" role="switch" aria-checked="false" aria-label="Mostra le fontanelle"><i></i><span>Acqua</span></button></div>
+<div class="mc mc-tr">
+<button id="zi" type="button" aria-label="Ingrandisci">+</button>
+<button id="zo" type="button" aria-label="Riduci">−</button>
+<button id="zr" type="button" aria-label="Vista iniziale"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button>
+<button id="fs" type="button" aria-label="Schermo intero"><svg class="ic1" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><svg class="ic2" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
+<div class="mc mc-bl"><button id="lg" type="button" aria-expanded="false" aria-controls="lgp">Legenda</button><div id="lgp" class="lgp legend" hidden></div></div>
+</div>
+<div id="info" aria-live="polite"></div>
+</div>
+<details class="shots" id="shots"></details>
+<p class="route" id="route"></p>
+<p class="route"><b>Apri i percorsi in Google Maps</b> (da lì puoi salvare i luoghi nelle tue liste):</p>
+<ul class="tips" id="gmroutes"></ul>
+</section>
+
+<section class="blk" id="mangiare">
+<h2 class="sec">Pasti e assaggi</h2>
+<p class="lead" id="mlead">La giornata a tavola, in ordine: i pasti e, nel mezzo, cosa assaggiare lungo il percorso.</p>
+<div id="mgrid"></div>
+<p class="meta">Criteri: almeno 4 stelle su Google, bistrot e boulangerie di quartiere, niente catene. Colazione e cena restano intorno o sotto i 15 € a persona. Valutazioni e orari da Google Maps (ottobre 2026), prezzi indicativi: controllali qualche giorno prima.</p>
+</section>
+
+<section class="blk" id="costi">
+<h2 class="sec">Costi stimati</h2>
+<div id="cdonut"></div>
+<table id="ctab"></table>
+<p class="meta" id="cnote"></p>
+<div class="spese"><h3>💳 Spese reali <small id="sppl"></small></h3>
+<div class="who" id="who"></div>
+<div class="sgrid" id="sgrid"></div>
+<div class="stot"><div><b id="stot">0 €</b><span>spesi finora</span></div><div class="sbar"><i id="sbar"></i></div><span id="sdiff"></span><div id="split" class="split"></div></div>
+</div>
+</section>
+
+<section class="blk" id="consigli">
+<h2 class="sec">Consigli per zona</h2>
+<div class="checklist" id="ckbox"></div>
+<div class="zones" id="zones"></div>
+<footer id="foot">Parigi in un giorno.</footer>
+</section>
+</main>
+
+<div class="appbar"><span class="appt" id="appt">Parigi</span><span class="wx" id="wx" aria-live="polite"><i class="wxi" aria-hidden="true">🌤️</i><b id="wxt">--°</b></span></div>
+<button type="button" class="gear" id="gear" aria-label="Impostazioni">⚙️</button>
+<label for="dm" class="iosw" title="Modalità chiara/scura"><span class="trk"><b class="ic sun" aria-hidden="true">☀️</b><b class="ic moon" aria-hidden="true">🌙</b><i class="knob"></i></span><span class="vh">Modalità scura</span></label>
+<nav class="tabbar" aria-label="Sezioni"><i class="tbind" aria-hidden="true"></i><label for="t-itinerario"><b class="em em-spin" aria-hidden="true">🕗</b><span>Tappe</span></label><label for="t-voli"><b class="em em-fly" aria-hidden="true">✈️</b><span>Voli</span></label><label for="t-mappa"><b class="em em-unfold" aria-hidden="true">🗺️</b><span>Mappa</span></label><label for="t-mangiare"><b class="em em-bob" aria-hidden="true">🥐</b><span>Pasti</span></label><label for="t-costi"><b class="em em-flip" aria-hidden="true">💶</b><span>Costi</span></label><label for="t-consigli"><b class="em em-glow" aria-hidden="true">💡</b><span>Consigli</span></label><i class="tbdots" aria-hidden="true">⋯</i></nav>
+
+<div id="sheet" aria-hidden="true"><div class="shc" role="dialog" aria-label="Impostazioni">
+<h3>⚙️ Impostazioni</h3>
+<button type="button" class="row" data-edit><span>✏️</span><span>Modifica il tuo viaggio<small>Data, persone, aeroporti e orari dei voli</small></span></button>
+<button type="button" class="row" id="shvoli"><span>📡</span><span>Stato live dei voli<small>Collega o scollega la chiave AeroDataBox</small></span></button>
+<button type="button" class="row danger" id="shreset"><span>🗑️</span><span>Cancella tutti i dati<small>Viaggio, spese, lista e chiave salvati su questo telefono</small></span></button>
+<button type="button" class="btn ghost cls" id="shclose">Chiudi</button>
+</div></div>
+
+<div id="setup" aria-hidden="true"><form class="scard" id="sform" novalidate autocomplete="off">
+<h2>Il tuo viaggio</h2>
+<p class="lead">Inserisci i dati della gita: l'itinerario, i trasporti, i locali e i costi si adattano da soli. Puoi cambiarli quando vuoi dall'ingranaggio ⚙️ o dalla sezione Voli.</p>
+<fieldset class="sgrp"><legend>📅 Quando e in quanti</legend>
+<label class="f"><span>Data del viaggio</span><input type="date" name="date" required></label>
+<div class="f" style="display:flex;flex-direction:column;gap:4px;font-size:.76rem;color:var(--mute);font-weight:700;min-width:0"><span>Persone</span><div class="stepper"><button type="button" data-st="-1" aria-label="Una persona in meno">−</button><output name="ppl" id="ppl">2</output><button type="button" data-st="1" aria-label="Una persona in più">+</button></div></div>
+</fieldset>
+<fieldset class="sgrp"><legend>🛫 Da dove parti</legend>
+<label class="f w"><span>Aeroporto di partenza</span><input type="text" name="from" list="aplist" placeholder="es. Bologna (BLQ)" autocapitalize="words" spellcheck="false"></label>
+<datalist id="aplist"></datalist>
+</fieldset>
+<fieldset class="sgrp"><legend>🛬 Dove atterri a Parigi</legend>
+<div class="apts" role="radiogroup" aria-label="Aeroporto di arrivo">
+<label class="apt"><input type="radio" name="to" value="CDG" checked><b>CDG</b><span>Charles de Gaulle · RER B</span></label>
+<label class="apt"><input type="radio" name="to" value="ORY"><b>ORY</b><span>Orly · metro 14</span></label>
+<label class="apt"><input type="radio" name="to" value="BVA"><b>BVA</b><span>Beauvais · navetta</span></label>
+</div>
+</fieldset>
+<fieldset class="sgrp"><legend>✈️ Volo di andata</legend>
+<label class="f w"><span>Numero del volo</span><input type="text" name="a_num" placeholder="es. FR1234" autocapitalize="characters" maxlength="10"></label>
+<label class="f"><span>Partenza</span><input type="time" name="a_dep"></label>
+<label class="f"><span>Atterraggio a Parigi</span><input type="time" name="a_arr" required></label>
+</fieldset>
+<fieldset class="sgrp"><legend>✈️ Volo di ritorno</legend>
+<label class="f w"><span>Numero del volo</span><input type="text" name="r_num" placeholder="es. FR1235" autocapitalize="characters" maxlength="10"></label>
+<label class="f"><span>Apertura imbarco</span><input type="time" name="r_imb"></label>
+<label class="f"><span>Partenza</span><input type="time" name="r_dep" required></label>
+</fieldset>
+<p class="serr" id="serr" role="alert"></p>
+<div class="sact"><button type="submit" class="btn">✨ Crea il mio itinerario</button><button type="button" class="btn ghost" id="scancel" hidden>Annulla</button></div>
+<p class="snote">Orari in ora locale (Italia e Francia hanno lo stesso fuso). I dati restano solo su questo telefono.</p>
+</form></div>
+<div class="toast" id="toast" role="status"></div>
+<noscript><p style="position:fixed;inset:auto 0 40% 0;text-align:center;padding:20px">Per usare l'app serve JavaScript.</p></noscript>
+<script>
+/* ===== dati di Parigi (verificati il 9 ottobre 2026) ===== */
+window.PD=(function(){
+var G=function(q){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q)};
+/* aeroporti di partenza suggeriti, con pagina ufficiale */
+var FROM=[
+["BLQ","Bologna","https://www.bologna-airport.it/voli/vola-da-bologna/voli-in-tempo-reale/?idC=62178"],
+["MXP","Milano Malpensa","https://www.milanomalpensa-airport.com/"],
+["LIN","Milano Linate","https://www.milanolinate-airport.com/"],
+["BGY","Bergamo Orio al Serio","https://www.milanbergamoairport.it/"],
+["FCO","Roma Fiumicino","https://www.adr.it/fiumicino"],
+["CIA","Roma Ciampino","https://www.adr.it/ciampino"],
+["VCE","Venezia Marco Polo","https://www.veneziaairport.it/"],
+["TSF","Treviso","https://www.trevisoairport.it/"],
+["VRN","Verona","https://www.aeroportoverona.it/"],
+["TRN","Torino","https://www.aeroportoditorino.it/"],
+["GOA","Genova","https://www.airport.genova.it/"],
+["PSA","Pisa","https://www.pisa-airport.com/"],
+["FLR","Firenze","https://www.aeroporto.firenze.it/"],
+["NAP","Napoli","https://www.aeroportodinapoli.it/"],
+["BRI","Bari","https://www.aeroportidipuglia.it/"],
+["BDS","Brindisi","https://www.aeroportidipuglia.it/"],
+["CTA","Catania","https://www.aeroporto.catania.it/"],
+["PMO","Palermo","https://www.aeroportodipalermo.it/"],
+["CAG","Cagliari","https://www.sogaer.it/"]
+];
+/* aeroporti di Parigi */
+var PAR={
+CDG:{n:"Charles de Gaulle",s:"Roissy-Charles de Gaulle",url:"https://www.parisaeroport.fr/",live:"Paris Aéroport",inMin:80,buf:120,pos:[49.0042,2.5711],
+ arr:"Segui i cartelli «Paris par train» fino alla stazione del RER B (Terminal 2: stazione Aéroport CDG 2 TGV; Terminal 1: navetta gratuita CDGVAL fino alla stazione CDG 1). Il RER B porta a Châtelet–Les Halles in circa 35 minuti, senza cambi.",
+ tk:"Biglietto «Paris Région <> Aéroports» da 14 € a tratta (solo digitale: su carta Navigo Easy da 2 € o nell'app Île-de-France Mobilités / Bonjour RATP).",
+ gm:"Aéroport Charles de Gaulle 2 TGV"},
+ORY:{n:"Orly",s:"Paris-Orly",url:"https://www.parisaeroport.fr/",live:"Paris Aéroport",inMin:60,buf:105,pos:[48.7286,2.3601],
+ arr:"Segui i cartelli per la metro 14: dalla stazione Aéroport d'Orly arrivi a Châtelet in circa 25 minuti, senza cambi. L'Orlyval con cambio sul RER B ad Antony esiste ancora, ma la metro 14 è più semplice.",
+ tk:"Biglietto «Paris Région <> Aéroports» da 14 € a tratta, valido per metro 14 e Orlyval (solo digitale: su carta Navigo Easy da 2 € o nell'app).",
+ gm:"Aéroport d'Orly métro 14"},
+BVA:{n:"Beauvais",s:"Paris-Beauvais",url:"https://www.aeroportparisbeauvais.com/",live:"Aéroport Paris-Beauvais",inMin:160,buf:100,pos:[49.4544,2.1128],
+ arr:"La navetta Aérobus (linea A01) parte davanti al terminal dopo l'arrivo dei voli e arriva a Porte Maillot (22-24 boulevard Pershing) in circa 1 h 30, traffico permettendo. Da Porte Maillot la metro 1 porta a Châtelet in circa 20 minuti.",
+ tk:"Navetta Aérobus Porte Maillot: 17,90 € solo andata online, 29,90 € andata e ritorno online (35 € in aeroporto). Il Navigo non vale sulla navetta.",
+ gm:"Porte Maillot navette Beauvais"}
+};
+/* linee (tracciati indicativi) */
+var SEG={
+rerB:{c:"#5291ce",n:"RER B",p:[[49.0042,2.5711,"Aéroport CDG 2",2],[49.0100,2.5590,"Aéroport CDG 1",1],[48.9900,2.5350],[48.9737,2.5148,"Parc des Expositions"],[48.9600,2.5100],[48.9460,2.5050],[48.9318,2.4954,"Aulnay-sous-Bois"],[48.9330,2.4670],[48.9311,2.4256,"Le Bourget"],[48.9203,2.4044,"La Courneuve"],[48.9183,2.3620,"Stade de France"],[48.8964,2.3580],[48.8809,2.3553,"Gare du Nord",2],[48.8619,2.3470,"Châtelet–Les Halles",2],[48.8534,2.3446,"Saint-Michel Notre-Dame",1]]},
+m14:{c:"#62259d",n:"Metro 14",p:[[48.7286,2.3601,"Aéroport d'Orly",2],[48.7438,2.3478,"Pont de Rungis"],[48.7570,2.3640,"M.I.N. Porte de Thiais"],[48.7728,2.3612,"Chevilly-Larue"],[48.7930,2.3615,"Villejuif–G. Roussy"],[48.8105,2.3627,"Kremlin-Bicêtre Hôpital"],[48.8221,2.3584,"Maison Blanche"],[48.8271,2.3668,"Olympiades"],[48.8299,2.3762,"Bibliothèque F. Mitterrand"],[48.8333,2.3866,"Cour Saint-Émilion"],[48.8401,2.3793,"Bercy"],[48.8443,2.3739,"Gare de Lyon",1],[48.8590,2.3470,"Châtelet",2],[48.8657,2.3343,"Pyramides",1],[48.8700,2.3245,"Madeleine",2]]},
+bva:{c:"#e1253a",n:"Navetta Aérobus",p:[[49.4544,2.1128,"Aéroport de Beauvais",2],[49.40,2.13],[49.30,2.17],[49.15,2.21],[49.03,2.25],[48.93,2.27],[48.8781,2.2826,"Porte Maillot",2]]},
+m1:{c:"#ffcd00",n:"Metro 1",p:[[48.8781,2.2826,"Porte Maillot",2],[48.8756,2.2894,"Argentine"],[48.8738,2.2950,"Charles de Gaulle–Étoile",2],[48.8720,2.3006,"George V"],[48.8690,2.3096,"Franklin D. Roosevelt",1],[48.8676,2.3140,"Champs-Élysées–Clemenceau"],[48.8656,2.3212,"Concorde",1],[48.8644,2.3297,"Tuileries",1],[48.8624,2.3364,"Palais Royal–Louvre",1],[48.8608,2.3409,"Louvre–Rivoli"],[48.8582,2.3474,"Châtelet",2]]},
+m9:{c:"#b6bd00",n:"Metro 9",p:[[48.8690,2.3096,"Franklin D. Roosevelt",1],[48.8647,2.3010,"Alma–Marceau"],[48.8648,2.2938,"Iéna"],[48.8631,2.2870,"Trocadéro",2]]},
+m8:{c:"#d282be",n:"Metro 8",p:[[48.8549,2.3064,"École Militaire",2],[48.8577,2.3105,"La Tour-Maubourg"],[48.8610,2.3145,"Invalides"],[48.8656,2.3212,"Concorde",1],[48.8700,2.3245,"Madeleine",2]]},
+m12:{c:"#007852",n:"Metro 12",p:[[48.8700,2.3245,"Madeleine",2],[48.8754,2.3255,"Saint-Lazare"],[48.8763,2.3329,"Trinité"],[48.8760,2.3380,"N.-D.-de-Lorette"],[48.8785,2.3375,"Saint-Georges"],[48.8821,2.3374,"Pigalle"],[48.8844,2.3384,"Abbesses",2]]},
+m6:{c:"#6eca97",n:"Metro 6",p:[[48.8539,2.2894,"Bir-Hakeim",1],[48.8576,2.2856,"Passy"],[48.8631,2.2870,"Trocadéro",1],[48.8669,2.2900,"Boissière"],[48.8715,2.2932,"Kléber"],[48.8738,2.2950,"Charles de Gaulle–Étoile",2]]},
+m2:{c:"#003ca6",n:"Metro 2",p:[[48.8738,2.2950,"Charles de Gaulle–Étoile",2],[48.8781,2.2982,"Ternes"],[48.8792,2.3034,"Courcelles"],[48.8805,2.3094,"Monceau"],[48.8812,2.3158,"Villiers"],[48.8823,2.3214,"Rome"],[48.8836,2.3274,"Place de Clichy"],[48.8837,2.3325,"Blanche"],[48.8821,2.3374,"Pigalle"],[48.8829,2.3442,"Anvers",2],[48.8837,2.3497,"Barbès–Rochechouart",1]]},
+m4:{c:"#cf009e",n:"Metro 4",p:[[48.8837,2.3497,"Barbès–Rochechouart",1],[48.8809,2.3553,"Gare du Nord",2]]},
+rerC:{c:"#f3c300",n:"RER C",p:[[48.8534,2.3446,"Saint-Michel Notre-Dame",1],[48.8600,2.3254,"Musée d'Orsay"],[48.8628,2.3141,"Invalides"],[48.8624,2.3017,"Pont de l'Alma"],[48.8556,2.2898,"Champ de Mars–Tour Eiffel",2]]},
+rerA:{c:"#e3051c",n:"RER A",p:[[48.8738,2.2950,"Charles de Gaulle–Étoile",2],[48.8726,2.3290,"Auber"],[48.8619,2.3470,"Châtelet–Les Halles",2]]}
+};
+var START=[48.8593,2.3473];
+/* tappe: p = priorità (1 = irrinunciabile), durate in minuti */
+var STOPS={
+marais:{t:"Marais e Place des Vosges",z:"A",p:4,min:30,id:50,max:70,pos:[48.8556,2.3655],q:"Place des Vosges, Paris",cls:"walk",
+ d:"Rue des Rosiers e le stradine del Marais, poi Place des Vosges, la piazza più antica di Parigi (1612), con i portici e il giardino al centro.",
+ m:"Tutto gratis. Un passaggio poco noto: il giardino dell'Hôtel de Sully, su Rue Saint-Antoine, porta dritto sotto i portici della piazza."},
+notredame:{t:"Notre-Dame e Île de la Cité",z:"A",p:1,min:35,id:60,max:95,pos:[48.8530,2.3499],q:"Cathédrale Notre-Dame de Paris",cls:"",
+ d:"La cattedrale riaperta nel dicembre 2024 dopo l'incendio. L'ingresso è gratuito: prenota uno slot gratis sul sito ufficiale notredamedeparis.fr (si aprono 48 ore prima, a mezzanotte) per evitare la coda, che senza prenotazione può superare l'ora. Poi il giro dell'Île de la Cité e il lungosenna.",
+ m:"Le torri si visitano a parte: 16 €, 424 gradini, solo con prenotazione online."},
+saintechapelle:{t:"Sainte-Chapelle",z:"A",p:7,opt:1,min:45,id:50,max:60,pos:[48.8554,2.3450],q:"Sainte-Chapelle, Paris",cls:"",
+ d:"Le vetrate gotiche più spettacolari di Parigi, a 5 minuti da Notre-Dame. La prenotazione di un orario è obbligatoria: fallo online prima di partire.",
+ m:""},
+louvre:{t:"Louvre, Palais-Royal e Tuileries",z:"B",p:2,min:30,id:50,max:80,pos:[48.8610,2.3358],q:"Pyramide du Louvre, Paris",cls:"walk",
+ d:"La Piramide e la Cour Napoléon, poi il cortile del Palais-Royal con le colonne di Buren e il Jardin des Tuileries. Da fuori è tutto gratis.",
+ m:"Il museo è chiuso il martedì e per visitarlo servirebbe mezza giornata: in una gita in giornata conviene goderselo da fuori."},
+eiffel:{t:"Tour Eiffel e Trocadéro",z:"C",p:1,min:40,id:75,max:150,pos:[48.8584,2.2945],q:"Tour Eiffel, Paris",cls:"",
+ d:"Esci alla fermata Trocadéro per la vista classica dalla spianata, attraversa il Pont d'Iéna, passa sotto la torre e prosegui sul Champ de Mars fino a École Militaire.",
+ m:"Salire costa da 14,80 € (a piedi fino al 2° piano) a 36,70 € (ascensore fino in cima); dal 29 settembre 2026 anche i biglietti per le scale vanno prenotati online. Dopo il tramonto, all'inizio di ogni ora, la torre scintilla per qualche minuto."},
+arc:{t:"Arc de Triomphe e Champs-Élysées",z:"E",p:6,opt:1,min:35,id:45,max:60,pos:[48.8738,2.2950],q:"Arc de Triomphe, Paris",cls:"walk",
+ d:"L'arco visto da vicino (si raggiunge col sottopassaggio, non attraversando la rotonda) e un tratto del viale degli Champs-Élysées.",
+ m:"Salire sulla terrazza è a pagamento; guardarlo da fuori è gratis."},
+montmartre:{t:"Montmartre e Sacré-Cœur",z:"D",p:3,min:45,id:80,max:120,pos:[48.8867,2.3431],q:"Basilique du Sacré-Cœur de Montmartre",cls:"walk",
+ d:"Da Abbesses: il Mur des je t'aime, le stradine di Rue des Trois Frères, la scalinata (o la funicolare) fino al Sacré-Cœur, poi Place du Tertre e La Maison Rose.",
+ m:"La basilica è gratuita. Davanti alla scalinata attenzione a chi offre braccialetti «in regalo» e ai borseggiatori."}
+};
+/* collegamenti tra le tappe */
+var W=function(a){return {w:a}};
+var LEGS={
+"start>marais":{min:15,mode:"walk",txt:"A piedi da Châtelet per Rue de Rivoli e Rue des Rosiers, circa 15 minuti.",g:[W([[48.8593,2.3473],[48.8574,2.3518],[48.8570,2.3590],[48.8556,2.3655]])]},
+"start>notredame":{min:10,mode:"walk",txt:"A piedi da Châtelet attraverso il Pont au Change, circa 10 minuti.",g:[W([[48.8593,2.3473],[48.8568,2.3480],[48.8545,2.3478],[48.8530,2.3499]])]},
+"start>louvre":{min:12,mode:"walk",txt:"A piedi da Châtelet lungo Rue de Rivoli, circa 12 minuti.",g:[W([[48.8593,2.3473],[48.8608,2.3409],[48.8610,2.3358]])]},
+"marais>notredame":{min:20,mode:"walk",txt:"A piedi da Place des Vosges sull'Île Saint-Louis (Pont Marie) e poi sul Pont Saint-Louis, circa 20 minuti.",g:[W([[48.8556,2.3655],[48.8535,2.3610],[48.8530,2.3573],[48.8522,2.3560],[48.8516,2.3525],[48.8530,2.3499]])]},
+"marais>louvre":{min:30,mode:"walk",txt:"A piedi lungo Rue de Rivoli, circa 30 minuti (oppure metro 1 da Saint-Paul a Palais Royal).",g:[W([[48.8556,2.3655],[48.8574,2.3518],[48.8608,2.3409],[48.8610,2.3358]])]},
+"notredame>saintechapelle":{min:5,mode:"walk",txt:"A piedi, circa 5 minuti.",g:[W([[48.8530,2.3499],[48.8545,2.3470],[48.8554,2.3450]])]},
+"notredame>louvre":{min:20,mode:"walk",txt:"Lungo la Senna: Pont Neuf e Pont des Arts, circa 20 minuti a piedi.",g:[W([[48.8530,2.3499],[48.8545,2.3460],[48.8572,2.3414],[48.8583,2.3375],[48.8610,2.3358]])]},
+"saintechapelle>louvre":{min:15,mode:"walk",txt:"Pont Neuf e Pont des Arts, circa 15 minuti a piedi.",g:[W([[48.8554,2.3450],[48.8572,2.3414],[48.8583,2.3375],[48.8610,2.3358]])]},
+"notredame>eiffel":{min:25,mode:"metro",txt:"RER C da Saint-Michel Notre-Dame a Champ de Mars–Tour Eiffel, circa 25 minuti.",g:[W([[48.8530,2.3499],[48.8534,2.3446]]),["rerC","Saint-Michel Notre-Dame","Champ de Mars–Tour Eiffel"],W([[48.8556,2.2898],[48.8584,2.2945]])]},
+"saintechapelle>eiffel":{min:25,mode:"metro",txt:"RER C da Saint-Michel Notre-Dame a Champ de Mars–Tour Eiffel, circa 25 minuti.",g:[W([[48.8554,2.3450],[48.8534,2.3446]]),["rerC","Saint-Michel Notre-Dame","Champ de Mars–Tour Eiffel"],W([[48.8556,2.2898],[48.8584,2.2945]])]},
+"louvre>eiffel":{min:25,mode:"metro",txt:"Metro 1 da Tuileries a Franklin D. Roosevelt, poi metro 9 fino a Trocadéro: circa 25 minuti.",g:[W([[48.8610,2.3358],[48.8625,2.3320],[48.8644,2.3297]]),["m1","Tuileries","Franklin D. Roosevelt"],["m9","Franklin D. Roosevelt","Trocadéro"],W([[48.8631,2.2870],[48.8617,2.2890],[48.8601,2.2928],[48.8584,2.2945]])]},
+"eiffel>montmartre":{min:35,mode:"metro",txt:"A piedi sul Champ de Mars fino a École Militaire, metro 8 fino a Madeleine, poi metro 12 fino ad Abbesses: circa 35 minuti.",g:[W([[48.8584,2.2945],[48.8556,2.2986],[48.8549,2.3064]]),["m8","École Militaire","Madeleine"],["m12","Madeleine","Abbesses"],W([[48.8844,2.3384],[48.8848,2.3387],[48.8848,2.3410],[48.8840,2.3430],[48.8867,2.3431]])]},
+"eiffel>arc":{min:20,mode:"metro",txt:"A piedi fino a Bir-Hakeim, poi metro 6 fino a Charles de Gaulle–Étoile: circa 20 minuti.",g:[W([[48.8584,2.2945],[48.8560,2.2905],[48.8539,2.2894]]),["m6","Bir-Hakeim","Charles de Gaulle–Étoile"]]},
+"arc>montmartre":{min:25,mode:"metro",txt:"Metro 2 da Charles de Gaulle–Étoile ad Anvers, poi su a piedi (o in funicolare): circa 25 minuti.",g:[["m2","Charles de Gaulle–Étoile","Anvers"],W([[48.8829,2.3442],[48.8845,2.3435],[48.8867,2.3431]])]},
+"louvre>montmartre":{min:30,mode:"metro",txt:"Metro 14 da Pyramides a Madeleine, poi metro 12 fino ad Abbesses: circa 30 minuti.",g:[W([[48.8610,2.3358],[48.8657,2.3343]]),["m14","Pyramides","Madeleine"],["m12","Madeleine","Abbesses"],W([[48.8844,2.3384],[48.8867,2.3431]])]},
+"notredame>montmartre":{min:35,mode:"metro",txt:"RER B da Saint-Michel a Gare du Nord, poi metro 4 e 2 fino ad Anvers: circa 35 minuti.",g:[W([[48.8530,2.3499],[48.8534,2.3446]]),["rerB","Saint-Michel Notre-Dame","Gare du Nord"],["m4","Gare du Nord","Barbès–Rochechouart"],["m2","Barbès–Rochechouart","Anvers"],W([[48.8829,2.3442],[48.8867,2.3431]])]},
+"louvre>arc":{min:20,mode:"metro",txt:"Metro 1 da Palais Royal a Charles de Gaulle–Étoile, circa 20 minuti.",g:[["m1","Palais Royal–Louvre","Charles de Gaulle–Étoile"]]}
+};
+/* ritorno in aeroporto da ogni ultima tappa */
+var RET={
+CDG:{
+ montmartre:{min:60,txt:"A piedi fino ad Anvers, metro 2 fino a Barbès–Rochechouart, metro 4 fino a Gare du Nord, poi RER B fino all'aeroporto CDG.",g:[W([[48.8867,2.3431],[48.8845,2.3435],[48.8829,2.3442]]),["m2","Anvers","Barbès–Rochechouart"],["m4","Barbès–Rochechouart","Gare du Nord"],["rerB","Gare du Nord","Aéroport CDG 2"]]},
+ eiffel:{min:75,txt:"RER C da Champ de Mars–Tour Eiffel a Saint-Michel Notre-Dame, poi RER B fino all'aeroporto CDG.",g:[W([[48.8584,2.2945],[48.8556,2.2898]]),["rerC","Champ de Mars–Tour Eiffel","Saint-Michel Notre-Dame"],["rerB","Saint-Michel Notre-Dame","Aéroport CDG 2"]]},
+ arc:{min:65,txt:"RER A da Charles de Gaulle–Étoile a Châtelet–Les Halles, poi RER B fino all'aeroporto CDG.",g:[["rerA","Charles de Gaulle–Étoile","Châtelet–Les Halles"],["rerB","Châtelet–Les Halles","Aéroport CDG 2"]]},
+ louvre:{min:55,txt:"A piedi fino a Châtelet–Les Halles, poi RER B fino all'aeroporto CDG.",g:[W([[48.8610,2.3358],[48.8608,2.3409],[48.8619,2.3470]]),["rerB","Châtelet–Les Halles","Aéroport CDG 2"]]},
+ A:{min:55,txt:"A piedi fino a Saint-Michel Notre-Dame o Châtelet, poi RER B fino all'aeroporto CDG.",g:[["rerB","Saint-Michel Notre-Dame","Aéroport CDG 2"]]}},
+ORY:{
+ montmartre:{min:65,txt:"Metro 12 da Abbesses a Madeleine, poi metro 14 fino ad Aéroport d'Orly.",g:[W([[48.8867,2.3431],[48.8844,2.3384]]),["m12","Abbesses","Madeleine"],["m14","Madeleine","Aéroport d'Orly"]]},
+ eiffel:{min:65,txt:"A piedi fino a École Militaire, metro 8 fino a Madeleine, poi metro 14 fino ad Aéroport d'Orly.",g:[W([[48.8584,2.2945],[48.8556,2.2986],[48.8549,2.3064]]),["m8","École Militaire","Madeleine"],["m14","Madeleine","Aéroport d'Orly"]]},
+ arc:{min:60,txt:"Metro 1 da Charles de Gaulle–Étoile a Châtelet, poi metro 14 fino ad Aéroport d'Orly.",g:[["m1","Charles de Gaulle–Étoile","Châtelet"],["m14","Châtelet","Aéroport d'Orly"]]},
+ louvre:{min:50,txt:"A piedi fino a Pyramides, poi metro 14 fino ad Aéroport d'Orly.",g:[W([[48.8610,2.3358],[48.8657,2.3343]]),["m14","Pyramides","Aéroport d'Orly"]]},
+ A:{min:50,txt:"A piedi fino a Châtelet, poi metro 14 fino ad Aéroport d'Orly.",g:[["m14","Châtelet","Aéroport d'Orly"]]}},
+BVA:{
+ montmartre:{min:140,txt:"Metro 2 da Anvers a Charles de Gaulle–Étoile, metro 1 fino a Porte Maillot, poi navetta Aérobus (circa 1 h 30). Arriva alla fermata almeno 15 minuti prima.",g:[W([[48.8867,2.3431],[48.8829,2.3442]]),["m2","Anvers","Charles de Gaulle–Étoile"],["m1","Charles de Gaulle–Étoile","Porte Maillot"],["bva","Porte Maillot","Aéroport de Beauvais"]]},
+ eiffel:{min:135,txt:"A piedi fino a Bir-Hakeim, metro 6 fino a Charles de Gaulle–Étoile, metro 1 fino a Porte Maillot, poi navetta Aérobus (circa 1 h 30).",g:[W([[48.8584,2.2945],[48.8539,2.2894]]),["m6","Bir-Hakeim","Charles de Gaulle–Étoile"],["m1","Charles de Gaulle–Étoile","Porte Maillot"],["bva","Porte Maillot","Aéroport de Beauvais"]]},
+ arc:{min:120,txt:"Metro 1 da Charles de Gaulle–Étoile a Porte Maillot (2 fermate), poi navetta Aérobus (circa 1 h 30).",g:[["m1","Charles de Gaulle–Étoile","Porte Maillot"],["bva","Porte Maillot","Aéroport de Beauvais"]]},
+ louvre:{min:130,txt:"Metro 1 da Palais Royal–Louvre a Porte Maillot, poi navetta Aérobus (circa 1 h 30).",g:[["m1","Palais Royal–Louvre","Porte Maillot"],["bva","Porte Maillot","Aéroport de Beauvais"]]},
+ A:{min:135,txt:"Metro 1 da Châtelet a Porte Maillot, poi navetta Aérobus (circa 1 h 30).",g:[["m1","Châtelet","Porte Maillot"],["bva","Porte Maillot","Aéroport de Beauvais"]]}}
+};
+var ARR={
+CDG:[["rerB","Aéroport CDG 2","Châtelet–Les Halles"]],
+ORY:[["m14","Aéroport d'Orly","Châtelet"]],
+BVA:[["bva","Aéroport de Beauvais","Porte Maillot"],["m1","Porte Maillot","Châtelet"]]
+};
+/* locali: h = orari lun→dom (Google Maps, ottobre 2026); "" = chiuso */
+var D7=function(x){return [x,x,x,x,x,x,x]};
+var V={
+dheilly:{n:"Boulangerie Laurent Dheilly",a:"6 Rue des Halles",z:"A",r:"4,7",pos:[48.8593,2.3473],h:["07:00-20:00","07:00-20:00","07:00-20:00","07:00-20:00","07:00-20:00","08:00-20:00",""],
+ d:"Boulangerie-pasticceria a due passi dall'uscita di Châtelet: croissant, pain au chocolat e la brioche al caramello. Pochi posti a sedere, meglio da asporto.",pr:"Colazione con 5–8 €."},
+marnay:{n:"Maison Marnay",a:"24 Rue Saint-Martin",z:"A",r:"4,3",pos:[48.8587,2.3502],h:["07:00-20:00","07:00-20:00","07:00-20:00","07:00-20:00","07:00-20:00","07:00-20:00","08:00-18:00"],
+ d:"Panetteria di quartiere tra Châtelet e il Centre Pompidou, aperta anche la domenica: baguette tradition e croissant molto lodati. Niente tavoli.",pr:"Colazione con 5–8 €."},
+tranche:{n:"Tranché café Marais",a:"28 Rue Saint-Antoine",z:"A",r:"4,6",pos:[48.8539,2.3656],h:D7("08:30-19:30"),
+ d:"Panetteria-caffè con qualche tavolino, a 3 minuti da Place des Vosges: buona se volete sedervi con un cappuccino.",pr:"Caffè e viennoiserie sotto i 10 € (listino non visto)."},
+brigat:{n:"Brigat'",a:"6 Rue du Pas de la Mule",z:"A",r:"4,7",pos:[48.8561,2.3670],h:["","07:30-20:00","07:30-20:00","07:30-20:00","07:30-20:00","08:00-20:00","08:00-20:00"],
+ d:"Pasticceria a 50 metri da Place des Vosges: croissant, flan, crostate e anche gelato. Qualche tavolino dentro.",pr:"Colazione sotto i 10 € (listino non visto)."},
+augustins:{n:"Le Bistro des Augustins",a:"39 Quai des Grands Augustins",z:"A",r:"4,5",pos:[48.8547,2.3420],h:D7("11:30-02:00"),
+ d:"Minuscolo bistrot sul lungosenna, di fronte all'Île de la Cité, famoso per i gratin. Pochi tavoli e cucina piccola: mettete in conto un po' d'attesa.",pr:"Fascia media (listino non visto)."},
+buci:{n:"Le Bistro de Buci",a:"12 Rue de Buci",z:"A",r:"4,5",pos:[48.8540,2.3373],h:D7("09:00-02:00"),
+ d:"Bistrot di Saint-Germain con arredi d'epoca, frequentato anche dai parigini: zuppa di cipolle, manzo brasato, crème brûlée.",pr:"Fascia media (listino non visto)."},
+victoires:{n:"Bistrot Victoires",a:"6 Rue de la Vrillière",z:"B",r:"4,4",pos:[48.8655,2.3404],h:D7("11:30-23:00"),
+ d:"Bistrot classico e senza fronzoli dietro Place des Victoires, tra i più economici del centro: confit de canard, zuppa di cipolle, crème brûlée. Si riempie presto.",pr:"Fascia economica per Parigi (listino non visto)."},
+louise:{n:"Louise Café",a:"8 Rue Croix des Petits Champs",z:"B",r:"4,6",pos:[48.8626,2.3395],h:["11:30-23:00","11:30-23:00","11:30-23:00","11:30-23:00","11:30-23:00","11:30-23:00",""],
+ d:"Piccolo bistrot a due passi dal Louvre e dal Palais-Royal: escargot, coq au vin, purè molto lodato.",pr:"Prezzi giusti secondo le recensioni (listino non visto)."},
+richelieu:{n:"Bistrot Richelieu",a:"45 Rue de Richelieu",z:"B",r:"4,4",pos:[48.8662,2.3370],h:["08:00-22:00","08:00-22:00","08:00-22:00","08:00-22:00","08:00-22:00","09:00-22:00","10:00-21:00"],
+ d:"Bistrot di quartiere dietro il Palais-Royal, con cucina sempre aperta: zuppa di cipolle, bourguignon, tartare.",pr:"Fascia media (listino non visto)."},
+caillou:{n:"Café Caillou",a:"210 Rue de Grenelle",z:"C",r:"4,7",pos:[48.8566,2.3031],h:["07:30-22:30","07:30-22:30","07:30-22:30","07:30-22:30","07:30-22:30","10:00-22:30","10:00-22:00"],
+ d:"Bistrot piccolo e accogliente a 10 minuti dalla Tour Eiffel, lontano dalla folla: bourguignon, confit, profiteroles.",pr:"Fascia media (listino non visto)."},
+crepuscule:{n:"Le Crépuscule",a:"18 Rue Amélie",z:"C",r:"4,8",pos:[48.8584,2.3076],h:["","11:00-14:30,18:30-21:00","11:00-14:30,18:30-21:00","11:00-14:30,18:30-21:00","11:00-14:30,18:30-21:00","11:00-14:30,18:30-21:00",""],
+ d:"Crêperie di quartiere in una via laterale vicino a Rue Cler: galette salate di grano saraceno e crêpe dolci, porzioni abbondanti.",pr:"Una galette con un sidro dovrebbe stare sotto i 15 € (listino non visto)."},
+rozell:{n:"Crêperie Rozell Café",a:"24 Rue la Vieuville",z:"D",r:"4,7",pos:[48.8847,2.3405],h:["12:10-21:00","12:00-21:00","","12:00-21:00","12:00-21:00","12:10-21:00","12:10-20:30"],
+ d:"Crêperie familiare sotto il Sacré-Cœur, lodata per galette e crêpe al caramello salato fatte al momento.",pr:"Galette + crêpe + bibita 15,90 € (prezzo 2025); una galette sola resta sotto i 15 €."},
+crepmm:{n:"Crêperie de Montmartre",a:"3 Rue Dancourt",z:"D",r:"4,7",pos:[48.8828,2.3418],h:D7("11:00-23:00"),
+ d:"Piccola crêperie nuova vicino ad Anvers, cioccolata e panna fatte in casa. Aperta tutto il giorno.",pr:"Una galette con un sidro dovrebbe stare sotto i 15 € (listino non visto)."},
+phenicien:{n:"Le Grand Phénicien",a:"4 Rue Caulaincourt",z:"D",r:"4,5",pos:[48.8850,2.3303],h:D7("11:00-00:00"),
+ d:"Libanese di quartiere ai piedi di Montmartre: falafel, hummus, tabulè. Si può anche prendere da asporto.",pr:"Con un sandwich o un piatto di falafel si resta sotto i 15 € (listino non visto); i mezze misti costano di più."},
+broceliande:{n:"Crêperie Brocéliande",a:"15 Rue des Trois Frères",z:"D",r:"4,7",pos:[48.8844,2.3411],h:["11:30-17:30","11:30-17:30","11:30-15:30,19:00-22:30","11:30-15:30,19:00-22:30","11:30-15:30,19:00-22:30","12:00-23:00","12:00-22:00"],
+ d:"Crêperie bretone su Rue des Trois Frères, galette croccanti e anche opzioni senza glutine. Lunedì e martedì niente cena.",pr:"Prezzi ragionevoli secondo le recensioni (listino non visto)."},
+stlouis:{n:"Boulangerie Saint-Louis",a:"78 Rue Saint-Louis-en-l'Île",z:"A",r:"4,2",pos:[48.8526,2.3546],h:D7("07:00-20:00"),
+ d:"Panetteria dell'Île Saint-Louis con panini, quiche e croque-monsieur da asporto.",pr:"Formula panino + bibita + dolce a 9,50 € (da recensioni)."},
+berthillon:{n:"Berthillon",a:"29-31 Rue Saint-Louis-en-l'Île",z:"A",r:"4,5",pos:[48.8517,2.3567],h:["","","10:00-20:00","10:00-20:00","10:00-20:00","10:00-20:00","10:00-20:00"],
+ d:"Il gelato e i sorbetti storici dell'Île Saint-Louis, dal 1954. Attenzione: altri bar dell'isola vendono il suo gelato, ma il negozio originale è al 29-31.",pr:"1 pallina 4 €, 2 palline 7 € (da recensioni)."},
+castel:{n:"Aux Castelblangeois",a:"168 Rue Saint-Honoré",z:"B",r:"4,1",pos:[48.8623,2.3394],h:["06:45-19:30","06:45-19:30","06:45-19:30","06:45-19:30","06:45-19:30","07:30-19:00",""],
+ d:"Boulangerie a due passi dal Louvre: croissant, pain au chocolat e panini da mangiare nei giardini del Palais-Royal.",pr:"Croissant e panini a pochi euro."},
+marques:{n:"Maison Marques",a:"111 Rue Saint-Dominique",z:"C",r:"4,3",pos:[48.8592,2.3054],h:D7("07:00-20:30"),
+ d:"Boulangerie di quartiere a 10 minuti dalla Tour Eiffel, con la fila dei parigini al mattino. Ottima per un panino da mangiare sul Champ de Mars.",pr:"Pochi euro."},
+pauline:{n:"La Pâtisserie Matthieu Pauline",a:"24 Rue Cler",z:"C",r:"4,9",pos:[48.8579,2.3057],h:["","","08:00-19:30","08:00-19:30","08:00-19:30","08:00-19:30","09:00-16:00"],
+ d:"Pasticceria artigianale sulla via-mercato di Rue Cler: tarte tatin, éclair, crostata al cioccolato.",pr:"Un dolce a pochi euro."},
+grenier:{n:"Le Grenier à Pain Abbesses",a:"38 Rue des Abbesses",z:"D",r:"4,4",pos:[48.8853,2.3367],h:["07:00-19:30","","07:00-19:30","07:00-19:30","07:00-19:30","07:00-19:30","07:00-19:30"],
+ d:"Boulangerie pluripremiata per la baguette: provate anche i pain suisse e le madeleine.",pr:"Pochi euro."},
+painpain:{n:"Pain Pain",a:"88 Rue des Martyrs",z:"D",r:"4,4",pos:[48.8835,2.3398],h:["","07:30-19:30","07:30-19:30","07:30-19:30","07:30-19:30","07:30-19:30","07:30-19:30"],
+ d:"Boulangerie artigianale di Montmartre: éclair, chausson aux pommes e focaccia scaldata al momento.",pr:"Éclair 4,40 € (da recensioni)."},
+manege:{n:"Crêperie du Manège",a:"Place des Abbesses",z:"D",r:"4,6",pos:[48.8845,2.3385],h:["14:30-19:30","14:30-19:30","14:30-19:30","14:30-19:30","14:30-19:30","10:30-19:30","10:30-19:30"],
+ d:"Chiosco accanto alla giostra di Place des Abbesses, a 15 metri dal Mur des je t'aime: crêpe al volo, anche salate.",pr:"Prezzi bassi per la zona, caffè 1,50 € (da recensioni)."}
+};
+/* quali locali per pasto e zona */
+var MEAL={
+col:{A:["dheilly","marnay","tranche","brigat"]},
+pra:{A:["augustins","buci","stlouis"],B:["victoires","louise","richelieu"],C:["caillou","crepuscule"],E:["caillou","crepuscule"],D:["crepmm","phenicien","rozell"]},
+cen:{D:["rozell","crepmm","phenicien","broceliande"],C:["crepuscule","marques"],E:["crepuscule","marques"],B:["castel","stlouis"],A:["stlouis","castel"]},
+snk:{A:["berthillon","stlouis","brigat"],B:["castel"],C:["marques","pauline"],E:["marques"],D:["grenier","painpain","manege"]}
+};
+var ORD={
+col:[["Croissant au beurre e pain au chocolat","il croissant «au beurre» è quello col burro vero, di solito diritto e non a mezzaluna."],["Flan parisien","budino alla vaniglia in pasta sfoglia: una fetta basta per due."],["Un café crème","il cappuccino francese. «Un café» è un espresso."]],
+pra:[["Soupe à l'oignon","la zuppa di cipolle gratinata, perfetta in autunno."],["Confit de canard o steak-frites","i due classici del bistrot."],["Une carafe d'eau","l'acqua del rubinetto è gratis: chiedetela, nessuno si offende."]],
+cen:[["Galette complète","crêpe salata di grano saraceno con prosciutto, formaggio e uovo."],["Crêpe beurre-sucre o caramel au beurre salé","il dolce bretone per eccellenza."],["Une bolée de cidre","il sidro servito nella tazza di ceramica."]]
+};
+/* punti per foto e selfie (posizioni indicative) */
+var PH=[
+["📷","Trocadéro","Foto","La vista classica sulla torre dalla spianata del Palais de Chaillot. Scendi qualche gradino per avere meno gente davanti.",[48.8620,2.2884],"Trocadéro, Paris","eiffel"],
+["🤳","Pont de Bir-Hakeim","Selfie","Il ponte a due piani con la metro sopra e la torre di lato: il colonnato centrale fa da cornice.",[48.8556,2.2877],"Pont de Bir-Hakeim, Paris","eiffel"],
+["📷","Rue de l'Université","Foto","La torre che spunta in fondo a una via di palazzi haussmanniani: lo scorcio da cartolina.",[48.8580,2.3010],"Rue de l'Université et Avenue Bosquet, Paris","eiffel"],
+["🤳","Piramide del Louvre","Selfie","Il gioco della prospettiva: «tocca» la punta della piramide con le dita.",[48.8608,2.3352],"Pyramide du Louvre, Paris","louvre"],
+["🤳","Colonnes de Buren","Selfie","Le colonne a strisce bianche e nere nel cortile del Palais-Royal: salitene una.",[48.8634,2.3368],"Colonnes de Buren, Paris","louvre"],
+["📷","Pont des Arts","Foto","Dal centro del ponte: l'Île de la Cité, il Pont Neuf e la cupola dell'Institut de France.",[48.8583,2.3375],"Pont des Arts, Paris","louvre"],
+["📷","Square René-Viviani","Foto","Notre-Dame vista di tre quarti attraverso gli alberi, dalla riva sinistra.",[48.8524,2.3471],"Square René-Viviani, Paris","notredame"],
+["📷","Pont de la Tournelle","Foto","L'abside di Notre-Dame con gli archi rampanti, con la Senna in primo piano.",[48.8508,2.3550],"Pont de la Tournelle, Paris","notredame"],
+["📷","Place des Vosges","Foto","Sotto i portici, inquadrando la piazza con le facciate di mattoni rossi.",[48.8556,2.3655],"Place des Vosges, Paris","marais"],
+["🤳","Mur des je t'aime","Selfie","«Ti amo» in 250 lingue: cercate la frase in italiano.",[48.8848,2.3387],"Le Mur des je t'aime, Paris","montmartre"],
+["🤳","Scalinata del Sacré-Cœur","Selfie","Tutta Parigi alle spalle: il momento migliore è verso il tramonto.",[48.8862,2.3431],"Basilique du Sacré-Cœur de Montmartre","montmartre"],
+["📷","La Maison Rose","Foto","La casetta rosa all'angolo di Rue de l'Abreuvoir, con la via in salita.",[48.8874,2.3397],"La Maison Rose, Paris","montmartre"]
+];
+/* avvisi verificati il 9 ottobre 2026 */
+var AVV=[
+{from:"2026-10-06",to:"2026-11-10",wd:[1,2,3,4,5],ap:["CDG"],after:22*60+45,t:"Lavori sul RER B",x:"Dal lunedì al venerdì, dalle 22:45, il RER B è interrotto tra Châtelet–Les Halles e l'aeroporto CDG (ci sono bus sostitutivi). Se arrivi tardi o rientri di sera, conta più tempo."},
+{from:"2026-10-05",to:"2026-10-30",wd:[1,2,3,4,5],ap:["ORY"],after:23*60,t:"Lavori sul RER C verso Orly",x:"Nei giorni feriali dalle 23 il RER C è sospeso verso Orly. Non riguarda la metro 14, che è il collegamento consigliato."},
+{from:"2026-10-17",to:"2026-10-21",t:"Preavviso di sciopero del personale di volo in Francia",x:"Cinque sindacati di piloti e assistenti di volo hanno proclamato uno sciopero dal 17 al 21 ottobre 2026. Controlla il tuo volo con la compagnia nei giorni prima."},
+{from:"2026-10-16",to:"2026-10-16",air:/^(U2|EC|EJU)/i,t:"Sciopero easyJet in Italia",x:"Il 16 ottobre è proclamato uno sciopero nazionale di 24 ore del personale di volo easyJet in Italia."},
+{from:"2026-10-30",to:"2026-10-30",t:"Sciopero generale in Italia",x:"Il trasporto aereo è escluso, ma treni e mezzi locali per raggiungere l'aeroporto di partenza possono avere problemi."}
+];
+/* clima medio di Parigi (indicativo, massime/minime) */
+var CLIM=[[8,3],[9,3],[13,5],[16,7],[20,11],[23,14],[25,16],[25,16],[21,13],[16,10],[11,6],[8,4]];
+return {G:G,FROM:FROM,PAR:PAR,SEG:SEG,START:START,STOPS:STOPS,LEGS:LEGS,RET:RET,ARR:ARR,V:V,MEAL:MEAL,ORD:ORD,PH:PH,AVV:AVV,CLIM:CLIM};
+})();
+
+</script>
+<script>
+/* ===== nucleo: configurazione, pianificazione, sezioni ===== */
+(function(){
+"use strict";
+document.documentElement.classList.add("js");
+var S=PD.STOPS,V=PD.V;
+var DAYS=["lunedì","martedì","mercoledì","giovedì","venerdì","sabato","domenica"];
+var MESI=["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+var NUM={1:["une personne","ün per-SÒN"],2:["deux","DÖ"],3:["trois","TRUÀ"],4:["quatre","KATR"],5:["cinq","SANK"],6:["six","SIS"],7:["sept","SET"],8:["huit","UIT"],9:["neuf","NÖF"],10:["dix","DIS"]};
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}}
+function lj(k,d){try{return JSON.parse(ls(k)||"null")||d}catch(e){return d}}
+function esc(x){return String(x==null?"":x).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function toMin(s){if(!s)return null;var m=/^(\d{1,2}):(\d{2})/.exec(s);return m?+m[1]*60+ +m[2]:null}
+function fmt(x){x=Math.round(x);x=((x%1440)+1440)%1440;var h=Math.floor(x/60),m=x%60;return h+":"+(m<10?"0":"")+m}
+function fdur(x){x=Math.round(x);var h=Math.floor(x/60),m=x%60;return h?(h+" h"+(m?" "+m+" min":"")):m+" min"}
+function eur(x){return (Math.round(x*100)/100).toLocaleString("it-IT",{minimumFractionDigits:x%1?2:0,maximumFractionDigits:2})+" €"}
+function $(s,r){return (r||document).querySelector(s)}
+function $$(s,r){return [].slice.call((r||document).querySelectorAll(s))}
+function dateObj(d){var p=d.split("-");return new Date(Date.UTC(+p[0],+p[1]-1,+p[2],12))}
+function wdOf(d){return (dateObj(d).getUTCDay()+6)%7}
+function dateLong(d){var o=dateObj(d);return DAYS[wdOf(d)]+" "+o.getUTCDate()+" "+MESI[o.getUTCMonth()]+" "+o.getUTCFullYear()}
+function dateShort(d){var o=dateObj(d);return o.getUTCDate()+" "+MESI[o.getUTCMonth()]}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+function paris(){var o={};new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Paris",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date()).forEach(function(x){o[x.type]=x.value});return{d:o.year+"-"+o.month+"-"+o.day,m:(+o.hour%24)*60+ +o.minute}}
+function gdir(q,mode){return "https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(q)+"&travelmode="+(mode||"walking")}
+function hav(a,b){var R=6371,r=Math.PI/180,dl=(b[0]-a[0])*r,dg=(b[1]-a[1])*r,x=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dg/2)*Math.sin(dg/2);return 2*R*Math.asin(Math.sqrt(x))}
+function toast(t){var el=$("#toast");el.textContent=t;el.classList.add("on");clearTimeout(el._t);el._t=setTimeout(function(){el.classList.remove("on")},1800)}
+/* tramonto (algoritmo NOAA semplificato), ora locale di Parigi */
+function sunset(d){var o=dateObj(d),N=Math.floor((o-Date.UTC(o.getUTCFullYear(),0,0))/864e5),lat=48.8566,lng=2.3522,r=Math.PI/180;
+var g=2*Math.PI/365*(N-1+(18-12)/24),eq=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g)),de=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g);
+var ha=Math.acos(Math.cos(90.833*r)/(Math.cos(lat*r)*Math.cos(de))-Math.tan(lat*r)*Math.tan(de))/r,utc=720-4*(lng-ha)-eq;
+var off=-new Date(Date.UTC(o.getUTCFullYear(),o.getUTCMonth(),o.getUTCDate(),12)).toLocaleString("en-US",{timeZone:"Europe/Paris",timeZoneName:"shortOffset"}).split("GMT")[1];
+var hrs=parseInt(String(-off),10);if(!isFinite(hrs))hrs=1;return utc+hrs*60}
+
+/* ===== configurazione ===== */
+var CFG=lj("par-trip",null);
+function fromCode(s){s=String(s||"");var m=/\(([A-Z]{3})\)/i.exec(s)||/^\s*([A-Z]{3})\s*$/i.exec(s);if(m)return m[1].toUpperCase();var low=s.toLowerCase();for(var i=0;i<PD.FROM.length;i++)if(low&&PD.FROM[i][1].toLowerCase().indexOf(low)===0)return PD.FROM[i][0];return ""}
+function fromInfo(c){var f=PD.FROM.filter(function(x){return x[0]===c.fromCode})[0];return {code:c.fromCode||"",name:f?f[1]:(c.from||"Partenza"),url:f?f[2]:(c.fromCode?"https://www.flightradar24.com/data/airports/"+c.fromCode.toLowerCase():"")}}
+
+/* ===== pianificazione ===== */
+function zoneOf(id){return id==="start"?"A":S[id].z}
+function legOf(a,b){var L=PD.LEGS[a+">"+b];if(L)return L;var pa=a==="start"?PD.START:S[a].pos,pb=S[b].pos,d=hav(pa,pb);
+if(d<1.6){var w=Math.round(d*1.3/4.5*60)+3;return{min:w,mode:"walk",txt:"A piedi, circa "+w+" minuti.",g:[{w:[pa,pb]}]}}
+var m=Math.round(12+d*2.8);return{min:m,mode:"metro",txt:"In metro, circa "+m+" minuti: Google Maps ti indica la linea migliore.",g:[{w:[pa,pb],dash:1}]}}
+function retOf(ap,id){var R=PD.RET[ap];return R[id]||R.A}
+function scClose(d){var m=dateObj(d).getUTCMonth();return (m>=3&&m<=8)?19*60:17*60}
+function sim(acts,dur,ctx){
+var t=ctx.c0,prev="start",items=[],B=false,L=false,D=false;
+function meal(k,d){var w=prev==="start"?3:8;t+=w;items.push({k:"meal",m:k,t:t,d:d,z:zoneOf(prev),walk:w});t+=d}
+if(ctx.wantB){meal("col",30);B=true}
+acts.forEach(function(id){
+var lg=legOf(prev,id);
+if(!L&&ctx.wantL&&(t>=11*60+50||(t>=11*60+15&&t+lg.min+dur[id]>13*60+50))){meal("pra",60);L=true}
+if(!D&&ctx.wantD&&t>=18*60+45){meal("cen",55);D=true}
+t+=lg.min;items.push({k:"act",id:id,t:t,d:dur[id],leg:lg});t+=dur[id];prev=id});
+var R=retOf(ctx.ap,prev);
+if(!L&&ctx.wantL&&t<15*60+30){meal("pra",50);L=true}
+if(!D&&ctx.wantD){meal("cen",55);D=true}
+if(!D&&t>=15*60+30&&t+25+R.min<=ctx.dl){t+=5;items.push({k:"snk",t:t,d:20,z:zoneOf(prev)});t+=20}
+return{items:items,end:t,prev:prev,ret:R,slack:ctx.dl-(t+R.min),B:B,L:L,D:D}}
+function plan(c){
+var A=PD.PAR[c.to],land=toMin(c.a_arr),dep=toMin(c.r_dep),imb=toMin(c.r_imb);
+var c0=land+A.inMin,dl=Math.min(dep-A.buf,imb!=null?imb-45:1e9);
+var ctx={c0:c0,dl:dl,ap:c.to,wantB:c0<10*60+45,wantL:c0<14*60&&dl>13*60+30,wantD:dl>=18*60+15};
+var acts=["marais","notredame","louvre","eiffel","montmartre"],dur={},dropped=[],shrunk=[],r,g=0;
+acts.forEach(function(id){dur[id]=S[id].id});
+while(g++<60){r=sim(acts,dur,ctx);if(r.slack>=0)break;
+var cand=acts.slice().sort(function(a,b){return S[b].p-S[a].p});
+var sh=cand.filter(function(id){return dur[id]>S[id].min})[0];
+if(sh){dur[sh]=S[sh].min;if(shrunk.indexOf(sh)<0)shrunk.push(sh);continue}
+if(acts.length>1){dropped.push(cand[0]);acts.splice(acts.indexOf(cand[0]),1);continue}
+if(ctx.wantD){ctx.wantD=false;continue}
+break}
+var none=false;
+if(r.slack<0){acts=[];ctx.wantB=false;ctx.wantL=false;ctx.wantD=false;r=sim(acts,dur,ctx);none=true}
+/* tappe facoltative se avanza tempo */
+function tryIns(id,after,check){var i=acts.indexOf(after);if(i<0||r.slack<60)return;var a2=acts.slice();a2.splice(i+1,0,id);dur[id]=S[id].id;var r2=sim(a2,dur,ctx);
+if(r2.slack>=15&&(!check||check(r2))){acts=a2;r=r2}}
+if(!none){
+tryIns("saintechapelle","notredame",function(r2){var it=r2.items.filter(function(x){return x.id==="saintechapelle"})[0];return it&&it.t>=9*60&&it.t+it.d<=scClose(c.date)});
+if(acts.indexOf("montmartre")>=0)tryIns("arc","eiffel");
+var order=acts.slice().sort(function(a,b){return S[a].p-S[b].p}),ch=true,k=0;
+while(r.slack>=15&&ch&&k++<200){ch=false;for(var i=0;i<order.length;i++){var id=order[i];if(dur[id]+5<=S[id].max){dur[id]+=5;var r2=sim(acts,dur,ctx);if(r2.slack>=10){r=r2;ch=true}else dur[id]-=5}}}
+}
+shrunk=acts.filter(function(id){return dur[id]<S[id].id-4});
+var items=[{k:"air",t:land,d:A.inMin,c0:c0}].concat(r.items);
+items.push({k:"ret",t:r.end,d:r.ret.min,ret:r.ret,arr:r.end+r.ret.min,slack:r.slack,dl:dl});
+var n=0;items.forEach(function(it){if(it.k==="act")it.n=++n});
+return{items:items,acts:acts,dropped:dropped,shrunk:shrunk,none:none,c0:c0,dl:dl,land:land,dep:dep,imb:imb,leave:r.end,prev:r.prev,B:r.B,L:r.L,D:r.D,A:A}}
+
+/* ===== stato dei locali nel giorno scelto ===== */
+function ivs(h){return h?h.split(",").map(function(s){var p=s.split("-"),a=toMin(p[0]),b=toMin(p[1]);if(b<=a)b+=1440;return[a,b]}):[]}
+function vStat(v,wd,t){var h=v.h[wd];if(!h)return{c:"ko",t:"Chiuso di "+DAYS[wd]};var I=ivs(h);
+for(var i=0;i<I.length;i++)if(t>=I[i][0]&&t+30<=I[i][1])return{c:"ok",t:"Aperto alle "+fmt(t)};
+for(i=0;i<I.length;i++)if(t>=I[i][0]&&t<I[i][1])return{c:"mid",t:"Chiude alle "+fmt(I[i][1])};
+for(i=0;i<I.length;i++)if(I[i][0]>t)return{c:"mid",t:"Apre alle "+fmt(I[i][0])};
+return{c:"ko",t:"A quell'ora è chiuso"}}
+function hrsTxt(v,wd){var h=v.h[wd];return cap(DAYS[wd])+": "+(h?h.split(",").map(function(s){return s.replace("-","–").replace(/^0/,"").replace(/–0/,"–")}).join(" e "):"chiuso")}
+function vSorted(ids,wd,t){return ids.map(function(id){var v=V[id];return{id:id,v:v,s:vStat(v,wd,t)}}).sort(function(a,b){var o={ok:0,mid:1,ko:2};return o[a.s.c]-o[b.s.c]})}
+function vLi(o,wd,label){var v=o.v,q=v.n+" "+v.a+" Paris";
+return '<li class="'+(o.s.c==="ko"?"closed":"")+'"><b><a target="_blank" rel="noopener" href="'+esc(PD.G(q))+'">'+esc(v.n)+'</a></b> <span class="st '+o.s.c+'">'+(o.s.c==="ok"?"✓ ":o.s.c==="ko"?"⚠️ ":"⏱ ")+esc(o.s.t)+'</span> <a class="go sm" href="'+esc(gdir(q))+'" target="_blank" rel="noopener">↗︎ Portami lì</a> – '+v.r+' ★ · '+esc(v.a)+'. '+esc(v.d)+' <i style="font-style:normal;color:var(--mute)">'+esc(v.pr)+'</i><span class="hrs">🕐 '+esc(hrsTxt(v,wd))+'</span></li>'}
+var MN={col:"Colazione",pra:"Pranzo",cen:"Cena"},ZN={A:"in centro",B:"vicino al Louvre",C:"vicino alla Tour Eiffel",D:"a Montmartre",E:"vicino all'Arc de Triomphe"};
+function mealIds(m,z){var M=PD.MEAL[m];return M[z]||M.A||M[Object.keys(M)[0]]}
+function mealTitle(it){if(it.m==="cen"&&it.t<18*60+30)return "Cena anticipata "+ZN[it.z];return MN[it.m]+" "+ZN[it.z]}
+function ordBox(m){return '<div class="ord"><b>🍽️ Cosa ordinare</b>'+PD.ORD[m].map(function(o){return "<p><i>"+esc(o[0])+"</i> – "+esc(o[1])+"</p>"}).join("")+"</div>"}
+
+/* ===== rendering ===== */
+var P=null,WD=0;
+window.PAR={get cfg(){return CFG},get plan(){return P},fmt:fmt,fdur:fdur,esc:esc,toMin:toMin,paris:paris,gdir:gdir,eur:eur,ls:ls,lj:lj,dateShort:dateShort,dateLong:dateLong,wd:function(){return WD},DAYS:DAYS,mealIds:mealIds,vSorted:vSorted,toast:toast,cap:cap,fromInfo:function(){return fromInfo(CFG)},
+ L:{},on:function(fn){(this.L.f=this.L.f||[]).push(fn)},emit:function(){(this.L.f||[]).forEach(function(f){try{f()}catch(e){console.error(e)}})}};
+
+function stepHTML(it){var A=P.A,c=CFG,h="",cls="",ti="",body="";
+if(it.k==="air"){cls="air";ti="Atterraggio a "+A.n;
+body='<p>'+esc(A.arr)+'</p><p class="meta">'+esc(A.tk)+' In centro, a Châtelet, verso le '+fmt(it.c0)+'.</p><a class="go" href="'+esc(gdir(c.to==="BVA"?"Porte Maillot, Paris":"Châtelet-Les Halles, Paris","transit"))+'" target="_blank" rel="noopener"><span>🚆</span> Portami in centro</a>'}
+else if(it.k==="meal"){cls="food";ti=mealTitle(it);var L=vSorted(mealIds(it.m,it.z),WD,it.t),first=L.filter(function(o){return o.s.c==="ok"})[0]||L[0];
+body='<p>'+(it.m==="col"?"Appena usciti dalla stazione, a pochi passi.":it.m==="pra"?"Un bistrot di quartiere: "+(it.d>=60?"un'ora a tavola, con calma.":"un pranzo veloce."):"Mangia qui e non in aeroporto: si spende meno e si mangia meglio. Tieni d'occhio l'orologio.")+'</p><div class="eat"><h3>Dove mangiare</h3><ul>'+L.map(function(o){return vLi(o,WD)}).join("")+'</ul></div><a class="go" href="'+esc(gdir(first.v.n+" "+first.v.a+" Paris"))+'" target="_blank" rel="noopener"><span>🚶</span> Portami lì</a>'}
+else if(it.k==="snk"){cls="food";ti="Ultimo assaggio prima di partire";var L2=vSorted(PD.MEAL.snk[it.z]||PD.MEAL.snk.A,WD,it.t);
+body='<p>Non c\'è tempo per una cena seduti: prendete qualcosa da mangiare sul treno o in aeroporto prima dei controlli.</p><div class="eat"><h3>Dove prenderlo</h3><ul>'+L2.map(function(o){return vLi(o,WD)}).join("")+'</ul></div>'}
+else if(it.k==="act"){var s=S[it.id];cls=s.cls;ti=s.t;var meta=s.m,lg=it.leg;
+if(it.id==="notredame"){var op=WD>=5?"8:15–19:30":WD===3?"7:50–22:00":"7:50–19:00";meta+=" Oggi la cattedrale è aperta "+op+" (ultimo ingresso mezz'ora prima).";var oo=toMin(op.split("–")[0]),cc=toMin(op.split("–")[1]);if(it.t<oo)meta+=" Arrivi prima dell'apertura: goditi il sagrato e l'Île de la Cité.";else if(it.t>cc-30)meta+=" A quell'ora è chiusa: si vede solo da fuori."}
+if(it.id==="saintechapelle"){var mo=dateObj(c.date).getUTCMonth(),win=(mo>=10||mo<=2);meta=(win?"Biglietto 15 € (tariffa da novembre a marzo), aperta 9:00–17:00.":"Biglietto 20 € (tariffa da aprile a ottobre)"+((mo>=3&&mo<=8)?".":", aperta 9:00–17:00."))+" Prenotazione dell'orario obbligatoria."}
+if(it.id==="eiffel"||it.id==="montmartre"){var ss=sunset(c.date);if(Math.abs(it.t+it.d/2-ss)<120)meta+=" Il sole tramonta alle "+fmt(ss)+": "+(it.t+it.d>ss?"sei qui al momento giusto per la luce del tramonto.":"goditi l'ultima luce.")}
+body='<div class="leg"><i>'+(lg.mode==="walk"?"🚶":"🚇")+'</i><span>'+esc(lg.txt)+'</span></div><p>'+esc(s.d)+'</p>'+(meta?'<p class="meta">'+esc(meta)+'</p>':'')+'<a class="go" href="'+esc(gdir(s.q,lg.mode==="walk"?"walking":"transit"))+'" target="_blank" rel="noopener"><span>'+(lg.mode==="walk"?"🚶":"🚇")+'</span> Portami lì</a>'}
+else if(it.k==="ret"){cls="air";ti="Ritorno all'aeroporto";var R=it.ret,imb=P.imb!=null?fmt(P.imb):null;
+body='<p>'+esc(R.txt)+'</p><p class="meta">Arrivo in aeroporto verso le '+fmt(it.arr)+(imb?", imbarco dalle "+imb:"")+", decollo alle "+fmt(P.dep)+"."+(it.slack>=20?" Hai circa "+fdur(it.slack)+" di margine in più.":"")+'</p><a class="go" href="'+esc(gdir(A.gm,"transit"))+'" target="_blank" rel="noopener"><span>🚆</span> Portami in aeroporto</a>'}
+return '<li class="step '+cls+'" data-t="'+it.t+'"><div class="t">'+fmt(it.t)+'</div><div class="body"><h2>'+esc(ti)+'</h2>'+body+'</div></li>'}
+
+function renderHero(){var c=CFG,A=P.A;
+$("#hsub").textContent=cap(dateLong(c.date))+". Atterraggio a "+A.n+" alle "+fmt(toMin(c.a_arr))+", volo di ritorno alle "+fmt(toMin(c.r_dep))+". "+(c.ppl===1?"Una persona":c.ppl+" persone")+", tutto a piedi o con metro e RER.";
+var segs=[],it=P.items;for(var i=0;i<it.length;i++){var a=it[i],b=it[i+1],end=b?b.t:P.dep;segs.push(Math.max(10,end-a.t))}
+$("#hbar").innerHTML=segs.map(function(f){return '<i style="flex:'+f+'"></i>'}).join("");
+$("#hbar").setAttribute("aria-label","La giornata dalle "+c.a_arr+" alle "+c.r_dep);
+$("#hs").textContent=c.a_arr.replace(/^0/,"")+" atterraggio";$("#he").textContent=c.r_dep.replace(/^0/,"")+" decollo";
+$("#appt").innerHTML="Parigi <b>· "+esc(dateShort(c.date))+"</b>";
+$("#sps").textContent="in un giorno · "+dateShort(c.date);
+document.title="Parigi in un giorno – "+dateShort(c.date)}
+
+function renderShort(){var el=$("#short"),t=[];
+if(P.none)t.push("Con questi orari non resta tempo per entrare in città: tra il trasferimento dall'aeroporto e il ritorno non ci sono abbastanza minuti. Controlla gli orari dei voli.");
+else{if(P.dropped.length)t.push("Il tempo è poco, quindi ho tolto: "+P.dropped.map(function(id){return S[id].t}).join(", ")+".");
+if(P.shrunk.length&&!P.dropped.length)t.push("Il tempo è stretto: ho accorciato "+P.shrunk.map(function(id){return S[id].t}).join(", ")+".")}
+el.hidden=!t.length;el.textContent=t.length?"⏳ "+t.join(" "):""}
+
+function renderItin(){$("#steps").innerHTML=P.items.map(stepHTML).join("");buildWheel()}
+
+/* ghiera scorrevole */
+var WH={};
+function buildWheel(){var ol=$("#steps");var old=$("#itinerario .wbox");if(old)old.remove();
+var steps=$$(".step",ol),box=document.createElement("section");box.className="wbox";
+box.innerHTML='<div class="wheelwrap"><div class="wheel" id="wheel" tabindex="0" role="listbox" aria-label="Tappe della giornata"></div></div><div id="detail" aria-live="polite"></div><div class="ctl"><button type="button" id="wl">'+(document.body.classList.contains("showall")?"Torna alla ghiera":"Mostra tutto l'elenco")+'</button></div>';
+ol.parentNode.insertBefore(box,ol);
+var wheel=$("#wheel",box),detail=$("#detail",box),H=44,cur=-1,tick=0;
+var items=steps.map(function(li,i){var b=document.createElement("button");b.type="button";b.className="wi";b.setAttribute("role","option");b.innerHTML='<span class="wt"></span><span class="wn"></span>';b.children[0].textContent=$(".t",li).textContent;b.children[1].textContent=$("h2",li).textContent;b.addEventListener("click",function(){wheel.scrollTo({top:i*H,behavior:"smooth"})});wheel.appendChild(b);return b});
+function upd(){var y=wheel.scrollTop,idx=Math.max(0,Math.min(items.length-1,Math.round(y/H)));items.forEach(function(b,i){var d=Math.min(3,Math.abs(y/H-i));b.style.opacity=1-d*0.28;b.style.transform="scale("+(1-d*0.06)+")";b.classList.toggle("sel",i===idx);b.setAttribute("aria-selected",i===idx)});
+if(idx!==cur){cur=idx;detail.innerHTML=$(".body",steps[idx]).innerHTML}}
+wheel.addEventListener("scroll",function(){if(!tick)tick=requestAnimationFrame(function(){tick=0;upd()})});
+wheel.addEventListener("keydown",function(e){if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();wheel.scrollTo({top:(cur+(e.key==="ArrowDown"?1:-1))*H,behavior:"smooth"})}});
+$("#wl",box).addEventListener("click",function(){var all=document.body.classList.toggle("showall");this.textContent=all?"Torna alla ghiera":"Mostra tutto l'elenco"});
+WH={wheel:wheel,items:items,go:function(i){wheel.scrollTop=i*H;upd()}};upd()}
+
+/* banner dal vivo */
+var lastNow=-2;
+function liveTick(){var live=$("#live");if(!P||!CFG){live.hidden=true;return}
+var n=paris(),day=CFG.date,c=CFG,A=P.A;
+function set(cls,b,sp){live.className="live "+cls;live.innerHTML='<i class="dot"></i><div class="lt"><b></b><span></span></div>';$("b",live).textContent=b;$("span",live).textContent=sp;live.hidden=false}
+var steps=$$("#steps .step");
+if(n.d<day){var d=Math.round((dateObj(day)-dateObj(n.d))/864e5);set("calm",d===1?"Domani si parte! ✈️":"Mancano "+d+" giorni al viaggio",(c.a_num?"Volo "+c.a_num+(c.a_dep?" alle "+c.a_dep:"")+". ":"")+"Atterraggio a "+A.n+" alle "+c.a_arr+"."+(d<=2?" Ricorda di prenotare lo slot gratuito per Notre-Dame.":""));return}
+if(n.d>day){set("calm","Com'è andata a Parigi? 🇫🇷","L'itinerario resta qui come ricordo.");steps.forEach(function(li){li.classList.remove("now")});return}
+var i=-1;P.items.forEach(function(s,k){if(n.m>=s.t)i=k});
+steps.forEach(function(li,k){li.classList.toggle("now",k===i)});
+if(WH.items){WH.items.forEach(function(w,k){w.classList.toggle("now",k===i)});if(i!==lastNow){lastNow=i;if(i>=0)try{WH.go(i)}catch(e){}}}
+var LV=(window.PARLIVE||{}).r,rdep=c.r_dep,gt=LV&&LV.gate?" · Gate "+LV.gate:"",rnum=c.r_num?" "+c.r_num:"";if(LV&&(LV.dR||LV.dS))rdep=LV.dR||LV.dS;
+if(LV&&LV.st==="Canceled"){set("alert","Volo"+rnum+" cancellato","Controlla subito l'app o il sito della compagnia aerea.");return}
+if(n.m<P.land){set("","Oggi si parte! ✈️",(c.a_num?"Volo "+c.a_num+". ":"")+"Atterraggio a "+A.n+" alle "+c.a_arr+".");return}
+var LEAVE=P.leave;
+if(P.imb!=null&&n.m>=LEAVE+30&&n.m<P.imb){set("alert","Imbarco del volo"+rnum+" alle "+fmt(P.imb),"Tra "+fdur(P.imb-n.m)+". Decollo alle "+rdep+gt+".");return}
+if(n.m>=LEAVE+P.items[P.items.length-1].d){set("calm","Buon volo"+rnum+"! ✈️","Il decollo è alle "+rdep+(P.imb!=null?", imbarco dalle "+fmt(P.imb):"")+gt+".");return}
+if(n.m>=LEAVE){set("alert","È ora di andare in aeroporto",P.items[P.items.length-1].ret.txt+" Decollo alle "+rdep+gt+".");return}
+if(LEAVE-n.m<=60){set("alert","Parti per l'aeroporto tra "+fdur(LEAVE-n.m),"Alle "+fmt(LEAVE)+". Decollo alle "+rdep+".");return}
+var cur=P.items[i],nx=P.items[i+1],nm=function(s){var li=steps[P.items.indexOf(s)];return li?$("h2",li).textContent:""};
+set("","Ora: "+nm(cur),nx?"Prossima: "+nm(nx)+" tra "+fdur(nx.t-n.m):"")}
+
+/* avvisi e scioperi */
+function avvList(){var c=CFG,wd=WD+1,res=[];PD.AVV.forEach(function(a){if(c.date<a.from||c.date>a.to)return;if(a.wd&&a.wd.indexOf(wd)<0)return;if(a.ap&&a.ap.indexOf(c.to)<0)return;
+if(a.air&&!(a.air.test(c.a_num||"")||a.air.test(c.r_num||"")))return;if(a.after!=null&&P&&!(P.land+P.A.inMin>=a.after-90||P.leave>=a.after-90))return;res.push(a)});return res}
+function renderAvv(){var el=$("#avv"),L=avvList();el.hidden=!L.length;el.innerHTML=L.map(function(a){return "<b>⚠️ "+esc(a.t)+"</b><p>"+esc(a.x)+"</p>"}).join("")}
+
+/* meteo del giorno */
+function wxKind(c){return c===0?["☀️","sun"]:c<=2?["🌤️","sun"]:c===3?["☁️","cloud"]:c<=48?["🌫️","fog"]:c<=67?["🌧️","rain"]:c<=77?["🌨️","snow"]:c<=82?["🌦️","rain"]:["⛈️","storm"]}
+function meteo(){var me=$("#meteo"),c=CFG;if(!c)return;var mo=dateObj(c.date).getUTCMonth(),cl=PD.CLIM[mo];
+function clim(){me.className="meteo";me.innerHTML='<span class="mi">🌤️</span><div><b>Meteo a '+MESI[mo]+'</b><span>Di solito '+cl[0]+'° di giorno e '+cl[1]+'° la sera (medie indicative). Le previsioni vere compaiono qui circa due settimane prima.</span></div>'}
+var days=Math.round((dateObj(c.date)-dateObj(paris().d))/864e5);if(days<0||days>15){clim();return}
+var key="par-met-"+c.date,sv=lj(key,null);if(sv)paint(sv);else clim();
+if(!window.fetch)return;
+fetch("https://api.open-meteo.com/v1/forecast?latitude=48.8566&longitude=2.3522&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FParis&start_date="+c.date+"&end_date="+c.date).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){var o={c:d.daily.weathercode[0],mx:d.daily.temperature_2m_max[0],mn:d.daily.temperature_2m_min[0],pp:d.daily.precipitation_probability_max[0],t:Date.now()};if(o.c==null||o.mx==null)return;ls(key,JSON.stringify(o));paint(o)}).catch(function(){});
+function paint(o){var k=wxKind(o.c),rain=o.pp>=50||(o.c>=51&&o.c<=82);me.className="meteo"+(rain?" rain":"");
+me.innerHTML='<span class="mi"></span><div><b></b><span></span></div>';$(".mi",me).textContent=k[0];$("b",me).textContent="Previsioni per "+dateLong(c.date)+": "+Math.round(o.mx)+"° / "+Math.round(o.mn)+"°";
+$("div span",me).textContent=(o.pp!=null?"Probabilità di pioggia "+o.pp+"%. ":"")+(rain?"Porta un ombrello. Al coperto: Notre-Dame e la Sainte-Chapelle, la Galerie Vivienne (passage coperto vicino al Palais-Royal), i portici di Place des Vosges.":"Giornata buona per camminare.")+(o.mn<10?" La sera fa fresco: una giacca leggera.":"");if(window.PARRAIN!==rain){window.PARRAIN=rain;renderConsigli()}}}
+
+/* ===== sezione voli (dati) ===== */
+function renderVoli(){var c=CFG,A=P.A,F=fromInfo(c),fr=function(n){return n?'<a class="vch" target="_blank" rel="noopener" href="https://www.flightradar24.com/data/flights/'+encodeURIComponent(n.replace(/\s+/g,"").toLowerCase())+'">Flightradar24 ↗︎</a>':""};
+function card(side){var a=side==="a",num=a?c.a_num:c.r_num,o=a?F.code||"—":c.to,d=a?c.to:F.code||"—";
+var rows=a?[["Numero volo",num||"—"],["Partenza",c.a_dep||"—"],["Atterraggio a Parigi",c.a_arr]]:[["Numero volo",num||"—"],["Apertura imbarco",c.r_imb||"—"],["Partenza",c.r_dep]];
+var lk=a?[[F.url,"🛫 Partenze "+F.name],[A.url,"🛬 Arrivi "+A.n]]:[[A.url,"🛫 Partenze "+A.n],[F.url,"🛬 Arrivi "+F.name]];
+return '<div class="vcard"><div class="vleg"><span class="iata">'+esc(o)+'</span><i class="pl">✈︎</i><span class="iata">'+esc(d)+'</span> '+(a?"Andata":"Ritorno")+'</div>'+rows.map(function(r){return '<div class="vrw"><span>'+r[0]+'</span><b>'+esc(r[1])+'</b></div>'}).join("")+'<div class="vlive" data-l="'+side+'" hidden></div><div class="vlinks">'+lk.filter(function(x){return x[0]}).map(function(x){return '<a class="vch" target="_blank" rel="noopener" href="'+esc(x[0])+'">'+esc(x[1])+' ↗︎</a>'}).join("")+fr(num)+'</div></div>'}
+$("#vgrid").innerHTML=card("a")+card("r");
+$("#vtips").innerHTML='<details><summary>🛬 Dall\'aeroporto di '+esc(A.n)+' al centro</summary><ul><li>'+esc(A.arr)+'</li><li>'+esc(A.tk)+'</li>'+(c.to!=="BVA"?'<li>Con il Paris Visite 1 giorno (30,60 €) i viaggi da e per l\'aeroporto e tutte le corse in città sono compresi: conviene se fate almeno due corse in metro oltre all\'andata e al ritorno.</li>':'<li>La navetta parte e arriva in base agli orari dei voli: per il ritorno l\'aeroporto consiglia di essere alla fermata di Porte Maillot con largo anticipo (l\'app calcola circa 2 h 20 prima del decollo).</li>')+'</ul></details><details><summary>🛫 Ritorno in aeroporto</summary><ul><li>Parti dall\'ultima tappa alle '+fmt(P.leave)+'. '+esc(P.items[P.items.length-1].ret.txt)+'</li><li>Calcolo l\'arrivo in aeroporto almeno '+fdur(A.buf)+' prima del decollo'+(P.imb!=null?' e 45 minuti prima dell\'apertura dell\'imbarco':'')+'.</li></ul></details>'}
+window.PARVOLI=function(){return CFG};
+
+/* ===== pasti ===== */
+function renderPasti(){var it=P.items,meals=it.filter(function(x){return x.k==="meal"||x.k==="snk"}),h="";
+if(!meals.length){$("#mgrid").innerHTML='<p class="meta">Con questi orari non ci sono pasti in città.</p>';return}
+var acts=function(a,b){return it.filter(function(x){return x.k==="act"&&x.t>a&&x.t<b})};
+var prevT=P.c0;
+meals.forEach(function(m,mi){var between=acts(prevT,m.t);
+if(mi>0||(!P.B&&between.length)){h+=btw(between,meals[mi-1],m)}
+if(m.k==="snk"){var L0=vSorted(PD.MEAL.snk[m.z]||PD.MEAL.snk.A,WD,m.t);h+='<div class="eat"><h3>'+fmt(m.t)+' · Ultimo assaggio</h3><ul>'+L0.map(function(o){return vLi(o,WD)}).join("")+'</ul></div>'}
+else{var L=vSorted(mealIds(m.m,m.z),WD,m.t);h+='<div class="eat"><h3>'+fmt(m.t)+' · '+esc(mealTitle(m))+'</h3><ul>'+L.map(function(o){return vLi(o,WD)}).join("")+'</ul>'+ordBox(m.m)+'</div>'}
+prevT=m.t});
+var tail=acts(prevT,1e9);if(tail.length)h+=btw(tail,meals[meals.length-1],null);
+h+='<div class="btw"><div class="btwh"><span class="btwi">⏳</span><div><small>'+fmt(P.leave)+' · Ritorno</small><b>Prima dell\'aeroporto</b></div></div><ul class="btwt"><li><span>🛫</span><p>In aeroporto si spende di più: se volete qualcosa per il volo, prendetelo in città.</p></li><li><span>🧴</span><p>Ai controlli non passano liquidi oltre i 100 ml: portate la borraccia vuota e riempitela dopo.</p></li></ul></div>';
+$("#mgrid").innerHTML=h;
+function btw(between,a,b){var zs=[];between.forEach(function(x){var z=S[x.id].z;if(zs.indexOf(z)<0)zs.push(z)});
+var ids=[];zs.forEach(function(z){(PD.MEAL.snk[z]||[]).forEach(function(id){if(ids.indexOf(id)<0)ids.push(id)})});
+var t0=between.length?between[0].t:(a?a.t:P.c0),t1=b?b.t:P.leave,mid=(t0+t1)/2,tips=[];
+tips.push(["💧","Riempite la borraccia alle fontane Wallace (quelle verdi in ghisa): l'acqua è potabile. Attivate «Acqua» sulla mappa per vedere le più vicine."]);
+if(a&&a.m==="col"&&b&&b.m==="pra")tips.push(["🚫","Evitate i caffè con vista sui monumenti: un caffè o un'acqua costano il doppio che nelle vie laterali."]);
+if(b&&b.m==="cen")tips.push(["🕓","Molti bistrot chiudono la cucina tra le 15 e le 19: le crêperie e i locali scelti qui sono aperti anche al pomeriggio."]);
+if(b&&b.m==="pra")tips.push(["🥖","Tenetevi leggeri: al massimo un dolce da dividere, il pranzo arriva presto."]);
+var sn=vSorted(ids,WD,mid).slice(0,4);
+return '<div class="btw"><div class="btwh"><span class="btwi">⏳</span><div><small>'+fmt(t0)+' – '+fmt(t1)+(between.length?' · '+esc(between.map(function(x){return S[x.id].t.split(" e ")[0]}).join(", ")):'')+'</small><b>'+(a?(b?"Tra "+(a.m?MN[a.m].toLowerCase():"un pasto")+" e "+(b.m?MN[b.m].toLowerCase():"l'assaggio"):"Dopo "+(a.m?MN[a.m].toLowerCase():"l'assaggio")):"Prima di "+(b&&b.m?MN[b.m].toLowerCase():"mangiare"))+'</b></div></div><ul class="btwt">'+tips.map(function(t){return '<li><span>'+t[0]+'</span><p>'+esc(t[1])+'</p></li>'}).join("")+'</ul>'+(sn.length?'<div class="snacks">'+sn.map(function(o){var v=o.v,q=v.n+" "+v.a+" Paris";return '<div class="snk'+(o.s.c==="ko"?" closed":"")+'"><span class="se">'+({berthillon:"🍨",manege:"🥞",pauline:"🍰",castel:"🥐",marques:"🥖",grenier:"🥖",painpain:"🥐",stlouis:"🥪",brigat:"🍮"}[o.id]||"🥐")+'</span><div><b><a target="_blank" rel="noopener" href="'+esc(PD.G(q))+'">'+esc(v.n)+'</a></b> <span class="st '+o.s.c+'">'+esc(o.s.t)+'</span><small class="sz">'+esc(v.a)+'</small><p>'+esc(v.d)+'</p><small>'+v.r+' ★ · '+esc(hrsTxt(v,WD))+' · '+esc(v.pr)+'</small> <a class="go sm" href="'+esc(gdir(q))+'" target="_blank" rel="noopener">↗︎ Portami lì</a></div></div>'}).join("")+'</div>':'')+'</div>'}}
+
+/* ===== costi ===== */
+var COPT=lj("par-copt",{});
+function costModel(){var c=CFG,N=c.ppl,mo=dateObj(c.date).getUTCMonth(),rides=0;
+P.items.forEach(function(x){if(x.k==="act"&&x.leg.mode==="metro")rides++});
+var T=[],AT=[],F=[];
+if(c.to==="BVA"){rides+=2;T.push(["tr1","Navetta Aérobus a/r online",29.9]);var met=Math.min(rides*2.55,12.30);T.push(["tr2",rides*2.55<=12.30?"Metro in città, "+rides+" corse da 2,55 €":"Navigo Jour (metro illimitata)",met])}
+else{var single=28+rides*2.55,pv=30.60;if(pv<single){T.push(["tr1","Paris Visite 1 giorno",pv])}else{T.push(["tr1","Biglietto aeroporto a/r (2 × 14 €)",28]);if(rides)T.push(["tr2","Metro in città, "+rides+" corse da 2,55 €",rides*2.55])}}
+T.push(["nav","Carta Navigo Easy",2,1]);
+if(P.acts.indexOf("saintechapelle")>=0)AT.push(["sc","Sainte-Chapelle",(mo>=10||mo<=2)?15:20,1]);
+AT.push(["nd","Notre-Dame",0]);
+AT.push(["tnd","Torri di Notre-Dame",16,1,1]);
+if(P.acts.indexOf("eiffel")>=0)AT.push(["te","Tour Eiffel, a piedi al 2° piano",14.8,1,1]);
+if(P.B)F.push(["co","Colazione in boulangerie",8]);if(P.L)F.push(["pr","Pranzo in bistrot",25]);if(P.D)F.push(["ce","Cena in crêperie",14]);
+F.push(["sp","Spuntini e assaggi",6]);
+function on(r){if(!r[3])return true;var k=COPT[r[0]];return k==null?!r[4]:!!k}
+var sum=function(a){return a.reduce(function(s,r){return s+(on(r)?r[2]:0)},0)};
+return{N:N,T:T,AT:AT,F:F,on:on,tT:sum(T),tA:sum(AT),tF:sum(F),rides:rides}}
+function renderCosti(anim){var M=costModel(),N=M.N,tot=M.tT+M.tA+M.tF;
+var cat=[["Trasporti",M.tT,"var(--c3)"],["Attrazioni",M.tA,"var(--c4)"],["Cibo",M.tF,"var(--c2)"]],off=0,i=0;
+var arcs=cat.map(function(c){var len=tot?Math.max(0,c[1]/tot*100-1.2):0,o='<circle class="arc'+(anim?" anim":"")+'" cx="60" cy="60" r="46" pathLength="100" stroke="'+c[2]+'" style="--len:'+len.toFixed(2)+';--off:'+(-off).toFixed(2)+';--i:'+(i++)+'"/>';off+=tot?c[1]/tot*100:0;return o}).join("");
+$("#cdonut").innerHTML='<div class="donut"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="46" class="arc-bg"/>'+arcs+'</svg><div class="dc"><b>'+eur(tot)+'</b><span>a persona</span>'+(N>1?'<small>'+eur(tot*N)+' in '+N+'</small>':'')+'</div></div><ul class="dleg">'+cat.map(function(c){return '<li><i style="background:'+c[2]+'"></i><span>'+c[0]+'</span><b>'+eur(c[1])+'</b></li>'}).join("")+'</ul>';
+function rows(t,a){return '<tr class="grp"><td colspan="'+(N>1?3:2)+'">'+t+'</td></tr>'+a.map(function(r){var o=M.on(r);return '<tr class="'+(o?"":"off")+'"><td>'+(r[3]?'<label class="opt"><input type="checkbox" data-o="'+r[0]+'"'+(o?" checked":"")+'><span>'+esc(r[1])+'</span></label>':esc(r[1]))+'</td><td>'+(r[2]?eur(r[2]):"gratis")+'</td>'+(N>1?'<td>'+(r[2]?eur(r[2]*N):"gratis")+'</td>':'')+'</tr>'}).join("")}
+$("#ctab").innerHTML='<tr><th>Voce</th><th>A persona</th>'+(N>1?'<th>In '+N+'</th>':'')+'</tr>'+rows("Trasporti",M.T)+rows("Attrazioni",M.AT)+rows("Cibo",M.F)+'<tr class="tot"><td>Totale</td><td>'+eur(tot)+'</td>'+(N>1?'<td>'+eur(tot*N)+'</td>':'')+'</tr>';
+$$("#ctab input[data-o]").forEach(function(x){x.addEventListener("change",function(){COPT[x.dataset.o]=x.checked?1:0;ls("par-copt",JSON.stringify(COPT));renderCosti(false);renderSpese()})});
+$("#cnote").textContent="Voli esclusi. Le voci con la casella sono facoltative: toccale per includerle o toglierle. "+(CFG.to!=="BVA"?(M.T[0][2]===30.6?"Il Paris Visite 1 giorno copre aeroporto e metro illimitati e qui costa meno dei biglietti singoli. ":"Con poche corse in metro i biglietti singoli costano meno del Paris Visite (30,60 €). "):"")+"La carta Navigo Easy serve solo se non comprate i biglietti nell'app sul telefono. Prezzi dei trasporti 2026 di Île-de-France Mobilités"+(CFG.to==="BVA"?" e di Aérobus":"")+"; i pasti sono stime per locali di quartiere: colazione e cena restano sotto i 15 € a persona. Il biglietto «Paris Région <> Aéroports» e i biglietti della metro non possono stare sulla stessa carta Navigo Easy: usate l'app sul telefono o due carte.";
+window.PAREST=tot*N}
+
+/* spese reali, divise tra i partecipanti */
+var SP=lj("par-spese",{});
+var CATS=[["tr","Trasporti"],["co","Colazione"],["pr","Pranzo"],["ce","Cena"],["sp","Spuntini"],["ex","Extra"]];
+function names(){var N=CFG.ppl,a=[];for(var i=0;i<N;i++)a.push(((SP.n||[])[i]||"").trim()||(i===0?"Io":"Persona "+(i+1)));return a}
+function saveSP(){ls("par-spese",JSON.stringify(SP))}
+function renderSpese(){var N=CFG.ppl;SP.n=SP.n||[];SP.v=SP.v||{};SP.p=SP.p||{};
+$("#sppl").textContent=N===1?"solo tu":"in "+N;
+var who=$("#who");who.hidden=N<2;who.innerHTML=N<2?"":names().map(function(nm,i){return '<input type="text" maxlength="14" data-i="'+i+'" value="'+esc((SP.n[i]||""))+'" placeholder="'+esc(i===0?"Io":"Persona "+(i+1))+'" aria-label="Nome persona '+(i+1)+'">'}).join("");
+$("#sgrid").innerHTML=CATS.map(function(c){var p=Math.min(N-1,SP.p[c[0]]||0);return '<div class="sv"><label><span>'+c[1]+'</span><input type="number" inputmode="decimal" min="0" step="0.5" data-s="'+c[0]+'" placeholder="0" value="'+esc(SP.v[c[0]]||"")+'"></label>'+(N>1?'<button type="button" class="payer p'+(p%4)+'" data-s="'+c[0]+'" aria-label="Chi ha pagato '+c[1]+'">paga: <b>'+esc(names()[p])+'</b></button>':'')+'</div>'}).join("");
+$$("#who input").forEach(function(x){x.addEventListener("input",function(){SP.n[+x.dataset.i]=x.value;saveSP();$$("#sgrid .payer").forEach(function(b){var p=Math.min(N-1,SP.p[b.dataset.s]||0);$("b",b).textContent=names()[p]});tot()})});
+$$("#sgrid input").forEach(function(x){x.addEventListener("input",function(){SP.v[x.dataset.s]=x.value;saveSP();tot()})});
+$$("#sgrid .payer").forEach(function(b){b.addEventListener("click",function(){var p=((SP.p[b.dataset.s]||0)+1)%N;SP.p[b.dataset.s]=p;saveSP();b.className="payer p"+(p%4);$("b",b).textContent=names()[p];tot()})});
+tot()}
+function tot(){var N=CFG.ppl,EST=window.PAREST||0,paid=[],t=0,i;for(i=0;i<N;i++)paid.push(0);
+CATS.forEach(function(c){var v=parseFloat(String(SP.v[c[0]]||"").replace(",","."))||0;t+=v;paid[Math.min(N-1,SP.p[c[0]]||0)]+=v});
+$("#stot").textContent=eur(t);var sb=$("#sbar"),sd=$("#sdiff"),over=t>EST;sb.style.width=Math.min(100,EST?t/EST*100:0)+"%";sb.classList.toggle("over",over);sd.classList.toggle("over",over);
+sd.textContent=t===0?"Stima: "+eur(EST)+(N>1?" in "+N:""):over?"Sopra la stima di "+eur(t-EST):"Restano "+eur(EST-t)+" rispetto alla stima di "+eur(EST);
+var sp=$("#split");if(N<2||t===0){sp.innerHTML="";return}
+var nm=names(),share=t/N,bal=paid.map(function(p,i){return{i:i,b:p-share}}),out=[];
+var deb=bal.filter(function(x){return x.b<-0.005}).sort(function(a,b){return a.b-b.b}),cre=bal.filter(function(x){return x.b>0.005}).sort(function(a,b){return b.b-a.b});
+while(deb.length&&cre.length){var d=deb[0],c=cre[0],x=Math.min(-d.b,c.b);out.push(esc(nm[d.i])+" deve "+eur(x)+" a "+esc(nm[c.i]));d.b+=x;c.b-=x;if(d.b>-0.005)deb.shift();if(c.b<0.005)cre.shift()}
+sp.innerHTML=out.length?"<div>"+out.join("</div><div>")+"</div>":"Siete pari 🤝"}
+
+/* ===== consigli ===== */
+var CK=lj("par-check",{});
+function renderConsigli(){var c=CFG,A=P.A,N=c.ppl,nu=NUM[Math.min(10,N)]||NUM[2];
+var items=[["doc","Carta d'identità o passaporto"],["bp","Carte d'imbarco di andata e ritorno"],["nav",c.to==="BVA"?"Biglietto della navetta Aérobus comprato online":"App Île-de-France Mobilités o Bonjour RATP installata (o carta Navigo Easy) per i biglietti"],["nd","Slot gratuito per Notre-Dame prenotato (si apre 48 ore prima)"]];
+if(P.acts.indexOf("saintechapelle")>=0)items.push(["sc","Biglietto con orario per la Sainte-Chapelle"]);
+items=items.concat([["bor","Borraccia vuota (da riempire alle fontane Wallace)"],["pb","Power bank e cavo"],["sc2","Scarpe comode: si cammina tanto"],["fe",window.PARRAIN?"Ombrello o k-way":"Giacca leggera per la sera"],["off","Aprire l'app con internet prima di partire, per averla offline"]]);
+$("#ckbox").innerHTML='<h3>✅ Prima di partire <small id="ckn"></small></h3><div class="ckbar"><i id="ckbar"></i></div><ul>'+items.map(function(x){return '<li><label><input class="ckin" type="checkbox" data-k="'+x[0]+'"'+(CK[x[0]]?" checked":"")+'><span class="bx" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 12.5l3.6 3.6L17.5 8.5"/></svg></span><span class="tx">'+esc(x[1])+'</span></label></li>'}).join("")+'</ul>';
+var cks=$$("#ckbox input");function cnt(){var n=cks.filter(function(x){return x.checked}).length;$("#ckn").textContent=n+"/"+cks.length+(n===cks.length?" 🎉":"");$("#ckbar").style.width=(n/cks.length*100)+"%"}
+cks.forEach(function(x){x.addEventListener("change",function(){CK[x.dataset.k]=x.checked;ls("par-check",JSON.stringify(CK));cnt()})});cnt();
+var fr=[["Buongiorno / Buonasera","Bonjour / Bonsoir","bon-JUR / bon-SUAR"],[N===1?"Un tavolo per una persona, per favore":"Un tavolo per "+N+", per favore","Une table pour "+nu[0]+", s'il vous plaît","ün TABL pur "+nu[1]+", sil vu PLÈ"],["Un caffè e un croissant, per favore","Un café et un croissant, s'il vous plaît","an ka-FÈ e an krua-SAN, sil vu PLÈ"],["Una caraffa d'acqua, per favore","Une carafe d'eau, s'il vous plaît","ün ka-RAF DO, sil vu PLÈ"],["Il conto, per favore","L'addition, s'il vous plaît","la-di-SIÒN, sil vu PLÈ"],["Posso pagare con la carta?","Je peux payer par carte ?","jö PÖ pe-IÉ par KART"],["Quanto costa?","C'est combien ?","sè kom-BIÀN"],["Dov'è la metro?","Où est le métro ?","u È lö me-TRÒ"],["Un biglietto per l'aeroporto","Un billet pour l'aéroport","an bi-IÈ pur la-e-ro-PÒR"],["Mi scusi","Excusez-moi","ek-skü-ZÉ-mua"],["Grazie mille!","Merci beaucoup !","mer-SÌ bo-KÙ"]];
+var avv=avvList(),Z=[
+["✈️ Aeroporto e trasporti",[A.arr,A.tk,c.to!=="BVA"?"Con il Paris Visite 1 giorno (30,60 €) aeroporto e metro sono illimitati per tutta la giornata: l'app sceglie da sola la soluzione più economica nella sezione Costi.":"In città il biglietto metro-RER costa 2,55 € ed è valido 2 ore con i cambi; dalle 5 corse in su conviene il Navigo Jour da 12,30 €.","Tenete il biglietto fino all'uscita: sul RER serve anche per passare i tornelli in uscita, e i controlli sono frequenti.","💧 Passate i controlli con la borraccia vuota e riempitela dopo: l'acqua in aeroporto costa cara."],1],
+["🧱 Marais e Place des Vosges",["Il quartiere più vivo anche la domenica, quando molti negozi qui restano aperti.","Rue des Rosiers è la via storica del quartiere ebraico: a pranzo ci sono lunghe code per il falafel.","💧 Le fontane Wallace verdi sono sparse per tutto il quartiere: attivate «Acqua» sulla mappa."]],
+["⛪ Notre-Dame e Île de la Cité",["Prenotate lo slot gratuito su notredamedeparis.fr: si apre 48 ore prima, a mezzanotte. Diffidate di chi vende biglietti «salta-fila» per la cattedrale: l'ingresso è gratis.","Il momento più tranquillo è presto la mattina; il giovedì la cattedrale resta aperta fino alle 22.","Le torri (16 €) e la Sainte-Chapelle vanno prenotate a parte.","💧 Prima di mettervi in coda riempite la borraccia: la fila all'aperto può essere lunga."]],
+["🖼️ Louvre, Palais-Royal e Tuileries",["Il museo è chiuso il martedì: da fuori Piramide e cortili sono sempre visitabili.","Se piove, la Galerie Vivienne, a due passi dal Palais-Royal, è un passage coperto dell'Ottocento.","I giardini del Palais-Royal hanno panchine all'ombra, buone per un panino.","💧 Nel Jardin des Tuileries ci sono fontanelle: controllate sulla mappa quelle attive."]],
+["🗼 Tour Eiffel e Trocadéro",["Per la foto classica uscite a Trocadéro, non a Bir-Hakeim.","Intorno alla torre girano venditori abusivi e giochi delle tre carte: tirate dritto.","Rue Cler, a 10 minuti, è una via-mercato con boulangerie e frutta: perfetta per uno spuntino.","Dal tramonto, all'inizio di ogni ora, la torre scintilla per qualche minuto."]],
+["🎨 Montmartre e Sacré-Cœur",["Alla base della scalinata qualcuno vi annoda un braccialetto al polso e poi chiede soldi: tenete le mani in tasca e proseguite.","La funicolare evita la scalinata e accetta i biglietti dei trasporti.","Place du Tertre è bella ma cara: per mangiare scendete verso Abbesses.","💧 Riempite la borraccia prima di salire: in cima ci sono poche fontanelle."]],
+["💧 Acqua e fontanelle",["Le fontane Wallace, verdi in ghisa con le quattro cariatidi, danno acqua potabile gratis.","Attivate «Acqua» sulla mappa: mostra le fontanelle vicine al percorso secondo i dati aperti del Comune di Parigi.","Alcune fontane vengono spente d'inverno o per lavori: la mappa nasconde quelle segnalate fuori servizio.","Al ristorante chiedete «une carafe d'eau»: l'acqua del rubinetto è sempre gratuita."]],
+["🗣️ Frasario",null,2],
+["📞 Numeri utili",null,3],
+["🚨 Scioperi e avvisi",null,4],
+["📋 In generale",["Italia e Francia hanno lo stesso fuso orario.","La mancia non è obbligatoria: il servizio è già compreso nel conto. Lasciare qualche euro per un buon servizio è gentile.","La carta (anche contactless) si accetta quasi ovunque; tenete qualche euro in contanti per chioschi e mercati.","Sulla metro 1, sul RER B e nelle stazioni affollate attenzione ai borseggiatori: zaino davanti.","Le toilette pubbliche automatiche (sanisettes) sono gratuite.","Controllate orari e prezzi dei locali qualche giorno prima: possono cambiare."]]];
+$("#zones").innerHTML=Z.map(function(z,i){var body;
+if(z[2]===2)body='<p class="fh">Tocca una frase per sentirla in francese. Sotto c\'è la pronuncia all\'italiana.</p><ul class="fras">'+fr.map(function(f){return '<li><span class="it">'+esc(f[0])+'</span><button type="button" class="say" data-t="'+esc(f[1])+'">🔊 '+esc(f[1])+'<small>'+esc(f[2])+'</small></button></li>'}).join("")+'</ul>';
+else if(z[2]===3)body='<ul><li><a class="call" href="tel:112">📞 112</a> Emergenze: gratis, anche senza credito.</li><li><a class="call" href="tel:15">📞 15</a> Ambulanza (SAMU) · <a class="call" href="tel:17">📞 17</a> Polizia · <a class="call" href="tel:18">📞 18</a> Vigili del fuoco</li><li>🚇 Traffico in tempo reale e oggetti smarriti sui mezzi: <a href="https://www.ratp.fr/infos-trafic" target="_blank" rel="noopener">ratp.fr</a> o l\'app Bonjour RATP.</li><li>🇮🇹 Consolato Generale d\'Italia a Parigi: <a href="https://consparigi.esteri.it" target="_blank" rel="noopener">consparigi.esteri.it</a>, per documenti persi o rubati.</li></ul>';
+else if(z[2]===4)body='<ul>'+(avv.length?avv.map(function(a){return "<li><b>⚠️ "+esc(a.t)+".</b> "+esc(a.x)+"</li>"}).join(""):"<li>Per "+esc(dateLong(c.date))+" non risultano scioperi o lavori che riguardano il tuo percorso (verifica del 9 ottobre 2026).</li>")+'<li>Nei giorni prima controllate il traffico sull\'app Bonjour RATP o su <a href="https://www.ratp.fr/infos-trafic" target="_blank" rel="noopener">ratp.fr</a> e il calendario degli scioperi in Italia su <a href="https://scioperi.mit.gov.it/" target="_blank" rel="noopener">scioperi.mit.gov.it</a>.</li></ul>';
+else body='<ul>'+z[1].map(function(x){return "<li>"+esc(x)+"</li>"}).join("")+'</ul>';
+return '<details'+((z[1]&&z[2]===1)||(z[2]===4&&avv.length)?" open":"")+'><summary>'+z[0]+(z[2]===4&&avv.length?' <span class="st ko">'+avv.length+'</span>':'')+'</summary>'+body+'</details>'}).join("");
+$$(".say").forEach(function(b){b.addEventListener("click",function(){try{var u=new SpeechSynthesisUtterance(b.dataset.t);u.lang="fr-FR";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u);b.classList.add("on");u.onend=function(){b.classList.remove("on")};setTimeout(function(){b.classList.remove("on")},3000)}catch(e){}})});
+$("#foot").textContent="Itinerario per "+(N===1?"una persona":N+" persone")+", "+dateShort(c.date)+" "+dateObj(c.date).getUTCFullYear()+". Dati verificati il 9 ottobre 2026."}
+
+function renderAll(){if(!CFG)return;WD=wdOf(CFG.date);P=plan(CFG);lastNow=-2;
+renderHero();renderShort();renderItin();renderAvv();meteo();renderVoli();renderPasti();renderCosti(false);renderSpese();renderConsigli();liveTick();PAR.emit();
+var sp=$("#sps");if(sp)sp.textContent="in un giorno · "+dateShort(CFG.date)}
+PAR.render=renderAll;
+setInterval(liveTick,30000);window.addEventListener("vlive",liveTick);
+document.getElementById("t-costi").addEventListener("change",function(){if(this.checked&&CFG)renderCosti(true)});
+
+/* ===== schermata «Il tuo viaggio» ===== */
+var setup=$("#setup"),form=$("#sform"),serr=$("#serr");
+$("#aplist").innerHTML=PD.FROM.map(function(f){return '<option value="'+esc(f[1]+" ("+f[0]+")")+'">'}).join("");
+function openSetup(first){var c=CFG||{};form.date.value=c.date||"";form.date.min=paris().d;$("#ppl").textContent=c.ppl||2;form.from.value=c.from||"";
+$$('input[name=to]',form).forEach(function(r){r.checked=r.value===(c.to||"CDG")});["a_num","a_dep","a_arr","r_num","r_imb","r_dep"].forEach(function(k){form[k].value=c[k]||""});
+$$("input",form).forEach(function(x){x.classList.remove("bad")});serr.textContent="";$("#scancel").hidden=!CFG;
+closeSheet();setup.classList.add("on");setup.setAttribute("aria-hidden","false");setup.scrollTop=0}
+function closeSetup(){setup.classList.remove("on");setup.setAttribute("aria-hidden","true")}
+PAR.openSetup=openSetup;
+$$("[data-st]",form).forEach(function(b){b.addEventListener("click",function(){var o=$("#ppl"),v=Math.max(1,Math.min(10,(+o.textContent||2)+ +b.dataset.st));o.textContent=v})});
+$("#scancel").addEventListener("click",closeSetup);
+form.addEventListener("submit",function(e){e.preventDefault();var bad=[],msg="";
+function req(k,t){if(!form[k].value){bad.push(k);msg=msg||t}}
+req("date","Scegli la data del viaggio.");req("a_arr","Inserisci l'orario di atterraggio a Parigi.");req("r_dep","Inserisci l'orario di partenza del volo di ritorno.");
+var la=toMin(form.a_arr.value),rd=toMin(form.r_dep.value),ri=toMin(form.r_imb.value),ad=toMin(form.a_dep.value);
+if(!msg&&rd<=la){bad.push("r_dep");msg="Il volo di ritorno deve partire dopo l'atterraggio (gita in giornata)."}
+if(!msg&&ri!=null&&ri>=rd){bad.push("r_imb");msg="L'apertura dell'imbarco deve essere prima della partenza."}
+if(!msg&&ad!=null&&ad>=la){bad.push("a_dep");msg="La partenza dell'andata deve essere prima dell'atterraggio."}
+$$("input",form).forEach(function(x){x.classList.toggle("bad",bad.indexOf(x.name)>=0)});
+if(msg){serr.textContent=msg;var f=form[bad[0]];if(f)try{f.focus()}catch(x){}return}
+var to=($('input[name=to]:checked',form)||{}).value||"CDG";
+var c={date:form.date.value,ppl:+$("#ppl").textContent||2,from:form.from.value.trim(),fromCode:fromCode(form.from.value),to:to,a_num:form.a_num.value.replace(/\s+/g,"").toUpperCase(),a_dep:form.a_dep.value,a_arr:form.a_arr.value,r_num:form.r_num.value.replace(/\s+/g,"").toUpperCase(),r_imb:form.r_imb.value,r_dep:form.r_dep.value};
+var first=!CFG;CFG=c;ls("par-trip",JSON.stringify(c));closeSetup();renderAll();window.dispatchEvent(new Event("voli"));
+var t0=$("#t-itinerario");if(!t0.checked){t0.checked=true;t0.dispatchEvent(new Event("change",{bubbles:true}))}
+var blk=$("#itinerario");try{blk.scrollTo({top:0,behavior:"smooth"})}catch(x){blk.scrollTop=0}
+toast(first?"Itinerario pronto ✨":"Viaggio aggiornato ✓")});
+
+/* impostazioni */
+var sheet=$("#sheet");
+function closeSheet(){sheet.classList.remove("on");sheet.setAttribute("aria-hidden","true")}
+$("#gear").addEventListener("click",function(){sheet.classList.add("on");sheet.setAttribute("aria-hidden","false")});
+$("#shclose").addEventListener("click",closeSheet);
+sheet.addEventListener("click",function(e){if(e.target===sheet)closeSheet()});
+$$("[data-edit]").forEach(function(b){b.addEventListener("click",function(){openSetup(false)})});
+$("#shvoli").addEventListener("click",function(){closeSheet();var r=$("#t-voli");r.checked=true;r.dispatchEvent(new Event("change",{bubbles:true}));setTimeout(function(){var k=$("#vkey");k.open=true;k.scrollIntoView({behavior:"smooth",block:"center"})},350)});
+$("#shreset").addEventListener("click",function(){if(!confirm("Cancellare viaggio, spese, lista e chiave salvati su questo telefono?"))return;
+["par-trip","par-spese","par-check","par-copt","par-adb-key","par-vlive","par-vlive-n"].forEach(function(k){ls(k,null)});CFG=null;SP={};CK={};COPT={};closeSheet();openSetup(true)});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeSheet();if(CFG)closeSetup()}});
+
+/* avvio */
+if(CFG&&CFG.date&&CFG.a_arr&&CFG.r_dep){renderAll()}
+else{CFG=null;setTimeout(function(){openSetup(true)},matchMedia("(prefers-reduced-motion: reduce)").matches?0:1900)}
+})();
+
+</script>
+<script>
+/* ===== mappa interattiva (Leaflet + OpenStreetMap) ===== */
+(function(){
+var stage=document.querySelector(".stage"),el=document.getElementById("lmap"),info=document.getElementById("info"),off=document.getElementById("mapoff");
+var map,tiles,gRoute,gStops,gFood,gPh,gWater,lines=[],ok=false,root=document.documentElement,mq=matchMedia("(prefers-color-scheme: dark)"),bnds=null,waterLoaded=false;
+var tg=document.getElementById("tg"),tp=document.getElementById("tp"),tw=document.getElementById("tw"),lgp=document.getElementById("lgp");
+function dark(){var cb=document.getElementById("dm");if(cb&&cb.checked)return true;var t=root.getAttribute("data-theme");return t?t==="dark":mq.matches}
+function esc(t){return PAR.esc(t)}
+function seg(ref){var s=PD.SEG[ref[0]],p=s.p,ia=-1,ib=-1;p.forEach(function(x,i){if(x[2]===ref[1])ia=i;if(x[2]===ref[2])ib=i});if(ia<0||ib<0)return null;
+var sl=ia<=ib?p.slice(ia,ib+1):p.slice(ib,ia+1).reverse();return{k:ref[0],c:s.c,n:s.n,p:sl}}
+function chunks(g){return g.map(function(x){return Array.isArray(x)?seg(x):{k:"walk",w:1,c:"var(--c4)",n:"A piedi",p:x.w.map(function(q){return[q[0],q[1]]}),dash:x.dash}}).filter(Boolean)}
+function icon(cls,txt,sz){return L.divIcon({className:"lmk "+cls,html:"<span>"+txt+"</span>",iconSize:[sz,sz],iconAnchor:[sz/2,sz/2]})}
+function pop(t,d,q){return '<div class="lpop"><b>'+esc(t)+'</b><p>'+esc(d)+'</p><div class="lpa"><a class="go sm" target="_blank" rel="noopener" href="'+esc(PAR.gdir(q))+'">↗︎ Portami lì</a><a class="lpm" target="_blank" rel="noopener" href="'+esc(PD.G(q))+'">Apri in Google Maps</a></div></div>'}
+function show(t,d,q){info.innerHTML='<h3></h3><p></p>'+(q?'<a target="_blank" rel="noopener">Apri in Google Maps</a>':'');info.querySelector("h3").textContent=t;info.querySelector("p").textContent=d;if(q)info.querySelector("a").href=PD.G(q)}
+function bind(mk,t,d,q){mk.bindPopup(pop(t,d,q),{className:"lglass",maxWidth:240,minWidth:180,autoPanPaddingTopLeft:[12,124],autoPanPaddingBottomRight:[64,64]});mk.on("click",function(){show(t,d,q)})}
+function draw(){try{draw0()}catch(e){console.error("draw",e&&e.stack)}}
+function draw0(){var P=PAR.plan,c=PAR.cfg;if(!map||!P)return;
+[gRoute,gStops,gFood,gPh].forEach(function(g){if(g)g.clearLayers()});lines=[];
+var used={},all=[];function add(g){chunks(g).forEach(function(ch){all.push(ch);if(!used[ch.k])used[ch.k]=ch})}
+add(PD.ARR[c.to]);P.items.forEach(function(it){if(it.k==="act")add(it.leg.g);if(it.k==="ret")add(it.ret.g)});
+var d=dark(),stn={};
+all.forEach(function(ch){var walk=ch.k==="walk",col=walk?getComputedStyle(document.documentElement).getPropertyValue("--c4").trim()||"#5468d8":ch.c;
+var ll=ch.p.map(function(q){return[q[0],q[1]]});var halo=L.polyline(ll,{color:d?"#090c1a":"#ffffff",weight:walk?7:9,opacity:.75,interactive:false}).addTo(gRoute);
+var pl=L.polyline(ll,{color:col,weight:walk?4:6,opacity:.95,dashArray:walk||ch.dash?"1 10":null,lineCap:"round",lineJoin:"round"}).addTo(gRoute);
+var a=ch.p[0],b=ch.p[ch.p.length-1],tt=walk?"A piedi":ch.n+(a[2]&&b[2]?" · "+a[2]+" → "+b[2]:"");
+pl.bindTooltip("<b>"+esc(walk?"A piedi":ch.n)+"</b>"+(walk?"":"<br>"+esc((a[2]||"")+" → "+(b[2]||""))),{sticky:true,className:"ltip"});pl.on("click",function(e){pl.openTooltip(e.latlng);show(walk?"A piedi":ch.n,walk?"Tratto a piedi (indicativo).":(a[2]||"")+" → "+(b[2]||"")+" (tracciato indicativo).")});
+lines.push({pl:pl,halo:halo,walk:walk,k:ch.k});
+if(!walk)ch.p.forEach(function(s){if(s[2]&&!stn[s[2]])stn[s[2]]=s})});
+Object.keys(stn).forEach(function(n){var s=stn[n],key=s[3]||0,m=L.circleMarker([s[0],s[1]],{radius:key?5:3.5,color:d?"#eef0ff":"#0f1430",weight:2,fillColor:d?"#141832":"#ffffff",fillOpacity:1}).addTo(gRoute);
+m.bindTooltip(n,{permanent:key>=1,direction:"right",offset:[6,0],className:"lst"+(key===2?" key":"")});if(!key)m.on("click",function(){m.openTooltip()})});
+var A=P.A;var am=L.marker(A.pos,{icon:icon("lap","✈️",30),zIndexOffset:900}).addTo(gStops);bind(am,"Aeroporto di "+A.n,A.arr,A.gm);
+P.items.forEach(function(it){if(it.k!=="act")return;var s=PD.STOPS[it.id],mk=L.marker(s.pos,{icon:icon("lpin",it.n,30),zIndexOffset:1000,title:"Tappa "+it.n}).addTo(gStops);bind(mk,it.n+" · "+PAR.fmt(it.t)+" · "+s.t,s.d,s.q)});
+var wd=PAR.wd(),seen={};
+P.items.forEach(function(it){var ids,L0;if(it.k==="meal"){ids=PAR.mealIds(it.m,it.z);L0={col:"C",pra:"P",cen:"D"}[it.m]}else if(it.k==="snk"){ids=PD.MEAL.snk[it.z]||[];L0="S"}else return;
+PAR.vSorted(ids,wd,it.t).forEach(function(o){if(seen[o.id])return;seen[o.id]=1;var v=o.v,q=v.n+" "+v.a+" Paris",mk=L.marker(v.pos,{icon:icon("lfd",L0,24),zIndexOffset:500});bind(mk,v.n+" · "+v.r+" ★",(o.s.c==="ok"?"✓ ":"⚠️ ")+o.s.t+". "+v.d,q);mk.addTo(gFood)})});
+var snkSeen={};P.items.filter(function(x){return x.k==="act"}).forEach(function(x){(PD.MEAL.snk[PD.STOPS[x.id].z]||[]).forEach(function(id){if(seen[id]||snkSeen[id])return;snkSeen[id]=1;var v=PD.V[id],q=v.n+" "+v.a+" Paris",st=PAR.vSorted([id],wd,x.t)[0].s,mk=L.marker(v.pos,{icon:icon("lfd","S",22),zIndexOffset:450});bind(mk,v.n+" · "+v.r+" ★",(st.c==="ok"?"✓ ":"⚠️ ")+st.t+". "+v.d,q);mk.addTo(gFood)})});
+PD.PH.forEach(function(p){var mk=L.marker(p[4],{icon:icon("lph",p[0],28),zIndexOffset:600});bind(mk,p[0]+" "+p[1],p[2]+": "+p[3],p[5]);mk.addTo(gPh)});
+var b=L.latLngBounds([PD.START]);P.items.forEach(function(it){if(it.k==="act")b.extend(PD.STOPS[it.id].pos)});if(!P.acts.length)b.extend([48.8584,2.2945]);bnds=b;
+map.fitBounds(b,{paddingTopLeft:[30,50],paddingBottomRight:[60,50]});
+legend(used);sync();
+if(document.getElementById("t-mappa").checked)setTimeout(anim,250)}
+function legend(used){var h=Object.keys(used).map(function(k){var u=used[k];return '<span><i style="border-color:'+(k==="walk"?"var(--c4)":u.c)+(k==="walk"?";border-top-style:dotted":"")+'"></i>'+esc(k==="walk"?"A piedi":u.n)+'</span>'}).join("");
+lgp.innerHTML=h+'<span>Numeri: le tappe in ordine. ✈️ aeroporto.</span><span><i style="border-color:var(--food)"></i>Locali: C colazione, P pranzo, D cena, S spuntini</span><span>💧 Fontanelle: dati aperti del Comune di Parigi.</span><span>Tracciati indicativi. Tocca punti e linee per i dettagli.</span>'}
+function sync(){if(!map)return;function t(btn,g){if(btn.getAttribute("aria-checked")==="true")g.addTo(map);else g.remove()}t(tg,gFood);t(tp,gPh);t(tw,gWater);if(tw.getAttribute("aria-checked")==="true")water()}
+[tg,tp,tw].forEach(function(b){b.addEventListener("click",function(){b.setAttribute("aria-checked",b.getAttribute("aria-checked")!=="true");sync()})});
+function water(){if(waterLoaded||!map||!window.fetch)return;waterLoaded=true;var P=PAR.plan,pts=[PD.START];P.items.forEach(function(it){if(it.k==="act")pts.push(PD.STOPS[it.id].pos)});
+var cache=PAR.lj("par-water",null);if(cache&&cache.t>Date.now()-7*864e5&&cache.k===pts.join("|")){paint(cache.r);return}
+show("💧 Fontanelle","Cerco le fontanelle vicine al percorso…");
+Promise.all(pts.map(function(p){var u="https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/fontaines-a-boire/records?limit=40&where="+encodeURIComponent("within_distance(geo_point_2d, geom'POINT("+p[1]+" "+p[0]+")', 550m)");
+return fetch(u).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){return(j.results||[]).map(function(x){var g=x.geo_point_2d||{};return{lat:g.lat,lon:g.lon,f:x}})}).catch(function(){
+return fetch("https://opendata.paris.fr/api/records/1.0/search/?dataset=fontaines-a-boire&rows=40&geofilter.distance="+p[0]+","+p[1]+",550").then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){return(j.records||[]).map(function(x){var c=(x.geometry||{}).coordinates||[];return{lat:c[1],lon:c[0],f:x.fields||{}}})}).catch(function(){return null})})})).then(function(res){
+if(res.every(function(x){return x===null})){show("💧 Fontanelle","Non riesco a leggere i dati del Comune di Parigi in questo momento. Cerca le fontane Wallace verdi lungo il percorso.");waterLoaded=false;return}
+var out=[],seen={};res.forEach(function(a){(a||[]).forEach(function(w){if(w.lat==null)return;var k=w.lat.toFixed(5)+","+w.lon.toFixed(5);if(seen[k])return;seen[k]=1;var f=w.f,st=String(f.dispo||f.statut_obj||f.statut||"");if(/^(non|hors|indispon|ferm)/i.test(st))return;
+out.push([w.lat,w.lon,String(f.type_objet||"Fontanella").replace(/_/g," ").toLowerCase(),String(f.modele||""),[f.no_voirie_pair||f.no_voirie_impair||"",f.voie||""].join(" ").trim()])})});
+PAR.ls("par-water",JSON.stringify({t:Date.now(),k:pts.join("|"),r:out}));paint(out);show("💧 Fontanelle",out.length+" fontanelle segnalate come attive vicino alle tappe. Fonte: dati aperti del Comune di Parigi.")})}
+function paint(r){gWater.clearLayers();r.forEach(function(w){var t=PAR.cap(w[2])+(w[3]?" · "+w[3]:""),q=w[0]+","+w[1],mk=L.marker([w[0],w[1]],{icon:icon("lwt","💧",20),zIndexOffset:300});
+mk.bindPopup('<div class="lpop"><b>'+esc(t)+'</b><p>'+esc(w[4]||"Acqua potabile")+'</p><div class="lpa"><a class="go sm" target="_blank" rel="noopener" href="'+esc(PAR.gdir(q))+'">↗︎ Portami lì</a></div></div>',{className:"lglass",maxWidth:220});mk.addTo(gWater)})}
+function setTiles(){if(!map)return;if(tiles)map.removeLayer(tiles);tiles=L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,keepBuffer:1,updateWhenZooming:false,attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',crossOrigin:true}).addTo(map);el.classList.toggle("dk",dark());tiles.on("tileload",function(){if(!ok){ok=true;off.hidden=true}})}
+function restyle(){var d=dark();lines.forEach(function(o){o.halo.setStyle({color:d?"#090c1a":"#ffffff"})});el.classList.toggle("dk",d)}
+function anim(){if(!map||matchMedia("(prefers-reduced-motion: reduce)").matches)return;lines.forEach(function(o,i){var p=o.pl._path;if(!p||!p.animate)return;var dl=150+i*120;
+if(o.walk){p.animate([{opacity:0},{opacity:1}],{duration:500,delay:dl,fill:"backwards"});return}
+var len=p.getTotalLength();p.style.strokeDasharray=len+" "+len;var a=p.animate([{strokeDashoffset:len},{strokeDashoffset:0}],{duration:700,delay:dl,fill:"backwards",easing:"cubic-bezier(.5,0,.3,1)"});a.onfinish=function(){p.style.strokeDasharray=""}})}
+function init(){if(!window.L){off.textContent="La mappa non si è caricata: serve una connessione. Riprova quando sei online.";return}
+el.hidden=false;map=L.map(el,{zoomControl:false,attributionControl:true,zoomSnap:.25});
+gRoute=L.layerGroup().addTo(map);gStops=L.layerGroup().addTo(map);gFood=L.layerGroup();gPh=L.layerGroup();gWater=L.layerGroup();
+setTiles();map.setView([48.8606,2.3376],13);
+map.on("zoomend",function(){el.classList.toggle("far",map.getZoom()<13.5)});
+document.querySelector(".mc-tr").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
+if(b.id==="zi")map.zoomIn();else if(b.id==="zo")map.zoomOut();else if(b.id==="zr"&&bnds)map.flyToBounds(bnds,{paddingTopLeft:[30,50],paddingBottomRight:[60,50],duration:.8});else if(b.id==="fs"){setTimeout(function(){map.invalidateSize()},350);setTimeout(function(){map.invalidateSize()},800)}});
+var dm=document.getElementById("dm");if(dm)dm.addEventListener("change",function(){setTimeout(function(){restyle();draw()},50)});try{mq.addEventListener("change",function(){restyle();draw()})}catch(e){}
+var tab=document.getElementById("t-mappa");tab.addEventListener("change",function(){if(tab.checked)setTimeout(function(){map.invalidateSize();if(bnds)map.fitBounds(bnds,{paddingTopLeft:[30,50],paddingBottomRight:[60,50]});anim()},150)});
+PAR.on(function(){waterLoaded=false;gWater.clearLayers();draw()});draw();
+setTimeout(function(){if(!ok&&!navigator.onLine)off.textContent="Sei offline: la mappa mostra solo le zone già viste."},5000)}
+function load(){var sc=document.createElement("script");sc.src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js";sc.onload=init;sc.onerror=function(){off.textContent="La mappa non si è caricata: serve una connessione."};document.head.appendChild(sc)}
+if(document.readyState==="complete")load();else addEventListener("load",load);
+/* legenda e schermo intero */
+var lg=document.getElementById("lg");
+lg.addEventListener("click",function(e){e.stopPropagation();var open=lgp.hidden;lgp.hidden=!open;lg.setAttribute("aria-expanded",open)});
+document.addEventListener("click",function(e){if(!lgp.hidden&&!lgp.contains(e.target)&&e.target!==lg){lgp.hidden=true;lg.setAttribute("aria-expanded",false)}});
+var fsb=document.getElementById("fs"),box=document.getElementById("mapbox"),ph=document.createComment("map"),isFs=false;
+function setFs(on){if(on===isFs)return;isFs=on;if(on){box.parentNode.insertBefore(ph,box);document.body.appendChild(box)}else{ph.parentNode.insertBefore(box,ph);ph.parentNode.removeChild(ph)}
+box.classList.toggle("fs",on);document.body.classList.toggle("fsmap",on);fsb.classList.toggle("on",on);fsb.setAttribute("aria-label",on?"Esci da schermo intero":"Schermo intero")}
+fsb.addEventListener("click",function(){setFs(!isFs)});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&isFs)setFs(false)});
+/* foto, mezzi in ordine, percorsi in Google Maps */
+function side(){var P=PAR.plan,c=PAR.cfg;if(!P)return;var inPlan={};P.acts.forEach(function(a){inPlan[a]=1});
+document.getElementById("shots").innerHTML='<summary>📸 Migliori scatti e selfie <small>'+PD.PH.length+' punti</small></summary><ul>'+PD.PH.map(function(p){return '<li><span class="shi">'+p[0]+'</span><div><b>'+esc(p[1])+'</b> <em>'+esc(p[2])+'</em><p>'+esc(p[3])+'</p><small>'+esc(PD.STOPS[p[6]].t)+(inPlan[p[6]]?"":" · fuori dal tuo percorso")+'</small> <a class="go sm" href="'+esc(PAR.gdir(p[5]))+'" target="_blank" rel="noopener">↗︎ Portami lì</a></div></li>'}).join("")+'</ul><p class="meta">Attiva «Foto» sulla mappa per vederli. I punti sono indicativi.</p>';
+var acts=P.items.filter(function(x){return x.k==="act"}),parts=[P.A.arr.split(".")[0]+"."];
+acts.forEach(function(a){parts.push("Verso "+PD.STOPS[a.id].t+": "+a.leg.txt.charAt(0).toLowerCase()+a.leg.txt.slice(1))});
+var ret=P.items[P.items.length-1].ret;parts.push("Ritorno: "+ret.txt.charAt(0).toLowerCase()+ret.txt.slice(1));
+document.getElementById("route").innerHTML="<b>I mezzi in ordine:</b> "+esc(parts.join(" "));
+var stops=[{q:"Châtelet-Les Halles, Paris",t:"Châtelet"}].concat(acts.map(function(a){return{q:PD.STOPS[a.id].q,t:PD.STOPS[a.id].t,m:a.leg.mode}})),h="";
+for(var i=1;i<stops.length;i++){h+='<li><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(stops[i-1].q)+'&destination='+encodeURIComponent(stops[i].q)+'&travelmode='+(stops[i].m==="walk"?"walking":"transit")+'">'+esc(stops[i-1].t+" → "+stops[i].t)+'</a></li>'}
+var last=stops[stops.length-1];h+='<li><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(last.q)+'&destination='+encodeURIComponent(P.A.gm)+'&travelmode=transit">'+esc("Ritorno: "+last.t+" → aeroporto di "+P.A.n)+'</a></li>';
+document.getElementById("gmroutes").innerHTML=h}
+PAR.on(side);side();
+})();
+
+/* ===== stato live dei voli (AeroDataBox, chiave solo sul telefono) ===== */
+(function(){
+var HOST="aerodatabox.p.rapidapi.com",KK="par-adb-key",CK="par-vlive",UK="par-vlive-n";
+function g(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function p(k,v){try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}
+var key=g(KK)||"",C={};try{C=JSON.parse(g(CK)||"{}")||{}}catch(e){}
+var box=document.getElementById("vkey"),kin=document.getElementById("vkin"),kok=document.getElementById("vkok"),kdel=document.getElementById("vkdel"),ks=document.getElementById("vks"),ref=document.getElementById("vref"),upd=document.getElementById("vupd");
+var busy=false,timer;
+var ST={Expected:["In orario",""],Unknown:["Nessun dato","idle"],CanceledUncertain:["Da verificare","warn"],CheckIn:["Check-in aperto",""],Boarding:["Imbarco in corso",""],GateClosed:["Gate chiuso","warn"],Departed:["Decollato",""],EnRoute:["In volo",""],Approaching:["In avvicinamento",""],Delayed:["In ritardo","warn"],Arrived:["Atterrato",""],Canceled:["Cancellato","bad"],Diverted:["Dirottato","bad"]};
+function cfg(){return PAR.cfg}
+function DAY(){var c=cfg();return c?c.date:""}
+function sides(){var c=cfg()||{},f=c.fromCode||"";return{a:{f:"a_num",dep:f,arr:c.to},r:{f:"r_num",dep:c.to,arr:f}}}
+function num(side){var c=cfg()||{};return String(c[sides()[side].f]||"").replace(/\s+/g,"").toUpperCase()}
+function hm(t){if(!t)return"";var x=typeof t==="string"?t:(t.local||"");var m=/[ T](\d{2}):(\d{2})/.exec(x);return m?m[1]+":"+m[2]:""}
+function ut(t,legacy){var x=t&&typeof t==="object"?t.utc:legacy;if(!x)return NaN;var z=String(x).replace(" ","T");if(!/(Z|[+-]\d\d:?\d\d)$/.test(z))z+="Z";return Date.parse(z)}
+function pick(list,side){if(!Array.isArray(list))list=list?[list]:[];var d=sides()[side].dep;for(var i=0;i<list.length;i++){var f=list[i];if(f&&f.departure&&f.departure.airport&&f.departure.airport.iata===d)return f}return list[0]||null}
+function norm(f){if(!f)return null;var d=f.departure||{},a=f.arrival||{};
+var dl=Math.round((ut(d.revisedTime,d.actualTimeUtc)-ut(d.scheduledTime,d.scheduledTimeUtc))/6e4),al=Math.round((ut(a.revisedTime,a.actualTimeUtc)-ut(a.scheduledTime,a.scheduledTimeUtc))/6e4);
+return{st:f.status||"Unknown",dS:hm(d.scheduledTime||d.scheduledTimeLocal),dR:hm(d.revisedTime||d.actualTimeLocal),dW:hm(d.runwayTime),aS:hm(a.scheduledTime||a.scheduledTimeLocal),aR:hm(a.revisedTime||a.actualTimeLocal),aW:hm(a.runwayTime),dl:isFinite(dl)?dl:0,al:isFinite(al)?al:0,dT:d.terminal||"",gate:d.gate||"",desk:d.checkInDesk||"",aT:a.terminal||"",belt:a.baggageBelt||"",air:(f.airline&&f.airline.name)||"",ac:(f.aircraft&&f.aircraft.model)||"",dIata:(d.airport&&d.airport.iata)||"",aIata:(a.airport&&a.airport.iata)||"",sDep:ut(d.scheduledTime,d.scheduledTimeUtc),sArr:ut(a.scheduledTime,a.scheduledTimeUtc)}}
+function esc(x){return PAR.esc(x)}
+function ago(t){var m=Math.round((Date.now()-t)/6e4);return m<1?"adesso":m<60?m+" min fa":Math.round(m/60)+" h fa"}
+function trow(lbl,s,r,w,dl){var now=w||r;var h=now&&now!==s?"<s>"+esc(s)+"</s>"+esc(now):esc(s||now||"—");if(dl>=5)h+='<span class="vdl">+'+dl+"′</span>";return'<div class="vrow"><span>'+lbl+"</span><b>"+h+"</b></div>"}
+function ck(n){return n+"@"+DAY()}
+function render(){var LIVE={};
+["a","r"].forEach(function(side){var el=document.querySelector('.vlive[data-l="'+side+'"]');if(!el)return;var n=num(side),c=C[ck(n)];
+if(!key||!n){el.hidden=true;return}el.hidden=false;
+if(!c){el.className="vlive idle";el.innerHTML='<div class="vtop"><span class="vpill">In attesa</span></div><div class="verr">Tocca “Aggiorna stato” per leggere i dati del volo '+esc(n)+".</div>";return}
+if(c.err){el.className="vlive idle";el.innerHTML='<div class="vtop"><span class="vpill">Non disponibile</span><span class="vag">'+ago(c.t)+'</span></div><div class="verr">'+esc(c.err)+"</div>";return}
+var d=c.d,s=ST[d.st]||[d.st,""],cls=s[1];if(!cls&&d.dl>=15&&/Expected|CheckIn|Boarding|GateClosed/.test(d.st)){cls="warn";s=["In ritardo","warn"]}
+LIVE[side]=d;var chips=[];if(d.dT)chips.push("Terminal "+d.dT);if(d.desk)chips.push("Check-in "+d.desk);if(d.gate)chips.push("Gate "+d.gate);if(d.aT&&side==="a")chips.push("Arrivo terminal "+d.aT);if(d.belt)chips.push("Nastro bagagli "+d.belt);
+el.className="vlive "+cls;
+el.innerHTML='<div class="vtop"><span class="vpill">'+esc(s[0])+'</span><span class="vag">agg. '+ago(c.t)+"</span></div>"+trow("Partenza "+(d.dIata||sides()[side].dep),d.dS,d.dR,d.dW,d.dl)+trow("Arrivo "+(d.aIata||sides()[side].arr),d.aS,d.aR,d.aW,d.al)+(chips.length?'<div class="vchips">'+chips.map(function(x){return"<i>"+esc(x)+"</i>"}).join("")+"</div>":"")+(d.air||d.ac?'<div class="vag">'+esc([d.air,d.ac].filter(Boolean).join(" · "))+"</div>":"")});
+window.PARLIVE=LIVE;try{window.dispatchEvent(new Event("vlive"))}catch(e){}
+var any=!!(key&&(num("a")||num("r")));ref.hidden=!any;
+var ts=["a","r"].map(function(x){var c=C[ck(num(x))];return c&&c.t||0}),last=Math.max.apply(null,ts);
+var mo=PAR.paris().d.slice(0,7),used=0;try{used=(JSON.parse(g(UK)||"{}")||{})[mo]||0}catch(e){}
+upd.textContent=any&&last?"Ultimo aggiornamento "+ago(last)+(used?" · "+used+" richieste questo mese":""):"";
+box.classList.toggle("on",!!key);ks.textContent=key?"Collegato ✓":"Non collegato";kdel.hidden=!key;kin.placeholder=key?"Chiave salvata •••• "+key.slice(-4):"Incolla la chiave"}
+function count(){var mo=PAR.paris().d.slice(0,7),U={};try{U=JSON.parse(g(UK)||"{}")||{}}catch(e){}U[mo]=(U[mo]||0)+1;p(UK,JSON.stringify(U))}
+function load(side){var n=num(side);if(!n||!DAY())return Promise.resolve();count();
+return fetch("https://"+HOST+"/flights/number/"+encodeURIComponent(n)+"/"+DAY()+"?withAircraftImage=false&withLocation=false",{headers:{"x-rapidapi-key":key,"x-rapidapi-host":HOST}}).then(function(r){
+if(r.status===204||r.status===404)throw"Volo "+n+" non trovato per il "+PAR.dateShort(DAY())+". Controlla il numero (es. FR1234): i dati compaiono di solito qualche giorno prima.";
+if(r.status===401||r.status===403)throw"Chiave non valida o piano Basic non attivo su RapidAPI.";
+if(r.status===429)throw"Limite gratuito del mese raggiunto. Usa i pulsanti degli aeroporti qui sotto.";
+if(!r.ok)throw"Servizio non raggiungibile ("+r.status+"). Riprovo più tardi.";
+return r.json()}).then(function(j){var d=norm(pick(j,side));if(!d)throw"Nessun dato per il volo "+n+".";C[ck(n)]={t:Date.now(),d:d}},function(e){C[ck(n)]={t:Date.now(),err:typeof e==="string"?e:"Connessione assente. Riprovo più tardi."}}).then(function(){p(CK,JSON.stringify(C))})}
+function due(side){var n=num(side);if(!n)return false;var c=C[ck(n)];if(!c)return true;var age=Date.now()-c.t,today=PAR.paris().d,DAYv=DAY();
+if(today>DAYv)return false;if(today<DAYv)return age>12*36e5;var d=c.d,now=Date.now();
+if(d&&isFinite(d.sDep)&&isFinite(d.sArr)){if(/Arrived|Canceled/.test(d.st))return age>60*6e4;if(now>d.sDep-3*36e5&&now<d.sArr+36e5)return age>10*6e4;return age>60*6e4}
+return age>(c.err?30:10)*6e4}
+function visible(){var t=document.getElementById("t-itinerario"),v=document.getElementById("t-voli");return !document.hidden&&((t&&t.checked)||(v&&v.checked))}
+function auto(force){if(!key||busy||!cfg())return;if(!force&&!visible())return;var list=["a","r"].filter(function(x){return force||due(x)});if(!list.length){render();return}
+busy=true;ref.disabled=true;ref.textContent="↻ Aggiorno…";Promise.all(list.map(load)).then(function(){busy=false;ref.disabled=false;ref.textContent="↻ Aggiorna stato";render()})}
+ref.addEventListener("click",function(){var ts=["a","r"].map(function(x){var c=C[ck(num(x))];return c&&c.t||0});if(Date.now()-Math.max.apply(null,ts)<6e4&&ts.every(Boolean)){render();return}auto(true)});
+kok.addEventListener("click",function(){var v=kin.value.trim();if(!v)return;key=v;p(KK,v);kin.value="";C={};p(CK,"{}");box.open=false;render();auto(true)});
+kin.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();kok.click()}});
+kdel.addEventListener("click",function(){key="";p(KK,null);C={};p(CK,"{}");render()});
+PAR.on(function(){key=g(KK)||"";clearTimeout(timer);timer=setTimeout(function(){render();auto(false)},800)});
+document.addEventListener("visibilitychange",function(){if(!document.hidden)auto(false)});
+[].forEach.call(document.querySelectorAll(".tabr"),function(r){r.addEventListener("change",function(){auto(false)})});
+setInterval(function(){if(cfg()){render();auto(false)}},60000);
+if(cfg()){render();setTimeout(function(){auto(false)},1500)}
+})();
+
+/* ===== interfaccia: schede, barra, tema, meteo nella barra, splash ===== */
+(function(){
+var rs=[].slice.call(document.querySelectorAll(".tabr")),bar=document.querySelector(".tabbar"),body=document.body,cur=0,t1,t2,blks=[].slice.call(document.querySelectorAll(".blk"));
+function onBlk(){var a=document.querySelector(".tabr:checked");blks.forEach(function(b){b.classList.toggle("on",a&&b.id===a.id.slice(2))})}
+rs.forEach(function(r,i){if(r.checked)cur=i;r.addEventListener("change",function(){if(!r.checked)return;body.classList.remove("dir-r","dir-l");void body.offsetWidth;body.classList.add(i>=cur?"dir-r":"dir-l");cur=i;onBlk();
+bar.classList.remove("moving");void bar.offsetWidth;bar.classList.add("moving");clearTimeout(t1);t1=setTimeout(function(){bar.classList.remove("moving")},600);setMin(false);upd()})});
+/* barra che si riduce a un pulsante tondo mentre scorri */
+var last={};function setMin(on){body.classList.toggle("tbmin",on)}
+blks.forEach(function(b){b.addEventListener("scroll",function(){var y=Math.max(0,Math.min(b.scrollTop,b.scrollHeight-b.clientHeight)),d=y-(last[b.id]||0);last[b.id]=y;if(Math.abs(d)>4&&!body.classList.contains("tbmin")&&!body.classList.contains("nomin"))setMin(true)},{passive:true})});
+bar.addEventListener("click",function(e){if(body.classList.contains("tbmin")){e.preventDefault();e.stopPropagation();setMin(false)}},true);
+var wasMin=false;new MutationObserver(function(){var m=body.classList.contains("tbmin");if(m===wasMin)return;wasMin=m;if(!m){bar.classList.remove("opening");void bar.offsetWidth;bar.classList.add("opening");clearTimeout(t2);t2=setTimeout(function(){bar.classList.remove("opening")},600)}}).observe(body,{attributes:true,attributeFilter:["class"]});
+function rOf(l){return l&&document.getElementById(l.htmlFor)}
+/* tocca la sezione già aperta: torna in cima */
+[].forEach.call(bar.querySelectorAll("label"),function(l){l.addEventListener("click",function(){if(body.classList.contains("tbmin"))return;var r=rOf(l);if(!r||!r.checked)return;var b=document.getElementById(r.id.slice(2));if(!b||b.scrollTop<=0)return;body.classList.add("nomin");try{b.scrollTo({top:0,behavior:"smooth"})}catch(e){b.scrollTop=0}clearTimeout(l._t);l._t=setTimeout(function(){body.classList.remove("nomin")},900)})});
+/* scorri il dito sulla barra per cambiare sezione */
+var on=false,moved=false;
+function pick(x,y){var el=document.elementFromPoint(x,y),l=el&&el.closest&&el.closest(".tabbar label"),r=rOf(l);if(r&&!r.checked){r.checked=true;r.dispatchEvent(new Event("change",{bubbles:true}))}}
+bar.addEventListener("touchstart",function(){on=!body.classList.contains("tbmin");moved=false},{passive:true});
+bar.addEventListener("touchmove",function(e){if(!on||!e.touches||e.touches.length!==1)return;e.preventDefault();if(!moved){moved=true;bar.classList.add("scrub")}var t=e.touches[0];pick(t.clientX,t.clientY)},{passive:false});
+function end(){on=false;if(moved)setTimeout(function(){bar.classList.remove("scrub")},250)}
+bar.addEventListener("touchend",end);bar.addEventListener("touchcancel",end);
+/* niente zoom della pagina: solo la mappa si ingrandisce */
+function stop(e){if(!(e.target&&e.target.closest&&e.target.closest(".stage")))e.preventDefault()}
+["gesturestart","gesturechange","gestureend"].forEach(function(t){document.addEventListener(t,stop,{passive:false})});
+document.addEventListener("touchmove",function(e){if(e.touches&&e.touches.length>1&&!(e.target.closest&&e.target.closest(".stage")))e.preventDefault()},{passive:false});
+/* tema chiaro/scuro stile iPhone */
+var cb=document.getElementById("dm"),root=document.documentElement,mq=matchMedia("(prefers-color-scheme: dark)"),meta=document.querySelector('meta[name="theme-color"]');
+function curD(){var t=root.getAttribute("data-theme");return t?t==="dark":mq.matches}
+function sync(){cb.checked=curD();if(meta)meta.setAttribute("content",cb.checked?"#090c1a":"#0b3fa0")}
+cb.addEventListener("change",function(){var t=cb.checked?"dark":"light";root.setAttribute("data-theme",t);try{localStorage.setItem("par-theme",t)}catch(e){}sync()});
+try{mq.addEventListener("change",function(){if(!root.getAttribute("data-theme"))sync()})}catch(e){}sync();
+/* meteo attuale di Parigi nella barra in alto */
+var wx=document.getElementById("wx"),wt=document.getElementById("wxt"),wi=wx.querySelector(".wxi");
+function kind(c){return c===0?["☀️","sun"]:c<=2?["🌤️","sun"]:c===3?["☁️","cloud"]:c<=48?["🌫️","fog"]:c<=67?["🌧️","rain"]:c<=77?["🌨️","snow"]:c<=82?["🌦️","rain"]:["⛈️","storm"]}
+function paint(t,c){var k=kind(c);wi.textContent=k[0];wx.className="wx "+k[1];wt.textContent=Math.round(t)+"°";wx.setAttribute("aria-label","Parigi ora: "+Math.round(t)+" gradi")}
+try{var sv=JSON.parse(localStorage.getItem("par-wx")||"null");if(sv)paint(sv.t,sv.c)}catch(e){}
+function load(){if(!window.fetch)return;fetch("https://api.open-meteo.com/v1/forecast?latitude=48.8566&longitude=2.3522&current=temperature_2m,weather_code&timezone=Europe%2FParis").then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){var t=d.current.temperature_2m,c=d.current.weather_code;if(t==null)return;paint(t,c);try{localStorage.setItem("par-wx",JSON.stringify({t:t,c:c}))}catch(e){}}).catch(function(){})}
+load();setInterval(load,15*60*1000);
+var tk=0;function upd(){tk=0;var a=document.querySelector(".tabr:checked"),b=a&&document.getElementById(a.id.slice(2));body.classList.toggle("scrolled",!!(b&&b.scrollTop>40))}
+blks.forEach(function(b){b.addEventListener("scroll",function(){if(!tk)tk=requestAnimationFrame(upd)},{passive:true})});
+/* splash a ogni apertura */
+var sp=document.getElementById("splash"),hid=0,tm;function hide(){if(sp)sp.style.display="none"}tm=setTimeout(hide,3200);
+document.addEventListener("visibilitychange",function(){if(document.hidden){hid=Date.now();return}if(!sp||!hid||Date.now()-hid<5000||matchMedia("(prefers-reduced-motion: reduce)").matches)return;var n=sp.cloneNode(true);n.style.display="";sp.parentNode.replaceChild(n,sp);sp=n;clearTimeout(tm);tm=setTimeout(hide,3200)});
+/* service worker per l'uso offline */
+try{if("serviceWorker" in navigator&&location.protocol==="https:"){navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(r){r.update()}).catch(function(){});var _r=false;navigator.serviceWorker.addEventListener("controllerchange",function(){if(_r)return;_r=true;if(!document.getElementById("setup").classList.contains("on"))location.reload()})}}catch(e){}
+})();
+
+</script>
+</body>
+</html>
