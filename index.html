@@ -1099,7 +1099,7 @@ var days=Math.round((dateObj(c.date)-dateObj(paris().d))/864e5);if(days<0||days>
 var key="par-met-"+c.date,sv=lj(key,null);if(sv)paint(sv);else clim();
 if(!window.fetch)return;
 fetch("https://api.open-meteo.com/v1/forecast?latitude=48.8566&longitude=2.3522&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FParis&start_date="+c.date+"&end_date="+c.date).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){var o={c:d.daily.weathercode[0],mx:d.daily.temperature_2m_max[0],mn:d.daily.temperature_2m_min[0],pp:d.daily.precipitation_probability_max[0],t:Date.now()};if(o.c==null||o.mx==null)return;ls(key,JSON.stringify(o));paint(o)}).catch(function(){});
-function paint(o){var k=wxKind(o.c),rain=o.pp>=50||(o.c>=51&&o.c<=82);me.className="meteo"+(rain?" rain":"");
+function paint(o){var k=wxKind(o.c),rain=o.pp!=null?o.pp>=40:(o.c>=51&&o.c<=82);me.className="meteo"+(rain?" rain":"");
 me.innerHTML='<span class="mi"></span><div><b></b><span></span></div>';$(".mi",me).textContent=k[0];$("b",me).textContent="Previsioni per "+dateLong(c.date)+": "+Math.round(o.mx)+"° / "+Math.round(o.mn)+"°";
 $("div span",me).textContent=(o.pp!=null?"Probabilità di pioggia "+o.pp+"%. ":"")+(rain?"Porta un ombrello. Al coperto: Notre-Dame e la Sainte-Chapelle, la Galerie Vivienne (passage coperto vicino al Palais-Royal), i portici di Place des Vosges.":"Giornata buona per camminare.")+(o.mn<10?" La sera fa fresco: una giacca leggera.":"");if(window.PARRAIN!==rain){window.PARRAIN=rain;renderConsigli()}}}
 
@@ -1307,7 +1307,7 @@ PAR.vSorted(ids,wd,it.t).forEach(function(o){if(seen[o.id])return;seen[o.id]=1;v
 var snkSeen={};P.items.filter(function(x){return x.k==="act"}).forEach(function(x){(PD.MEAL.snk[PD.STOPS[x.id].z]||[]).forEach(function(id){if(seen[id]||snkSeen[id])return;snkSeen[id]=1;var v=PD.V[id],q=v.n+" "+v.a+" Paris",st=PAR.vSorted([id],wd,x.t)[0].s,mk=L.marker(v.pos,{icon:icon("lfd","S",22),zIndexOffset:450});bind(mk,v.n+" · "+v.r+" ★",(st.c==="ok"?"✓ ":"⚠️ ")+st.t+". "+v.d,q);mk.addTo(gFood)})});
 PD.PH.forEach(function(p){var mk=L.marker(p[4],{icon:icon("lph",p[0],28),zIndexOffset:600});bind(mk,p[0]+" "+p[1],p[2]+": "+p[3],p[5]);mk.addTo(gPh)});
 var b=L.latLngBounds([PD.START]);P.items.forEach(function(it){if(it.k==="act")b.extend(PD.STOPS[it.id].pos)});if(!P.acts.length)b.extend([48.8584,2.2945]);bnds=b;
-map.fitBounds(b,{paddingTopLeft:[30,50],paddingBottomRight:[60,50]});
+map.fitBounds(b,{paddingTopLeft:[16,24],paddingBottomRight:[48,24],maxZoom:15});
 legend(used);sync();
 if(document.getElementById("t-mappa").checked)setTimeout(anim,250)}
 function legend(used){var h=Object.keys(used).map(function(k){var u=used[k];return '<span><i style="border-color:'+(k==="walk"?"var(--c4)":u.c)+(k==="walk"?";border-top-style:dotted":"")+'"></i>'+esc(k==="walk"?"A piedi":u.n)+'</span>'}).join("");
@@ -1337,9 +1337,9 @@ gRoute=L.layerGroup().addTo(map);gStops=L.layerGroup().addTo(map);gFood=L.layerG
 setTiles();map.setView([48.8606,2.3376],13);
 map.on("zoomend",function(){el.classList.toggle("far",map.getZoom()<13.5)});
 document.querySelector(".mc-tr").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
-if(b.id==="zi")map.zoomIn();else if(b.id==="zo")map.zoomOut();else if(b.id==="zr"&&bnds)map.flyToBounds(bnds,{paddingTopLeft:[30,50],paddingBottomRight:[60,50],duration:.8});else if(b.id==="fs"){setTimeout(function(){map.invalidateSize()},350);setTimeout(function(){map.invalidateSize()},800)}});
+if(b.id==="zi")map.zoomIn();else if(b.id==="zo")map.zoomOut();else if(b.id==="zr"&&bnds)map.flyToBounds(bnds,{paddingTopLeft:[16,24],paddingBottomRight:[48,24],maxZoom:15,duration:.8});else if(b.id==="fs"){setTimeout(function(){map.invalidateSize()},350);setTimeout(function(){map.invalidateSize()},800)}});
 var dm=document.getElementById("dm");if(dm)dm.addEventListener("change",function(){setTimeout(function(){restyle();draw()},50)});try{mq.addEventListener("change",function(){restyle();draw()})}catch(e){}
-var tab=document.getElementById("t-mappa");tab.addEventListener("change",function(){if(tab.checked)setTimeout(function(){map.invalidateSize();if(bnds)map.fitBounds(bnds,{paddingTopLeft:[30,50],paddingBottomRight:[60,50]});anim()},150)});
+var tab=document.getElementById("t-mappa");tab.addEventListener("change",function(){if(tab.checked)setTimeout(function(){map.invalidateSize();if(bnds)map.fitBounds(bnds,{paddingTopLeft:[16,24],paddingBottomRight:[48,24],maxZoom:15});anim()},150)});
 PAR.on(function(){waterLoaded=false;gWater.clearLayers();draw()});draw();
 setTimeout(function(){if(!ok&&!navigator.onLine)off.textContent="Sei offline: la mappa mostra solo le zone già viste."},5000)}
 function load(){var sc=document.createElement("script");sc.src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js";sc.onload=init;sc.onerror=function(){off.textContent="La mappa non si è caricata: serve una connessione."};document.head.appendChild(sc)}
