@@ -1,6 +1,6 @@
-var C="par-v6",T="par-tiles-v1",F=["./","icon-192.png","icon-512.png","apple-touch-icon.png","manifest.webmanifest"];
+var C="par-v7",T="par-tiles-v1",F=["./","icon-192.png","icon-512.png","apple-touch-icon.png","manifest.webmanifest"];
 self.addEventListener("install",function(e){e.waitUntil(caches.open(C).then(function(c){return c.addAll(F.map(function(u){return new Request(u,{cache:"reload"})}))}).catch(function(){}));self.skipWaiting()});
-self.addEventListener("activate",function(e){e.waitUntil(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n!==C&&n!==T}).map(function(n){return caches.delete(n)}))}).then(function(){return self.clients.claim()}))});
+self.addEventListener("activate",function(e){e.waitUntil(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return /^par-/.test(n)&&n!==C&&n!==T}).map(function(n){return caches.delete(n)}))}).then(function(){return self.clients.claim()}))});
 self.addEventListener("fetch",function(e){
 if(e.request.method!=="GET")return;
 var u=new URL(e.request.url),same=u.origin===location.origin;
